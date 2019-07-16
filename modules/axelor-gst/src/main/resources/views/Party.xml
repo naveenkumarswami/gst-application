@@ -1,16 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<object-views xmlns="http://axelor.com/xml/ns/object-views"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views
   http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
-  <grid model="com.axelor.partner.db.Company" title="Company" name="company-grid">
-    <field name="companyName" title="Company Name"></field>
-    <field name="partner" title="Partner"></field>
+  <grid model="com.axelor.gst.db.Party" title="Party" name="party-grid">
+    <field name="name" title="Name"></field>
+    <field name="type" title="Type"></field>
+    <field name="customber" title="Customber"></field>
+    <field name="supplier" title="Supplier"></field>
+    <field name="gstin" title="GSTIN"></field>
   </grid>
 
-  <form model="com.axelor.partner.db.Company" title="Company" name="company-form">
-    <panel title="Company">
-      <field name="companyName" title="Comany name"></field>
+  <selection name="party-type-selection">
+    <option value="Individual">Individual</option>
+    <option value="Company">Company</option>
+  </selection>
+
+  <selection name="party-address-type-selection">
+    <option value="default">default</option>
+    <option value="invoice">invoice</option>
+    <option value="shipping">shipping</option>
+    <option value="other">other</option>
+  </selection>
+
+  <form model="com.axelor.gst.db.Party" title="Party" name="party-form">
+    <panel title="Party">
+<!--       <field name="reference" title="Reference" readonly="true"></field> -->
+      <field name="name" title="Name"></field>
+      <field name="type" title="Type" selection="party-type-selection"></field>
+      <field name="customber" title="Customber"></field>
+      <field name="supplier" title="Supplier"></field>
+      <field name="gstin" title="GSTIN"></field>
+
+      <panel title="Contacts" colSpan="12">
+        <field name="contact" title="Contacts">
+          <viewer><![CDATA[
+        <contact>
+        {{record.name}} {{record.email}}<br>
+        {{record.phone}}
+        </contact>
+        ]]>
+        </viewer>
+          <editor layout="table" x-show-titles="false">
+            <field name="name" colSpan="8"/>
+            <field name="Type" width="100px" selection="type-selection" />
+            <field name="email" css="border-left-none" colSpan="4" />
+            <field name="Type" width="100px" selection="type-selection" />
+            <field name="phone" css="border-left-none" colSpan="4" />
+          </editor>
+        </field>
+      </panel>
+
+      <panel title="address">
+
+        <field name="address" colSpan="12" css="address-list">
+          <viewer><![CDATA[
+        <address>
+        {{record.type}} {{record.line1}} {{record.line2}}<br>
+        {{record.city.name}}, {{record.state.name}} - {{record.pincode}}<br>
+        {{record.country.name}}
+        </address>
+        ]]>
+        </viewer>
+          <editor x-show-titles="false">
+            <field name="type" colSpan="12" selection="party-address-type-selection" required="true" />
+            <field name="line1" colSpan="12" required="true" />
+            <field name="line2" colSpan="12" required="true" />
+            <field name="city" colSpan="12" widget="SuggestBox" required="true" />
+            <field name="state" colSpan="12" widget="SuggestBox" required="true" />
+            <field name="country" widget="SuggestBox" colSpan="12" />
+            <field name="pincode" colSpan="4" />
+          </editor>
+        </field>
+
+      </panel>
+
     </panel>
   </form>
 

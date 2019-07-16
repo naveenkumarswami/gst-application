@@ -5,12 +5,10 @@
 
   <module name="gst" package="com.axelor.gst.db"/>
 
-  <entity name="Company">
+  <entity name="City">
   <string name="name" title="Name" required="true"></string>
-  <many-to-one name="logo" ref="com.axelor.meta.db.MetaFile" title="Logo"></many-to-one>
-  <one-to-many name="contact" ref="Contact" title="Contact"/>
-  <string name="gstin" min="15" max="15" title="GSTIN"></string>
-  <one-to-many name="bankDetails" ref="BankAccount" title="Bank Details"/>
-  <many-to-one name="address" ref="Address" title="Address"></many-to-one>
+  <many-to-one name="state" ref="State" title="State"></many-to-one>
+  <many-to-one name="country" ref="Country" title="Country"></many-to-one>
   </entity>
+
 </domain-models>

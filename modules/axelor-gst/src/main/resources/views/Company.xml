@@ -8,13 +8,20 @@
     <field name="gstin" title="GSTIN" min="15" max="15"></field>
   </grid>
 
+  <selection name="type-selection">
+    <option value="Primary">Primary</option>
+    <option value="Secondary">Secondary</option>
+    <option value="Others">Others</option>
+  </selection>
+
+
   <form model="com.axelor.gst.db.Company" title="Company" name="company-form">
     <panel title="Company">
       <field name="name" title="Name"></field>
       <field name="logo" title="Logo" widget="image"></field>
-      <panel title="Contacts">
+      <panel title="Contacts" colSpan="12">
         <field name="contact" title="Contacts">
-           <viewer><![CDATA[
+          <viewer><![CDATA[
         <contact>
         {{record.name}} {{record.email}}<br>
         {{record.phone}}
@@ -22,15 +29,18 @@
         ]]>
         </viewer>
           <editor layout="table" x-show-titles="false">
-            <field name="email" />
-            <field name="primary" widget="toggle" x-icon="fa-star-o" x-icon-active="fa-star"
-              x-exclusive="true" />
-            <field name="optOut" widget="toggle" x-icon="fa-ban" />
-            <field name="invalid" widget="toggle" x-icon="fa-exclamation-circle" />
+            <field name="name" colSpan="8"/>
+            <field name="Type" width="100px" selection="type-selection" />
+            <field name="email" css="border-left-none" colSpan="4" />
+            <field name="Type" width="100px" selection="type-selection" />
+            <field name="phone" css="border-left-none" colSpan="4" />
           </editor>
-
         </field>
       </panel>
+    <field name="gstin" title="GSTIN"></field>
+    <field name="bankDetails" title="Bank Details" form-view="bankDetails-form"></field>
+    <field name="address" title="Address" form-view="address-form"></field>
+  
     </panel>
   </form>
 

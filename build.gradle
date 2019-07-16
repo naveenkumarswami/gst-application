@@ -33,6 +33,6 @@ allprojects {
 }
 
 dependencies {
-    //compile project(':modules:axelor-gst')
+    compile project(':modules:axelor-gst')
 }
 
