@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+  <grid name="invoice-grid" title="invoice List" model="com.axelor.gst.db.Invoice">
+    <field name="status" title="Status" />
+    <field name="reference" title="Reference"></field>
+    <field name="date" title="Date"></field>
+    <field name="priority" title="Priority"></field>
+    <field name="useInvoiceAddressAsShipping" title="Use invoice address as shipping"></field>
+    <field name="netAmount" title="Net Amount"></field>
+    <field name="netIgst" title="Net IGST"></field>
+    <field name="netCsgt" title="Net CSGT"></field>
+    <field name="netSgst" title="SGST"></field>
+    <field name="grossAmount"></field>
+  </grid>
+  
+  <selection name="status-selection">
+  <option value="Draft">Draft</option>
+  <option value="Validated">Validated</option>
+  <option value="Paid">Paid</option>
+  <option value="Cancelled">Cancelled</option>
+  </selection>
+
+  <form name="invoice-form" title="Invoice" cols="2" model="com.axelor.gst.db.Invoice" onNew="current-date-on-new,party-contact-on-new">
+    <panel name="statusPanel" title="Status">
+      <field name="status" showTitle="false" readonly="true" colSpan="12" widget="NavSelect" selection="status-selection" /> 
+    </panel>
+    
+    <panel title="Invoice">   
+    <field name="company" title="Company"></field> 
+      <field name="reference" title="Reference"></field>
+      <field name="date" title="Date"></field>
+      <field name="priority" title="Priority"></field>
+      <field name="party" title="Party"></field>
+      <field name="partyContact" title="Party Contact"></field>
+      <field name="useInvoiceAddressAsShipping" title="Use invoice address as shipping"></field>
+      <field name="netAmount" title="Net Amount"></field>
+      <field name="netIgst" title="Net IGST"></field>
+      <field name="netCsgt" title="Net CSGT"></field>
+      <field name="netSgst" title="SGST"></field>
+      <field name="grossAmount"></field>
+    </panel>
+  </form>
+  
+  <action-attrs name="current-date-on-new">
+    <attribute name="value" for="date" expr="eval: __date__" />
+  </action-attrs>
+  
+  <action-attrs name="party-contact-on-new">
+  <attribute name="value" for="partyContact" expr="eval:"/>
+  </action-attrs>
+</object-views>

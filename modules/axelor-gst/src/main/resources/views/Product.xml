@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+  <grid name="product-grid" title="product List" model="com.axelor.gst.db.Product">
+  <toolbar>
+    <button name="createInvoice" title="Create Invoice" onClick="createInvoice-on-click ,invoice-form" />
+    <button name="print" title="print invoice" onClick="createInvoice-on-click,printInovoice-on-click"/>
+    </toolbar>
+    
+    <field name="name" />
+    <field name="code"></field>
+    <field name="hsbn"></field>
+    <field name="salePrice"></field>
+    <field name="costPrice"></field>
+    <field name="gstRate"></field>
+  </grid>
+
+  <form name="product-form" title="Product" cols="2" model="com.axelor.gst.db.Product">
+    <panel title="Products">
+    <field name="image" widget="image"></field>
+      <field name="name" />
+      <field name="code"></field>
+      <field name="hsbn"></field>
+      <field name="salePrice"></field>
+      <field name="costPrice"></field>
+      <field name="gstRate"></field>
+    </panel>
+  </form>
+  
+   <action-method name="createInvoice-on-click">
+  <call class="com.axelor.gst.web.GstController" method="createInvoice"/>
+  </action-method>
+  
+  <action-report output="gst-${date}-${date}" name="printInovoice-on-click" design="invoice.rptdesign">
+  <param name="totalIds" expr="eval: totalProduct"/>
+  </action-report>
+
+</object-views>
