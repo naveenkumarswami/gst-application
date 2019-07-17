@@ -7,7 +7,7 @@
   
   <entity name="Contact">
   <string name="name" title="Name" required="true"></string>
-  <string name="type" title="Type" required="true"></string>
+  <string name="type" title="Type" required="true" selection="gst-contact-type-selection"></string>
   <string name="email" title="Email"></string>
   <string name="phone" title="Phone"></string>
   </entity>

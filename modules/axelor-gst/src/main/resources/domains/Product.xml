@@ -9,11 +9,11 @@
   <string name="name" title="Name" required="true"></string>
   <string name="code" title="Code" required="true"></string>
   <string name="hsbn" title="HSBN" ></string>
-  <many-to-one name="category" ref="ProductCategory"></many-to-one>
+  <many-to-one name="category" ref="ProductCategory" title="Category"></many-to-one>
   <decimal name="salePrice" title="Sale Price"></decimal>
   <decimal name="costPrice" title="Cost Price"></decimal>
   <binary name="image" title="Image" image="true"></binary>
-<!--   <decimal name="gstRate" title="GST Rate" default=""></decimal> -->
+  <decimal name="gstRate" title="GST Rate"></decimal>
    
     </entity>
 

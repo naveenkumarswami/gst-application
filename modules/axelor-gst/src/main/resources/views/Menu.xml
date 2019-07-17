@@ -5,73 +5,83 @@
   <menuitem name="menu-gst-list" order="-100" title="GST Application" icon="fa-list"
     icon-background="black" />
 
-  <menuitem name="menu-party-all" parent="menu-gst-list" title="Party" />
+  <menuitem name="menu-gst-list-party-all" parent="menu-gst-list" title="Party" />
 
-  <menuitem name="menu-party-party" parent="menu-party-all" title="Party" action="party.party" />
+  <menuitem name="menu-gst-list-party-all-party-party" parent="menu-gst-list-party-all"
+    title="Party" action="party.party" />
 
   <action-view name="party.party" title="Party" model="com.axelor.gst.db.Party">
     <view type="grid" name="party-grid" />
     <view type="form" name="party-form" />
   </action-view>
-  
-    <menuitem name="menu-party-contact" parent="menu-party-all" title="Contact" action="party.contact" />
+
+  <menuitem name="menu-gst-list-party-all-party-contact" parent="menu-gst-list-party-all"
+    title="Contact" action="party.contact" />
 
   <action-view name="party.contact" title="Contact" model="com.axelor.gst.db.Contact">
     <view type="grid" name="contact-grid" />
     <view type="form" name="contact-form" />
   </action-view>
-  
-    <menuitem name="menu-party-configurations" parent="menu-party-all" title="Configurations"/>
-  <menuitem name="menu-party-configurations-address" parent="menu-party-configurations" title="Address" action="party.configurations.address" />
+
+  <menuitem name="menu-gst-list-party-all-party-configurations" parent="menu-gst-list-party-all"
+    title="Configurations" />
+  <menuitem name="menu-gst-list-party-all-party-configurations-address" parent="menu-gst-list-party-all-party-configurations"
+    title="Address" action="party.configurations.address" />
 
   <action-view name="party.configurations.address" title="Address" model="com.axelor.gst.db.Address">
     <view type="grid" name="address-grid" />
     <view type="form" name="address-form" />
   </action-view>
-  
-  
-   <menuitem name="menu-party-configurations-city" parent="menu-party-configurations" title="City" action="party.configurations.city" />
+
+
+  <menuitem name="menu-gst-list-party-all-party-configurations-city" parent="menu-gst-list-party-all-party-configurations"
+    title="City" action="party.configurations.city" />
 
   <action-view name="party.configurations.city" title="City" model="com.axelor.gst.db.City">
     <view type="grid" name="city-grid" />
     <view type="form" name="city-form" />
   </action-view>
-  
-    <menuitem name="menu-party-configurations-state" parent="menu-party-configurations" title="State" action="party.configurations.state" />
+
+  <menuitem name="menu-gst-list-party-all-party-configurations-state" parent="menu-gst-list-party-all-party-configurations"
+    title="State" action="party.configurations.state" />
 
   <action-view name="party.configurations.state" title="State" model="com.axelor.gst.db.State">
     <view type="grid" name="state-grid" />
     <view type="form" name="state-form" />
   </action-view>
-  
-    <menuitem name="menu-party-configurations-country" parent="menu-party-configurations" title="Country" action="party.configurations.Country" />
+
+  <menuitem name="menu-gst-list-party-all-party-configurations-country" parent="menu-gst-list-party-all-party-configurations"
+    title="Country" action="party.configurations.Country" />
 
   <action-view name="party.configurations.Country" title="Country" model="com.axelor.gst.db.Country">
     <view type="grid" name="country-grid" />
     <view type="form" name="country-form" />
   </action-view>
-  
-  <menuitem name="menu-company-all" parent="menu-gst-list" title="Company" />
 
-  <menuitem name="menu-company-company" parent="menu-company-all" title="Company" action="company.company" />
+  <menuitem name="menu-gst-list-company-all" parent="menu-gst-list" title="Company" />
+
+  <menuitem name="menu-gst-list-company-all-company-company" parent="menu-gst-list-company-all"
+    title="Company" action="company.company" />
 
   <action-view name="company.company" title="Company" model="com.axelor.gst.db.Company">
     <view type="grid" name="company-grid" />
     <view type="form" name="company-form" />
   </action-view>
-  
-    <menuitem name="menu-company-bankaccount" parent="menu-company-all" title="Bank Account" action="company.bankaccount" />
+
+  <menuitem name="menu-gst-list-company-all-company-bankaccount" parent="menu-gst-list-company-all"
+    title="Bank Account" action="company.bankaccount" />
 
   <action-view name="company.bankaccount" title="Bank Account" model="com.axelor.gst.db.BankAccount">
     <view type="grid" name="bankAccount-grid" />
     <view type="form" name="bankAccount-form" />
   </action-view>
-  
-    <menuitem name="menu-company-sequence" parent="menu-company-all" title="Sequence" action="company.sequence" />
+
+  <menuitem name="menu-gst-list-company-all-company-sequence" parent="menu-gst-list-company-all"
+    title="Sequence" action="company.sequence" />
 
   <action-view name="company.sequence" title="sequence" model="com.axelor.gst.db.Sequence">
     <view type="grid" name="sequence-grid" />
     <view type="form" name="sequence-form" />
   </action-view>
-  
+
 </object-views>

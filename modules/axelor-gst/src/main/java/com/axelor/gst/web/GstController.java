@@ -8,6 +8,7 @@ import com.axelor.rpc.Context;
 
 public class GstController {
   
+  @SuppressWarnings("unchecked")
   public void createInvoice(ActionRequest request, ActionResponse response) {
 
     if (request.getContext().get("_ids") == null) {

@@ -10,29 +10,17 @@
     <field name="gstin" title="GSTIN"></field>
   </grid>
 
-  <selection name="party-type-selection">
-    <option value="Individual">Individual</option>
-    <option value="Company">Company</option>
-  </selection>
-
-  <selection name="party-address-type-selection">
-    <option value="default">default</option>
-    <option value="invoice">invoice</option>
-    <option value="shipping">shipping</option>
-    <option value="other">other</option>
-  </selection>
-
   <form model="com.axelor.gst.db.Party" title="Party" name="party-form">
     <panel title="Party">
-<!--       <field name="reference" title="Reference" readonly="true"></field> -->
+      <field name="reference" title="Reference"></field>
       <field name="name" title="Name"></field>
-      <field name="type" title="Type" selection="party-type-selection"></field>
+      <field name="type" title="Type"></field>
       <field name="customber" title="Customber"></field>
       <field name="supplier" title="Supplier"></field>
       <field name="gstin" title="GSTIN"></field>
 
       <panel title="Contacts" colSpan="12">
-        <field name="contact" title="Contacts">
+        <field name="contactList" title="Contacts">
           <viewer><![CDATA[
         <contact>
         {{record.name}} {{record.email}}<br>
@@ -41,10 +29,9 @@
         ]]>
         </viewer>
           <editor layout="table" x-show-titles="false">
-            <field name="name" colSpan="8"/>
-            <field name="Type" width="100px" selection="type-selection" />
+            <field name="name" colSpan="8" />
+            <field name="Type" width="100px" selection="gst-contact-type-selection" />
             <field name="email" css="border-left-none" colSpan="4" />
-            <field name="Type" width="100px" selection="type-selection" />
             <field name="phone" css="border-left-none" colSpan="4" />
           </editor>
         </field>
@@ -52,7 +39,7 @@
 
       <panel title="address">
 
-        <field name="address" colSpan="12" css="address-list">
+        <field name="addressList" colSpan="12" css="address-list">
           <viewer><![CDATA[
         <address>
         {{record.type}} {{record.line1}} {{record.line2}}<br>
@@ -62,7 +49,7 @@
         ]]>
         </viewer>
           <editor x-show-titles="false">
-            <field name="type" colSpan="12" selection="party-address-type-selection" required="true" />
+            <field name="type" colSpan="12" selection="gst-address-type-selection" required="true" />
             <field name="line1" colSpan="12" required="true" />
             <field name="line2" colSpan="12" required="true" />
             <field name="city" colSpan="12" widget="SuggestBox" required="true" />
