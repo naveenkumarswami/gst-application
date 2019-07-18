@@ -8,10 +8,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import com.axelor.gst.db.Address;
+import com.axelor.gst.db.Company;
 import com.axelor.gst.db.Contact;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
 import com.axelor.gst.db.State;
+import com.axelor.gst.db.repo.CompanyRepository;
 
 public class GstServiceImpl implements GstService {
 
@@ -125,36 +127,55 @@ public class GstServiceImpl implements GstService {
   @Override
   public BigDecimal getIGST(Invoice invocie, InvoiceLine invoiceLine) {
 
-    State companyState = invocie.getCompany().getAddress().getState();
-    State invoiceState = invocie.getInvoiceAddress().getState();
-    BigDecimal netAmount = invoiceLine.getNetAmount();
-    BigDecimal gstRate = invoiceLine.getGstRate();
+    try {
+      State companyState = invocie.getCompany().getAddress().getState();
+      System.out.println(companyState ); 
+      State invoiceState = invocie.getInvoiceAddress().getState();
+      System.out.println(invoiceState ); 
+      BigDecimal netAmount = invoiceLine.getNetAmount();
+      BigDecimal gstRate = invoiceLine.getGstRate();
+      BigDecimal igst = new BigDecimal(0);
 
-    BigDecimal igst = new BigDecimal(0);
+      if (invoiceState.equals(companyState)) {
+        igst = netAmount.multiply(gstRate);
+        System.err.println(igst);
+        return igst;
+      }
+    } catch (Exception e) {
 
-    if (invoiceState.equals(companyState)) {
-      igst = netAmount.multiply(gstRate);
-      System.err.println(igst ); 
-      return igst;
-    } else {
-      return new BigDecimal(0);
+       e.printStackTrace(); 
     }
+    return new BigDecimal(0);
   }
 
   @Override
   public BigDecimal getSGSTandCGST(Invoice invocie, InvoiceLine invoiceLine) {
-    State companyState = invocie.getCompany().getAddress().getState();
-    State invoiceState = invocie.getInvoiceAddress().getState();
-    BigDecimal netAmount = invoiceLine.getNetAmount();
-    BigDecimal gstRate = invoiceLine.getGstRate();
 
-    BigDecimal sgst = new BigDecimal(0);
-    BigDecimal divideByTwo = new BigDecimal(2);
+    try {
+      State companyState = invocie.getCompany().getAddress().getState();
+      State invoiceState = invocie.getInvoiceAddress().getState();
+      BigDecimal netAmount = invoiceLine.getNetAmount();
+      BigDecimal gstRate = invoiceLine.getGstRate();
 
-    if (invoiceState.equals(companyState)) {
-      sgst = netAmount.multiply(gstRate.divide(divideByTwo));
-      System.err.println(sgst ); 
-      return sgst;
-    } else return new BigDecimal(0);
+      BigDecimal sgst = new BigDecimal(0);
+      BigDecimal divideByTwo = new BigDecimal(2);
+
+      if (invoiceState.equals(companyState)) {
+        sgst = netAmount.multiply(gstRate.divide(divideByTwo));
+        System.err.println(sgst);
+        return sgst;
+      }
+    } catch (Exception e) {
+     e.printStackTrace();
+    }
+    return new BigDecimal(0);
+  }
+  @Override
+  public Company setDefalutComany(Invoice invoice) {
+
+    Company company = new CompanyRepository().all().fetchOne();
+    System.out.println(company);
+
+    return company;
   }
 }
