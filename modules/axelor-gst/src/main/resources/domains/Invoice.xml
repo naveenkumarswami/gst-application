@@ -15,14 +15,13 @@
   <many-to-one name="partyContact" ref="Contact" title="Party Contact"></many-to-one>
   <many-to-one name="invoiceAddress" ref="Address" required="true" title="Invoice Address"></many-to-one>
   <many-to-one name="shippingAddress" ref="Address" title="Shipping Address"></many-to-one>
-  <boolean name="useInvocieAddressAsShipping" title="Use invoice address as shipping" default="True"></boolean>
+  <boolean name="isUseInvocieAddressAsShipping" title="Use invoice address as shipping" default="True"></boolean>
   <decimal name="netAmount" title="Net Amount" readonly="true"></decimal>
   <decimal name="netIgst" title="Net IGST" readonly="true"></decimal>
   <decimal name="netCsgt" title="Net CSGT" readonly="true"></decimal>
   <decimal name="netSgst" title="Net SGST" readonly="true"></decimal>
   <decimal name="grossAmount" title="Gross Amount" readonly="true"></decimal>
-  <one-to-many name="invoiceItemsList" ref="InvoiceLine" title="Invoice Item List"/>
-  
-    </entity>
+  <one-to-many name="invoiceItemsList" ref="InvoiceLine" title="Invoice Item List"/>  
+  </entity>
 
 </domain-models>

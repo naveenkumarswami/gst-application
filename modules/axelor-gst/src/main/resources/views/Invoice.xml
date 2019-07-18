@@ -7,7 +7,7 @@
     <field name="reference"></field>
     <field name="date"></field>
     <field name="priority"></field>
-    <field name="useInvoiceAddressAsShipping"></field>
+    <field name="isUseInvocieAddressAsShipping"></field>
     <field name="netAmount"></field>
     <field name="netIgst"></field>
     <field name="netCsgt"></field>
@@ -15,7 +15,7 @@
     <field name="grossAmount"></field>
   </grid>
 
-  <form name="invoice-form" title="Invoice" cols="2" model="com.axelor.gst.db.Invoice" onNew="current-date-on-new">
+  <form name="invoice-form" title="Invoice" cols="2" model="com.axelor.gst.db.Invoice" onNew="current-date-on-new,action-defalut-company-select">
     <panel name="statusPanel" title="Status">
       <field name="status" showTitle="false" colSpan="12" widget="NavSelect" />
     </panel>
@@ -26,29 +26,51 @@
       <field name="dateT"></field>
       <field name="priority"></field>
       <field name="party"
-        onChange="action-invoice-party-contact-select-primary-contact,action-invoice-invoiceAddress-select-primary-addresss"></field>
+        onChange="action-group-for-default-value-select-after-party-select"></field>
       <field name="partyContact"></field>
       <field name="invoiceAddress"></field>
       <field name="shippingAddress"></field>
-      <field name="useInvoiceAddressAsShipping"></field>
+      <field name="isUseInvocieAddressAsShipping" onChange="action-group-for-default-value-select-after-party-select"></field>
       <field name="netAmount"></field>
       <field name="netIgst"></field>
       <field name="netCsgt"></field>
       <field name="netSgst"></field>
       <field name="grossAmount"></field>
-      <field name="nvoiceItemsList"></field>
+      <field name="invoiceItemsList"></field>
     </panel>
   </form>
 
   <action-attrs name="current-date-on-new">
-    <attribute name="value" for="date" expr="eval: __date__" />
+    <attribute name="value" for="dateT" expr="eval: __datetime__" />
   </action-attrs>
+  
+  <action-method name="action-invoice-party-contact-gstController">
+   <call class="com.axelor.gst.web.GstController" method="getContactAddress" />
+  </action-method>
+  
+   <action-attrs name="action-invoice-party-contact-select-primary-contact">
+    <attribute name="value" for="partyContact" expr="eval: primaryContact" />
+  </action-attrs> 
 
-  <action-attrs name="action-invoice-party-contact-select-primary-contact">
-    <attribute name="value" for="partyContact" expr="eval: party.contact.name" />
+   <action-attrs name="action-invoice-invoiceAddress-select-primary-addresss">
+    <attribute name="value" for="invoiceAddress" 
+    expr="eval: defalultinvoiceAddress"/>
+  </action-attrs> 
+  
+   <action-attrs name="action-invoice-shippingAddress-select-primary-addresss">
+    <attribute name="value" for="shippingAddress" 
+    expr="eval: defalultshippingAddress" />
   </action-attrs>
-
-  <action-attrs name="action-invoice-invoiceAddress-select-primary-addresss">
-    <attribute name="value" for="invoiceAddress" expr="eval: party.address" />
-  </action-attrs>
+  
+  <action-group name="action-group-for-default-value-select-after-party-select">
+  <action name="action-invoice-party-contact-gstController"/>
+  <action name="action-invoice-party-contact-select-primary-contact"/>
+  <action name="action-invoice-invoiceAddress-select-primary-addresss"/>
+  <action name="action-invoice-shippingAddress-select-primary-addresss"/>
+  </action-group>
+  
+  <action-method name="current-date-on-new,action-defalut-company-select">
+  <call class="com.axelor.gst.web.GstController" method="getDefalutCompany" />
+  </action-method>
+  
 </object-views>

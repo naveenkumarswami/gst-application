@@ -8,8 +8,10 @@
   <entity name="Contact">
   <string name="name" title="Name" required="true"></string>
   <string name="type" title="Type" required="true" selection="gst-contact-type-selection"></string>
-  <string name="email" title="Email"></string>
-  <string name="phone" title="Phone"></string>
+  <string name="primaryEmail" title="Primary Email"></string>
+  <string name="secondaryEmail" title="Secondary Email"></string>
+   <string name="primaryPhone" title="Primary Phone"></string>
+  <string name="secondaryPhone" title="Secondary Phone"></string>
   </entity>
 
 </domain-models>

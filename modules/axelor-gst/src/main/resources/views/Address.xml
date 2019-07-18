@@ -7,7 +7,7 @@
     <field name="type" />
     <field name="line1" />
     <field name="line2" />
-    <field name="pincode" />
+    <field name="pinCode" />
   </grid>
 
   <form name="address-form" title="Address" cols="2" model="com.axelor.gst.db.Address">
@@ -18,7 +18,7 @@
     <field name="city" />
     <field name="state" />
     <field name="country"/>
-    <field name="pincode" />
+    <field name="pinCode" />
     </panel>
   </form>
 

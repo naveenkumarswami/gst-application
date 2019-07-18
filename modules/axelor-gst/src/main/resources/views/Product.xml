@@ -4,7 +4,7 @@
 
   <grid name="product-grid" title="product List" model="com.axelor.gst.db.Product">
     <toolbar>
-      <button name="createInvoice" title="Create Invoice" onClick="createInvoice-on-click ,invoice-form" />
+      <button name="createInvoice" title="Create Invoice" onClick="createInvoice-on-click,invoice-form" />
       <button name="print" title="print invoice" onClick="createInvoice-on-click,printInovoice-on-click" />
     </toolbar>
 

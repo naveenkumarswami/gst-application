@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+  <grid name="invoiceLine-grid" title="Invoice Line List" model="com.axelor.gst.db.InvoiceLine">
+    <field name="hsbn" />
+    <field name="item"></field>
+    <field name="qty"></field>
+    <field name="price"></field>
+    <field name="netAmount"></field>
+    <field name="gstRate"></field>
+    <field name="igst"></field>
+    <field name="sgst"></field>
+    <field name="cgst"></field>
+    <field name="grossAmount"></field>
+  </grid>
+
+  <form name="invoiceLine-form" title="Invoice Line" model="com.axelor.gst.db.InvoiceLine">
+    <panel title="Invoice Line Overview">
+      <field name="product" onChange="action-invoice-line-item,action-invoice-line-gstRate"></field>
+      <field name="hsbn" />
+      <field name="item"></field>
+      <field name="qty" onChange="action-invoice-line-netAmount,action-invoice-line-igst-sgst-cgst-value"></field>
+      <field name="price" onChange="action-invoice-line-netAmount,action-invoice-line-igst-sgst-cgst-value"></field>
+      <field name="netAmount" ></field>
+      <field name="gstRate" ></field>
+      <field name="igst"></field>
+      <field name="sgst"></field>
+      <field name="cgst"></field>
+      <field name="grossAmount"></field>
+    </panel>
+  </form>
+
+  <action-attrs name="action-invoice-line-item">
+    <attribute name="value" for="item" expr="eval: '['+product.code+']'+product.name" />
+  </action-attrs>
+
+  <action-attrs name="action-invoice-line-netAmount">
+    <attribute name="value" for="netAmount" expr="eval: qty*price" />
+  </action-attrs>
+
+  <action-attrs name="action-invoice-line-gstRate">
+    <attribute name="value" for="gstRate" expr="eval: product.gstRate" />
+  </action-attrs>
+
+  <action-method name="action-gstController-caluclate-igst-cgst-sgst-vlaue">
+    <call class="com.axelor.gst.web.GstController" method="getCompanyAndInvoiceState" />
+  </action-method>
+
+  <action-attrs name="action-invoice-line-igst-if-diff-invoice-and-company">
+    <attribute name="vlaue" for="igst" expr="eval: igstvalue" />
+  </action-attrs>
+
+  <action-attrs name="action-invoice-line-sgst-cgst-if-diff-invoice-and-company">
+    <attribute name="value" for="sgst" expr="eval: sGSTandCgst" />
+    <attribute name="value" for="cgst" expr="eval: sGSTandCgst" />
+  </action-attrs>
+
+  <action-attrs name="action-invoice-line-grossAmount">
+    <attribute name="value" for="grossAmount" expr="eval: +netAmount+igst+sgst+cgst" />
+  </action-attrs>
+
+  <action-group name="action-invoice-line-igst-sgst-cgst-value">
+    <action name="action-gstController-caluclate-igst-cgst-sgst-vlaue" />
+    <action name="action-invoice-line-igst-if-diff-invoice-and-company"/>
+    <action name="action-invoice-line-sgst-cgst-if-diff-invoice-and-company"/>
+    <action name="action-invoice-line-grossAmount" />
+  </action-group>
+
+</object-views>

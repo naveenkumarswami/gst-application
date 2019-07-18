@@ -13,7 +13,7 @@
     <decimal name="price" title="Price"></decimal>
     <decimal name="netAmount" title="Net Amount" readonly="true"></decimal>
     <decimal name="gstRate" title="GST Rate" readonly="true"></decimal>
-    <decimal name="csgt" title="CSGT" readonly="true"></decimal>
+    <decimal name="igst" title="IGST" readonly="true"></decimal>
     <decimal name="sgst" title="SGST" readonly="true"></decimal>
     <decimal name="cgst" title="CGST" readonly="true"></decimal>
     <decimal name="grossAmount" title="Gross Amount" readonly="true"></decimal>
