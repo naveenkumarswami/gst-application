@@ -4,17 +4,17 @@
 
   <grid name="sequence-grid" title="sequence List" model="com.axelor.gst.db.Sequence">
     <field name="prefix" />
-    <field name="suffix" ></field>
+    <field name="suffix"></field>
     <field name="padding" />
-    <field name="nextNumber" ></field>
+    <field name="nextNumber"></field>
   </grid>
 
   <form name="sequence-form" title="Sequence" cols="2" model="com.axelor.gst.db.Sequence">
     <panel title="Overview">
-      <field name="prefix"  />
+      <field name="prefix" />
       <field name="suffix"></field>
-      <field name="padding" ></field>
-      <field name="nextNumber"  />
+      <field name="padding"></field>
+      <field name="nextNumber" />
       <field name="model" form-view="meta-model-form" grid-view="meta-model-grid" />
     </panel>
   </form>

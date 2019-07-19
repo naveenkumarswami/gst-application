@@ -28,6 +28,27 @@
       <field name="gstRate"></field>
     </panel>
   </form>
+  
+   <cards name="product-cards" title="Product" model="com.axelor.gst.db.Product">
+    <field name="name" />
+    <field name="hasImage" />
+    <field name="category"/>
+    <template><![CDATA[
+      <div class="span4 card-image">
+        <img ng-if="hasImage" ng-src="{{$image(null, 'image')}}">
+        <img ng-if="!hasImage" src="img/user.png">
+        <strong>N:{{name}}</strong>
+      </div>
+      <div class="span8">
+        <category>
+          <strong>C.N:{{category.name}}</strong><br>
+          R:{{category.gstRate}}
+        </category>
+      </div>
+    ]]></template>
+  </cards>
+  
+  
 
   <action-method name="createInvoice-on-click">
     <call class="com.axelor.gst.web.GstController" method="createInvoice" />

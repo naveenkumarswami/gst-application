@@ -5,22 +5,22 @@
   <grid model="com.axelor.gst.db.Party" title="Party" name="party-grid">
     <field name="name"></field>
     <field name="type" />
-    <field name="isCustomber" ></field>
-    <field name="isSupplier" ></field>
+    <field name="isCustomber"></field>
+    <field name="isSupplier"></field>
     <field name="gstin"></field>
   </grid>
 
   <form model="com.axelor.gst.db.Party" title="Party" name="party-form">
     <panel title="Party">
-      <field name="reference" ></field>
+      <field name="reference"></field>
       <field name="name"></field>
       <field name="type"></field>
       <field name="isCustomer"></field>
-      <field name="isSupplier" ></field>
-      <field name="gstin" ></field>
+      <field name="isSupplier"></field>
+      <field name="gstin"></field>
 
       <panel title="Contacts" colSpan="12">
-        <field name="contactList" >
+        <field name="contactList">
           <viewer><![CDATA[
         <contact>
         {{record.name}} {{record.email}}<br>
@@ -30,10 +30,10 @@
         </viewer>
           <editor layout="table" x-show-titles="false">
             <field name="name" colSpan="8" />
-            <field name="type" colSpan="4"/>
+            <field name="type" colSpan="4" />
             <field name="primaryEmail" css="border-left-none" colSpan="4" />
             <field name="secondaryEmail" css="border-left-none" colSpan="4" />
-             <field name="primaryPhone" css="border-left-none" colSpan="4" />
+            <field name="primaryPhone" css="border-left-none" colSpan="4" />
             <field name="secondaryPhone" css="border-left-none" colSpan="4" />
           </editor>
         </field>
@@ -62,6 +62,36 @@
       </panel>
     </panel>
   </form>
+
+  <cards name="party-cards" model="com.axelor.gst.db.Party" title="Party">
+    <field name="name" />
+    <field name="type" />
+    <field name="contactList" />
+    <field name="addressList" />
+    <template><![CDATA[
+      <div class="span4 card-image">
+        <strong>{{name}}</strong><br>
+        <strong>{{type}}</strong>
+      </div>
+      <div class="span8">
+        <address>
+          <strong>A:{{address.line1}} {{address.line2}}</strong><br>
+          {{address.city.name}}<span ng-if="address.state.name">, {{address.state.name}}</span><span ng-if="address.zip"> - {{address.pinCode}}</span><br>
+          {{address.country.name}}<br>
+        </address>
+      </div>
+      <div>
+      <contact><br>C:
+        {{contact.name}}</br>
+        {{contact.type}}</br>
+        {{contact.primaryEmail}}</br>
+        {{contact.primaryPhone}}</br>
+      </contact>
+      </div>
+      
+    ]]></template>
+
+  </cards>
 
 </object-views>
   

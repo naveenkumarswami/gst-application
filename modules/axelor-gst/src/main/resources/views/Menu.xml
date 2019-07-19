@@ -14,6 +14,8 @@
   <action-view name="party.party" title="Party" model="com.axelor.gst.db.Party">
     <view type="grid" name="party-grid" />
     <view type="form" name="party-form" />
+    <view type="cards" name="pary-cards"/>
+    <context name="json-enhance" expr="true"/>
   </action-view>
 
   <!-- for Contact -->
@@ -102,6 +104,8 @@
   <action-view name="product.product" title="Product" model="com.axelor.gst.db.Product">
     <view type="grid" name="product-grid" />
     <view type="form" name="product-form" />
+    <view type="cards" name="product-cards"/>
+    <context name="json-enhance" expr="true"/>
   </action-view>
 
 

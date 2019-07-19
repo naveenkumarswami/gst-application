@@ -52,9 +52,6 @@ public class GstController {
     request.getContext().put("primaryContact", contact);
     request.getContext().put("defalultinvoiceAddress", invocieAddress);
     request.getContext().put("defalultshippingAddress", shippingAddress);
-
-    System.err.println(invocieAddress);
-    System.err.println(shippingAddress);
   }
 
   public void getCompanyAndInvoiceState(ActionRequest request, ActionResponse response) {
