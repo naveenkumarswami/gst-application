@@ -56,7 +56,35 @@
         colSpan="12"></field>
     </panel>
   </form>
-  
+
+  <kanban name="invoice-kanban" title="Invoice Status" model="com.axelor.gst.db.Invoice"
+    columnBy="status" sequenceBy="priority" limit="10"
+    draggable="true">
+    <field name="company" ></field>
+      <field name="reference"></field>
+      <field name="dateT"></field>
+      <field name="priority"></field>
+      <field name="party" ></field>
+      <field name="partyContact"></field>
+      <field name="invoiceAddress"></field>
+      <field name="shippingAddress"></field>
+      <field name="isUseInvocieAddressAsShipping" ></field>
+      <field name="netAmount"></field>
+      <field name="netIgst"></field>
+      <field name="netCsgt"></field>
+      <field name="netSgst"></field>
+      <field name="grossAmount"></field>
+      <field name="invoiceItemsList"
+        colSpan="12"></field>
+    <template><![CDATA[
+      <i class='fa fa-clock-o'></i><h4>{{dateT}}</h4>
+    <div class="card-body">{{party.name}}</div>
+    <div class="card-footer">
+     <span>{{invoiceAddress.line1}}</span>
+    </div>
+    ]]></template>
+  </kanban>
+
   <action-method name="action-invoice-net-amount-gross-amount-from-invoice-list">
     <call class="com.axelor.gst.web.GstController" method="setAllValues" />
   </action-method>
