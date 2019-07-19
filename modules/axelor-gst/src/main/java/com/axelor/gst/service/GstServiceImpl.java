@@ -113,7 +113,7 @@ public class GstServiceImpl implements GstService {
                 + "' and (address.type='default' or address.type = 'shipping')");
 
     try {
-      if (isUseInvoiceAddressAsShippingAddress == false) {
+      if (isUseInvoiceAddressAsShippingAddress == true) {
         address = (Address) query.getResultList().get(0);
         return address;
       } else return null;

@@ -19,9 +19,19 @@
     onNew="current-date-on-new,action-defalut-company-select">
     <panel name="statusPanel" title="Status">
       <field name="status" showTitle="false" colSpan="12" widget="NavSelect" />
+
+      <panel sidebar="true" title="status change">
+        <button name="statusDraft" title="Draft" hideIf="status == 'Draft'" onClick="action-attr-for-draft-status-change" />
+        <button name="statusValidate" title="Validated"
+          hideIf="status == 'Cancelled' || status == 'Paid' || status == 'Validated'" onClick="action-attr-for-status-validate-change" />
+        <button name="statusPaid" title="Paid"
+          hideIf="status == 'Draft' || status == 'Cancelled' || status == 'Paid'" onClick="action-attr-for-status-paid-change" />
+        <button name="statusCancelled" title="Cancelled" hideIf="status == 'Cancelled'"
+          onClick="action-attr-for-status-cancelled-change" />
+      </panel>
     </panel>
 
-    <panel title="Invoice">
+    <panel title="Invoice" readonlyIf="status == 'Validated' || status == 'Cancelled' || status == 'Paid'">
       <field name="company" onChange="action-company-address"></field>
       <field name="reference"></field>
       <field name="dateT"></field>
@@ -39,6 +49,22 @@
       <field name="invoiceItemsList"></field>
     </panel>
   </form>
+
+  <action-attrs name="action-attr-for-draft-status-change">
+    <attribute name="value" for="status" expr="Draft" />
+  </action-attrs>
+
+  <action-attrs name="action-attr-for-status-validate-change">
+    <attribute name="value" for="status" expr="Validated" />
+  </action-attrs>
+
+  <action-attrs name="action-attr-for-status-paid-change">
+    <attribute name="value" for="status" expr="Paid" />
+  </action-attrs>
+
+  <action-attrs name="action-attr-for-status-cancelled-change">
+    <attribute name="value" for="status" expr="Cancelled" />
+  </action-attrs>
 
   <action-attrs name="current-date-on-new">
     <attribute name="value" for="dateT" expr="eval: __datetime__" />
