@@ -133,4 +133,13 @@ public class GstController {
         else 
           response.addError("reference", "no sequence is specified for the Party");
   }
+  
+  public void setReferenceInvoice(ActionRequest request, ActionResponse response) {
+    Invoice invoice = request.getContext().asType(Invoice.class);
+        String getNextNumber=service.setReferenceInvoice(invoice);
+        if(getNextNumber != null)
+        response.setValue("reference", getNextNumber);
+        else 
+          response.addError("reference", "no sequence is specified for the Invoice");
+  }
 }

@@ -16,7 +16,7 @@
   </grid>
 
   <form name="invoice-form" title="Invoice" cols="2" model="com.axelor.gst.db.Invoice"
-    onNew="current-date-on-new,action-defalut-company-select">
+    onNew="current-date-on-new,action-defalut-company-select" onSave="action-invoice-sequence-get">
 
     <toolbar>
       <button name="reportButton" title="Print" showTitle="false" showIf="id"
@@ -144,5 +144,9 @@
     design="invoice.rptdesign">
     <param name="invoiceId" expr="eval: id" />
   </action-report>
+  
+   <action-method name="action-invoice-sequence-get">
+  <call class="com.axelor.gst.web.GstController" method="setReferenceInvoice"/>
+  </action-method>
 
 </object-views>

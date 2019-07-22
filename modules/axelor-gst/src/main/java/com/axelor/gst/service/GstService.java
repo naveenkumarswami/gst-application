@@ -20,5 +20,6 @@ public interface GstService {
   public Company setDefalutComany(Invoice invoice);
   public String setNextNumber(Sequence sequence);
   public String setReferenceParty(Party party);
+  public String setReferenceInvoice(Invoice invoice);
   
 }
