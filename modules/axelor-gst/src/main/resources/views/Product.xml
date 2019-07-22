@@ -5,7 +5,7 @@
   <grid name="product-grid" title="product List" model="com.axelor.gst.db.Product">
     <toolbar>
       <button name="createInvoice" title="Create Invoice" onClick="createInvoice-on-click,invoice-form" />
-      <button name="print" title="print invoice" onClick="createInvoice-on-click,printInovoice-on-click" />
+      <button name="print" title="print invoice" onClick="createInvoice-on-click,action-image-parth-get,action-report-print-product-Inovoice-on-click" />
     </toolbar>
 
     <field name="name" />
@@ -28,11 +28,11 @@
       <field name="gstRate"></field>
     </panel>
   </form>
-  
-   <cards name="product-cards" title="Product" model="com.axelor.gst.db.Product">
+
+  <cards name="product-cards" title="Product" model="com.axelor.gst.db.Product">
     <field name="name" />
     <field name="hasImage" />
-    <field name="category"/>
+    <field name="category" />
     <template><![CDATA[
       <div class="span4 card-image">
         <img ng-if="hasImage" ng-src="{{$image(null, 'image')}}">
@@ -47,17 +47,23 @@
       </div>
     ]]></template>
   </cards>
-  
+
   <action-method name="createInvoice-on-click">
     <call class="com.axelor.gst.web.GstController" method="createInvoice" />
   </action-method>
-
-  <action-report output="gst-${date}-${date}" name="printInovoice-on-click" design="invoice.rptdesign">
-    <param name="totalIds" expr="eval: totalProduct" />
-  </action-report>
   
+  <action-method name="action-image-parth-get">
+   <call class="com.axelor.gst.web.GstController" method="getDynamicImagePath"/>
+  </action-method>
+
+  <action-report output="gst-${date}-${date}" name="action-report-print-product-Inovoice-on-click"
+    design="product.rptdesign" format="pdf">
+<!--      <param name="totalIds" expr="eval: totalProduct" /> -->
+    <param name="imagePath" expr="eval: setImagePath" /> 
+  </action-report>
+
   <action-attrs name="action-product-gst-rate-change">
-  <attribute name="value" for="gstRate" expr="eval: category.gstRate"/>
+    <attribute name="value" for="gstRate" expr="eval: category.gstRate" />
   </action-attrs>
 
 </object-views>

@@ -145,7 +145,7 @@
     <param name="invoiceId" expr="eval: id" />
   </action-report>
   
-   <action-method name="action-invoice-sequence-get">
+   <action-method name="action-invoice-sequence-get" >
   <call class="com.axelor.gst.web.GstController" method="setReferenceInvoice"/>
   </action-method>
 

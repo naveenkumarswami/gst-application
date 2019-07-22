@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.DoubleStream;
 import javax.inject.Inject;
+import com.axelor.app.AppSettings;
 import com.axelor.gst.db.Address;
 import com.axelor.gst.db.Company;
 import com.axelor.gst.db.Contact;
@@ -28,7 +29,7 @@ public class GstController {
 
     List<Long> requestIds = (List<Long>) request.getContext().get("_ids");
     String totalIdSelect = requestIds.toString();
-    System.out.println(requestIds);
+    System.out.println(totalIdSelect);
     request.getContext().put("totalProduct", totalIdSelect);
   }
 
@@ -103,7 +104,10 @@ public class GstController {
 
     response.setValue(
         "netAmount",
-        invoiceLine.stream().map(rate -> rate.getNetAmount()).reduce(BigDecimal.ZERO, BigDecimal::add));
+        invoiceLine
+            .stream()
+            .map(rate -> rate.getNetAmount())
+            .reduce(BigDecimal.ZERO, BigDecimal::add));
     response.setValue(
         "netIgst",
         invoiceLine.stream().map(rate -> rate.getIgst()).reduce(BigDecimal.ZERO, BigDecimal::add));
@@ -115,7 +119,10 @@ public class GstController {
         invoiceLine.stream().map(rate -> rate.getSgst()).reduce(BigDecimal.ZERO, BigDecimal::add));
     response.setValue(
         "grossAmount",
-        invoiceLine.stream().map(rate -> rate.getGrossAmount()).reduce(BigDecimal.ZERO, BigDecimal::add));
+        invoiceLine
+            .stream()
+            .map(rate -> rate.getGrossAmount())
+            .reduce(BigDecimal.ZERO, BigDecimal::add));
   }
 
   public void getSequence(ActionRequest request, ActionResponse response) {
@@ -127,19 +134,30 @@ public class GstController {
 
   public void setReferenceParty(ActionRequest request, ActionResponse response) {
     Party party = request.getContext().asType(Party.class);
-        String getNextNumber=service.setReferenceParty(party);
-        if(getNextNumber != null)
-        response.setValue("reference", getNextNumber);
-        else 
-          response.addError("reference", "no sequence is specified for the Party");
+    String getNextNumber = service.setReferenceParty(party);
+    if (getNextNumber != null) response.setValue("reference", getNextNumber);
+    else response.addError("reference", "no sequence is specified for the Party");
   }
-  
+
   public void setReferenceInvoice(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
-        String getNextNumber=service.setReferenceInvoice(invoice);
-        if(getNextNumber != null)
+    if (invoice.getStatus().equals("Validated")) {
+      String getNextNumber = service.setReferenceInvoice(invoice);
+
+      if (getNextNumber != null) {
         response.setValue("reference", getNextNumber);
-        else 
-          response.addError("reference", "no sequence is specified for the Invoice");
+      } else response.addError("reference", "no sequence is specified for the Invoice");
+    }
   }
+  
+  public void getDynamicImagePath(ActionRequest request, ActionResponse response) {
+
+    AppSettings appSettings = AppSettings.get();
+    String uploaddir = appSettings.get("file.upload.dir");
+    System.err.println(uploaddir); 
+    request.getContext().put("setImagePath", uploaddir);
+    
+  }
+  
 }
+
