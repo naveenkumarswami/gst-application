@@ -211,29 +211,34 @@ public class GstServiceImpl implements GstService {
     // sequence.model.name='Party'");
 
     //    Sequence sequence = (Sequence) query.getResultList().get(0);
-    
-    if (sequence != null && party.getReference() == null) {
+
+    if (sequence != null) {
 
       String prifix = sequence.getPrefix();
       String suffix = sequence.getSuffix();
-      String nextNumber = sequence.getNextNumber();
-
-      String[] count = nextNumber.split("p0");
+      String oldnextNumber = sequence.getNextNumber();
+      String[] count = oldnextNumber.split(prifix);
       String[] myNumber = count[1].split(suffix);
 
-      System.out.println(1 + myNumber[0]);
-      int middlePadding = Integer.parseInt(1 + myNumber[0]) + 1;
-      String newNumber = Integer.toString(middlePadding).substring(1);
-      System.out.println(newNumber);
+      if (party.getReference() == null) {
 
-      nextNumber = null;
-      nextNumber = prifix + newNumber + suffix;
-      
-      sequence.setNextNumber(nextNumber);
-      sequenceRepository.save(sequence);
-      return nextNumber;
-    } else {
-      return sequence.getNextNumber();
-    }
+        int middlePadding = Integer.parseInt(1 + myNumber[0]) + 1;
+        String newNumber = Integer.toString(middlePadding).substring(1);
+        System.out.println(newNumber);
+
+        String newnextNumber = null;
+        newnextNumber = prifix + newNumber + suffix;
+
+        sequence.setNextNumber(newnextNumber);
+        sequenceRepository.save(sequence);
+        return oldnextNumber;
+      } else {
+        
+        int middlePadding = Integer.parseInt(1 + myNumber[0]) - 1;
+        String newNumber = Integer.toString(middlePadding).substring(1);
+       
+        return prifix+newNumber+suffix;
+      }
+    } else return null;
   }
 }

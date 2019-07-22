@@ -128,6 +128,9 @@ public class GstController {
   public void setReferenceParty(ActionRequest request, ActionResponse response) {
     Party party = request.getContext().asType(Party.class);
         String getNextNumber=service.setReferenceParty(party);
+        if(getNextNumber != null)
         response.setValue("reference", getNextNumber);
+        else 
+          response.addError("reference", "no sequence is specified for the Party");
   }
 }
