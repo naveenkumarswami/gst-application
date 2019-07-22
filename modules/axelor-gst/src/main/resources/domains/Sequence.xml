@@ -8,7 +8,7 @@
     <string name="prefix" title="prifix" required="true"></string>
     <string name="suffix" title="Suffix"></string>
     <integer name="padding" title="Padding" min="1" max="10"></integer>
-    <string name="nextNumber" title="Next Number" formula="true"></string>
+    <string name="nextNumber" title="Next Number"></string>
     <many-to-one name="model" ref="com.axelor.meta.db.MetaModel" title="Model"></many-to-one>
   </entity>
 

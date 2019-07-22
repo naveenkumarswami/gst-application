@@ -10,7 +10,7 @@
     <field name="gstin"></field>
   </grid>
 
-  <form model="com.axelor.gst.db.Party" title="Party" name="party-form">
+  <form model="com.axelor.gst.db.Party" title="Party" name="party-form" onSave="action-party-sequence-get">
     <panel title="Party">
       <field name="reference"></field>
       <field name="name"></field>
@@ -92,6 +92,10 @@
     ]]></template>
 
   </cards>
+  
+  <action-method name="action-party-sequence-get">
+  <call class="com.axelor.gst.web.GstController" method="setReferenceParty"/>
+  </action-method>
 
 </object-views>
   

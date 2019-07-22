@@ -1,23 +1,28 @@
 package com.axelor.gst.service;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 import com.axelor.gst.db.Address;
 import com.axelor.gst.db.Company;
 import com.axelor.gst.db.Contact;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
+import com.axelor.gst.db.Party;
+import com.axelor.gst.db.Sequence;
 import com.axelor.gst.db.State;
 import com.axelor.gst.db.repo.CompanyRepository;
+import com.axelor.gst.db.repo.PartyRepository;
+import com.axelor.gst.db.repo.SequenceRepository;
+import com.google.inject.persist.Transactional;
 
 public class GstServiceImpl implements GstService {
 
   @Inject EntityManager em;
+
+  @Inject SequenceRepository sequenceRepository;
+  @Inject PartyRepository partyRepository;
 
   @Override
   @Transactional
@@ -129,9 +134,9 @@ public class GstServiceImpl implements GstService {
 
     try {
       State companyState = invocie.getCompany().getAddress().getState();
-      System.out.println(companyState ); 
+      System.out.println(companyState);
       State invoiceState = invocie.getInvoiceAddress().getState();
-      System.out.println(invoiceState ); 
+      System.out.println(invoiceState);
       BigDecimal netAmount = invoiceLine.getNetAmount();
       BigDecimal gstRate = invoiceLine.getGstRate();
       BigDecimal igst = new BigDecimal(0);
@@ -143,7 +148,7 @@ public class GstServiceImpl implements GstService {
       }
     } catch (Exception e) {
 
-       e.printStackTrace(); 
+      e.printStackTrace();
     }
     return new BigDecimal(0);
   }
@@ -166,10 +171,11 @@ public class GstServiceImpl implements GstService {
         return sgst;
       }
     } catch (Exception e) {
-     e.printStackTrace();
+      e.printStackTrace();
     }
     return new BigDecimal(0);
   }
+
   @Override
   public Company setDefalutComany(Invoice invoice) {
 
@@ -177,5 +183,57 @@ public class GstServiceImpl implements GstService {
     System.out.println(company);
 
     return company;
+  }
+
+  @Override
+  public String setNextNumber(Sequence sequence) {
+
+    String prifix = sequence.getPrefix();
+    String suffix = sequence.getSuffix();
+    String nextNumber = null;
+    int padding = sequence.getPadding();
+    String temp = "0";
+
+    for (int i = 2; i <= padding; i++) {
+      temp = temp + "0";
+    }
+    nextNumber = prifix + temp + suffix;
+    return nextNumber;
+  }
+
+  @Override
+  @Transactional
+  public String setReferenceParty(Party party) {
+
+    Sequence sequence = sequenceRepository.all().filter("self.model.name = 'Party'").fetchOne();
+    //    Query query =
+    //        em.createQuery("select sequence from Sequence sequence where
+    // sequence.model.name='Party'");
+
+    //    Sequence sequence = (Sequence) query.getResultList().get(0);
+    
+    if (sequence != null && party.getReference() == null) {
+
+      String prifix = sequence.getPrefix();
+      String suffix = sequence.getSuffix();
+      String nextNumber = sequence.getNextNumber();
+
+      String[] count = nextNumber.split("p0");
+      String[] myNumber = count[1].split(suffix);
+
+      System.out.println(1 + myNumber[0]);
+      int middlePadding = Integer.parseInt(1 + myNumber[0]) + 1;
+      String newNumber = Integer.toString(middlePadding).substring(1);
+      System.out.println(newNumber);
+
+      nextNumber = null;
+      nextNumber = prifix + newNumber + suffix;
+      
+      sequence.setNextNumber(nextNumber);
+      sequenceRepository.save(sequence);
+      return nextNumber;
+    } else {
+      return sequence.getNextNumber();
+    }
   }
 }

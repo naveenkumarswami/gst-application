@@ -48,8 +48,6 @@
     ]]></template>
   </cards>
   
-  
-
   <action-method name="createInvoice-on-click">
     <call class="com.axelor.gst.web.GstController" method="createInvoice" />
   </action-method>

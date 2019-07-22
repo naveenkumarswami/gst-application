@@ -9,6 +9,8 @@ import com.axelor.gst.db.Company;
 import com.axelor.gst.db.Contact;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
+import com.axelor.gst.db.Party;
+import com.axelor.gst.db.Sequence;
 import com.axelor.gst.service.GstService;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
@@ -35,16 +37,15 @@ public class GstController {
     Invoice invoice = request.getContext().asType(Invoice.class);
     Contact contact = service.getContact(invoice);
 
-    
     // 2nd method to find the address
-//    System.out.println(
-//        "invoice add "
-//            + invoice
-//                .getParty()
-//                .getAddressList()
-//                .stream()
-//                .filter(a -> a.getType().equals("invoice") || a.getType().equals("default"))
-//                .findFirst());
+    //    System.out.println(
+    //        "invoice add "
+    //            + invoice
+    //                .getParty()
+    //                .getAddressList()
+    //                .stream()
+    //                .filter(a -> a.getType().equals("invoice") || a.getType().equals("default"))
+    //                .findFirst());
 
     Address invocieAddress = service.getInvoiceAddress(invoice);
     Address shippingAddress = service.getShippingAddress(invoice);
@@ -86,26 +87,47 @@ public class GstController {
 
     List<InvoiceLine> invoiceLine = invoice.getInvoiceItemsList();
 
-    double netAmount =
+    // using long or double
+    /*double netAmount =
         invoiceLine
             .stream()
             .mapToDouble(getNetAmount -> getNetAmount.getNetAmount().doubleValue())
             .sum();
-    double NetIgst =
-        invoiceLine.stream().mapToDouble(getIgst -> getIgst.getIgst().doubleValue()).sum();
+    BigDecimal NetIgst =
+        invoiceLine.stream().map(getIgst -> getIgst.getIgst()).reduce(BigDecimal.ZERO , BigDecimal :: add);
     double netCgst =
         invoiceLine.stream().mapToDouble(getCgst -> getCgst.getCgst().doubleValue()).sum();
     double netSgst =
         invoiceLine.stream().mapToDouble(getSgst -> getSgst.getSgst().doubleValue()).sum();
-    
-    double grossAmount = invoiceLine.stream().mapToDouble(getGrossAmount -> getGrossAmount.getGrossAmount().doubleValue()).sum();
-    
-    response.setValue("netAmount", BigDecimal.valueOf(netAmount));
-    response.setValue("netIgst", BigDecimal.valueOf(NetIgst));
-    response.setValue("netCsgt", BigDecimal.valueOf(netCgst));
-    response.setValue("netSgst", BigDecimal.valueOf(netSgst));
-    response.setValue("grossAmount", BigDecimal.valueOf(grossAmount));
-    
-    
+    double grossAmount = invoiceLine.stream().mapToDouble(getGrossAmount -> getGrossAmount.getGrossAmount().doubleValue()).sum(); */
+
+    response.setValue(
+        "netAmount",
+        invoiceLine.stream().map(rate -> rate.getNetAmount()).reduce(BigDecimal.ZERO, BigDecimal::add));
+    response.setValue(
+        "netIgst",
+        invoiceLine.stream().map(rate -> rate.getIgst()).reduce(BigDecimal.ZERO, BigDecimal::add));
+    response.setValue(
+        "netCsgt",
+        invoiceLine.stream().map(rate -> rate.getCgst()).reduce(BigDecimal.ZERO, BigDecimal::add));
+    response.setValue(
+        "netSgst",
+        invoiceLine.stream().map(rate -> rate.getSgst()).reduce(BigDecimal.ZERO, BigDecimal::add));
+    response.setValue(
+        "grossAmount",
+        invoiceLine.stream().map(rate -> rate.getGrossAmount()).reduce(BigDecimal.ZERO, BigDecimal::add));
+  }
+
+  public void getSequence(ActionRequest request, ActionResponse response) {
+
+    Sequence sequence = request.getContext().asType(Sequence.class);
+    String getNextNumber = service.setNextNumber(sequence);
+    response.setValue("nextNumber", getNextNumber);
+  }
+
+  public void setReferenceParty(ActionRequest request, ActionResponse response) {
+    Party party = request.getContext().asType(Party.class);
+        String getNextNumber=service.setReferenceParty(party);
+        response.setValue("reference", getNextNumber);
   }
 }
