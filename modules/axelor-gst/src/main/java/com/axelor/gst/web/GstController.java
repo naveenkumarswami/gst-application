@@ -28,9 +28,9 @@ public class GstController {
       return;
     }
 
-    List<Integer> requestIds =  (List<Integer>) request.getContext().get("_ids");
+    List<Integer> requestIds = (List<Integer>) request.getContext().get("_ids");
     String totalIdSelect = requestIds.toString();
-    totalIdSelect = totalIdSelect.substring(1, totalIdSelect.length()-1);
+    totalIdSelect = totalIdSelect.substring(1, totalIdSelect.length() - 1);
     System.out.println(totalIdSelect);
     request.getContext().put("totalProduct", totalIdSelect);
   }
@@ -151,15 +151,30 @@ public class GstController {
       } else response.addError("reference", "no sequence is specified for the Invoice");
     }
   }
-  
+
   public void getDynamicImagePath(ActionRequest request, ActionResponse response) {
 
     AppSettings appSettings = AppSettings.get();
     String uploaddir = appSettings.get("file.upload.dir");
-    System.err.println(uploaddir); 
+    System.err.println(uploaddir);
     request.getContext().put("setImagePath", uploaddir);
-    
   }
-  
-}
 
+  public void getTotalQtyAndPrice(ActionRequest request, ActionResponse response) {
+
+    Invoice invoice = request.getContext().asType(Invoice.class);
+
+    List<InvoiceLine> invoiceLine = invoice.getInvoiceItemsList();
+
+    request.getContext().put("totalQty", invoiceLine.stream().mapToInt(qty -> qty.getQty()).sum());
+    
+    System.out.println(invoiceLine.stream().mapToInt(qty -> qty.getQty()).sum() ); 
+
+    request
+        .getContext()
+        .put(
+            "totalPrice",
+            invoiceLine.stream().mapToInt(price -> price.getPrice().intValue()).sum());
+    System.out.println(invoiceLine.stream().mapToInt(price -> price.getPrice().intValue()).sum());
+  }
+}

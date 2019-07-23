@@ -1,6 +1,7 @@
 package com.axelor.gst.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -276,4 +277,5 @@ public class GstServiceImpl implements GstService {
       }
     } else return null;
   }
+
 }

@@ -1,7 +1,7 @@
 package com.axelor.gst.service;
 
 import java.math.BigDecimal;
-
+import java.util.List;
 import com.axelor.gst.db.Address;
 import com.axelor.gst.db.Company;
 import com.axelor.gst.db.Contact;
@@ -20,6 +20,5 @@ public interface GstService {
   public Company setDefalutComany(Invoice invoice);
   public String setNextNumber(Sequence sequence);
   public String setReferenceParty(Party party);
-  public String setReferenceInvoice(Invoice invoice);
-  
+  public String setReferenceInvoice(Invoice invoice);  
 }
