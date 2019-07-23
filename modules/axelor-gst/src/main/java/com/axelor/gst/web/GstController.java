@@ -2,6 +2,7 @@ package com.axelor.gst.web;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import javax.inject.Inject;
 import com.axelor.app.AppSettings;
@@ -27,8 +28,9 @@ public class GstController {
       return;
     }
 
-    List<Long> requestIds = (List<Long>) request.getContext().get("_ids");
+    List<Integer> requestIds =  (List<Integer>) request.getContext().get("_ids");
     String totalIdSelect = requestIds.toString();
+    totalIdSelect = totalIdSelect.substring(1, totalIdSelect.length()-1);
     System.out.println(totalIdSelect);
     request.getContext().put("totalProduct", totalIdSelect);
   }
