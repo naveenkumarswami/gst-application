@@ -132,18 +132,22 @@ public class GstServiceImpl implements GstService {
 
   @Override
   public BigDecimal getIGST(Invoice invocie, InvoiceLine invoiceLine) {
+    
+    System.out.println("100"+ new BigDecimal(100)); 
 
     try {
-      State companyState = invocie.getCompany().getAddress().getState();
+      String companyState = invocie.getCompany().getAddress().getState().getName();
       System.out.println(companyState);
-      State invoiceState = invocie.getInvoiceAddress().getState();
+      String invoiceState = invocie.getInvoiceAddress().getState().getName();
       System.out.println(invoiceState);
       BigDecimal netAmount = invoiceLine.getNetAmount();
       BigDecimal gstRate = invoiceLine.getGstRate();
       BigDecimal igst = new BigDecimal(0);
+      
+      System.out.println(new BigDecimal(100)); 
 
-      if (invoiceState.equals(companyState)) {
-        igst = netAmount.multiply(gstRate);
+      if (!invoiceState.equals(companyState)) {
+        igst = netAmount.multiply(gstRate).divide(new BigDecimal(100));        
         System.err.println(igst);
         return igst;
       }
@@ -156,19 +160,24 @@ public class GstServiceImpl implements GstService {
 
   @Override
   public BigDecimal getSGSTandCGST(Invoice invocie, InvoiceLine invoiceLine) {
+    
+    System.out.println("100"+ new BigDecimal(100) ); 
 
     try {
-      State companyState = invocie.getCompany().getAddress().getState();
-      State invoiceState = invocie.getInvoiceAddress().getState();
+      String companyState = invocie.getCompany().getAddress().getState().getName();
+      String invoiceState = invocie.getInvoiceAddress().getState().getName();
       BigDecimal netAmount = invoiceLine.getNetAmount();
       BigDecimal gstRate = invoiceLine.getGstRate();
 
       BigDecimal sgst = new BigDecimal(0);
       BigDecimal divideByTwo = new BigDecimal(2);
+      
+      System.out.println(new BigDecimal(100)); 
 
       if (invoiceState.equals(companyState)) {
-        sgst = netAmount.multiply(gstRate.divide(divideByTwo));
+        sgst = netAmount.multiply(gstRate.divide(divideByTwo).divide(new BigDecimal(100)));
         System.err.println(sgst);
+        System.out.println(new BigDecimal(100)); 
         return sgst;
       }
     } catch (Exception e) {

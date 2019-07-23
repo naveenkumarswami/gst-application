@@ -1365,6 +1365,7 @@ Date
                 <cell id="30"/>
                 <cell id="31">
                     <text-data id="66">
+                        <property name="fontWeight">bold</property>
                         <property name="dataSet">invoiceDetails</property>
                         <list-property name="boundDataColumns">
                             <structure>
@@ -1408,7 +1409,53 @@ Reference
                 </cell>
                 <cell id="38"/>
                 <cell id="39"/>
-                <cell id="40"/>
+                <cell id="40">
+                    <text-data id="103">
+                        <property name="dataSet">invoiceDetails</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">invoiceline1</property>
+                                <text-property name="displayName">invoiceline1</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["invoiceline1"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">invoiceline2</property>
+                                <text-property name="displayName">invoiceline2</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["invoiceline2"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">invoicepincode</property>
+                                <text-property name="displayName">invoicepincode</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["invoicepincode"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">invoicecity</property>
+                                <text-property name="displayName">invoicecity</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["invoicecity"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">invoicestate</property>
+                                <text-property name="displayName">invoicestate</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["invoicestate"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">invoicecountry</property>
+                                <text-property name="displayName">invoicecountry</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["invoicecountry"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <expression name="valueExpr">row["invoiceline1"] +" "+ row["invoiceline2"] +" "+
+row["invoicecity"]+"-[" + row["invoicepincode"] +"]" + 
+row["invoicestate"] + " " +row["invoicecountry"]</expression>
+                        <property name="contentType">html</property>
+                    </text-data>
+                </cell>
                 <cell id="41"/>
                 <cell id="42"/>
                 <cell id="43"/>

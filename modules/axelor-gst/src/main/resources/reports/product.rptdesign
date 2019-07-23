@@ -392,20 +392,11 @@ Surat - Dumas Rd, Surat, Gujarat 395007]]></text-property>
                 <row id="222">
                     <property name="height">1.15625in</property>
                     <cell id="223">
-                        <image id="45">
-                            <property name="height">0.9791666666666666in</property>
-                            <property name="width">1.875in</property>
-                            <property name="dataSet">product</property>
-                            <list-property name="boundDataColumns">
-                                <structure>
-                                    <property name="name">imagepath</property>
-                                    <text-property name="displayName">imagepath</text-property>
-                                    <expression name="expression" type="javascript">dataSetRow["imagepath"]</expression>
-                                    <property name="dataType">string</property>
-                                </structure>
-                            </list-property>
+                        <image id="241">
+                            <property name="height">1in</property>
+                            <property name="width">1.8229166666666667in</property>
                             <property name="source">file</property>
-                            <expression name="uri" type="javascript">params["imagePath"].value+"/"+row["imagepath"]</expression>
+                            <expression name="uri" type="javascript">params["imagePath"].value + "/" + row["imagepath"]</expression>
                         </image>
                     </cell>
                     <cell id="224">

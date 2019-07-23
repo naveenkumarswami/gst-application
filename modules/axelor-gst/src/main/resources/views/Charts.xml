@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+  <chart onInit="actino-date-time-set-defalut" name="chart-unpaid-customer" title="Unpaid Invoice Per Customer">
+    <search-fields>
+      <field type="datetime" name="fromDateTime" title="from Date" />
+      <field type="datetime" name="toDateTime" title="To Date" />
+    </search-fields>
+
+    <dataset type="sql">
+    <![CDATA[
+   SELECT                  
+        count(self.status) as status,
+        party.name as customer
+    FROM
+        gst_invoice as self
+    Left Join gst_party as party on self.party = party.id
+    WHERE
+        party.is_customer = 'true' AND self.status != 'Paid' and 
+        self.datet BETWEEN (cast(:fromDateTime as TIMESTAMP) AT TIME ZONE 'UTC') 
+        AND (cast(:toDateTime as TIMESTAMP) AT TIME ZONE 'UTC') group by customer;
+    ]]>
+    </dataset>
+
+    <!-- SELECT count(self.status) as totalStatus self.party.name as customer FROM Invoice as self WHERE 
+      self.party.isCustomer = true AND self.status != 'Paid' GROUP BY customer ORDER BY customer -->
+
+    <category key="customer" type="text" />
+    <series key="status" groupBy="customer" type="bar" />
+  </chart>
+
+  <action-attrs name="actino-date-time-set-defalut">
+    <attribute name="value" for="toDateTime" expr="eval: __datetime__" />
+    <attribute name="value" for="fromDateTime"
+      expr="eval:__date__.withDayOfMonth(1)" />
+  </action-attrs>
+
+</object-views>
