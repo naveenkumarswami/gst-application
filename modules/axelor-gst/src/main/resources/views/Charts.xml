@@ -30,10 +30,39 @@
     <series key="status" groupBy="customer" type="bar" />
   </chart>
 
+  <chart onInit="actino-date-time-set-defalut" name="chart-paid-invoice-category-product"
+    title="Paid Invoice Per Category Per Product">
+    <search-fields>
+      <field type="datetime" name="fromDateTime" title="from Date" />
+      <field type="datetime" name="toDateTime" title="To Date" />
+    </search-fields>
+
+    <dataset type="sql">
+    <![CDATA[
+   SELECT
+    count(self.status) as status ,                 
+    pro_cat.name as cate
+    FROM
+        gst_invoice as self
+     left join gst_invoice_line as line on self.id = line.invoice
+     left join gst_product as product on line.product = product.id
+     left join gst_product_category as pro_cat on product.category = pro_cat.id 
+    WHERE
+        self.status = 'Paid' and 
+        self.datet BETWEEN (cast(:fromDateTime as TIMESTAMP) AT TIME ZONE 'UTC') 
+        AND (cast(:toDateTime as TIMESTAMP) AT TIME ZONE 'UTC')
+    group by cate;
+    ]]>
+    </dataset>
+
+    <category key="cate" type="text" />
+    <series key="status" groupBy="cate" type="bar" />
+  </chart>
+
+
   <action-attrs name="actino-date-time-set-defalut">
     <attribute name="value" for="toDateTime" expr="eval: __datetime__" />
-    <attribute name="value" for="fromDateTime"
-      expr="eval:__date__.withDayOfMonth(1)" />
+    <attribute name="value" for="fromDateTime" expr="eval:__date__.withDayOfMonth(1)" />
   </action-attrs>
 
 </object-views>

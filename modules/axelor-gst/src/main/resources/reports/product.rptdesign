@@ -367,6 +367,7 @@ Surat - Dumas Rd, Surat, Gujarat 395007]]></text-property>
                     <property name="dataType">string</property>
                 </structure>
             </list-property>
+            <property name="pageBreakInterval">40</property>
             <column id="237">
                 <property name="width">1.9895833333333333in</property>
             </column>

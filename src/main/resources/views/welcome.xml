@@ -5,6 +5,8 @@
 
   <dashboard name="welcome.dashboard" title="GST-Application">
     <dashlet action="chart:chart-unpaid-customer"/>
+    <dashlet action="chart:chart-paid-invoice-category-product"/>
+    
   </dashboard>
   
   <action-view name="welcome" title="GST-Application">

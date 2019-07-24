@@ -51,11 +51,19 @@ public class GstController {
     //                .findFirst());
 
     Address invocieAddress = service.getInvoiceAddress(invoice);
-    Address shippingAddress = service.getShippingAddress(invoice);
+    
 
     request.getContext().put("primaryContact", contact);
     request.getContext().put("defalultinvoiceAddress", invocieAddress);
+    if(invoice.getIsUseInvocieAddressAsShipping() != true) 
+    {
+      Address shippingAddress = service.getShippingAddress(invoice);
     request.getContext().put("defalultshippingAddress", shippingAddress);
+    }
+    else
+    {
+      request.getContext().put("defalultshippingAddress", invocieAddress);
+    }
   }
 
   public void getCompanyAndInvoiceState(ActionRequest request, ActionResponse response) {
@@ -63,11 +71,13 @@ public class GstController {
     InvoiceLine invoiceLine = request.getContext().asType(InvoiceLine.class);
     Invoice invoice = request.getContext().getParent().asType(Invoice.class);
 
+    System.out.println("get igst value : 2" ); 
     BigDecimal setIGST = service.getIGST(invoice, invoiceLine);
+    System.out.println("get igst value : 1" + setIGST ); 
     BigDecimal setSGSTAndCGST = service.getSGSTandCGST(invoice, invoiceLine);
 
-    /*response.setValue("igst", setIGST);
-    response.setValue("sgst", setSGSTAndCGST);
+    response.setValue("igst", setIGST);
+    /* response.setValue("sgst", setSGSTAndCGST);
     response.setValue("cgst", setSGSTAndCGST);*/
     request.getContext().put("igstvalue", setIGST);
     request.getContext().put("sGSTandCgst", setSGSTAndCGST);

@@ -110,7 +110,6 @@ public class GstServiceImpl implements GstService {
   public Address getShippingAddress(Invoice invoice) throws IndexOutOfBoundsException {
     Address address = new Address();
     String partyName = invoice.getParty().getName();
-    Boolean isUseInvoiceAddressAsShippingAddress = invoice.getIsUseInvocieAddressAsShipping();
 
     Query query =
         em.createQuery(
@@ -119,11 +118,10 @@ public class GstServiceImpl implements GstService {
                 + "' and (address.type='default' or address.type = 'shipping')");
 
     try {
-      if (isUseInvoiceAddressAsShippingAddress == true) {
+     
         address = (Address) query.getResultList().get(0);
         return address;
-      } else return null;
-
+        
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
       return null;
@@ -133,13 +131,13 @@ public class GstServiceImpl implements GstService {
   @Override
   public BigDecimal getIGST(Invoice invocie, InvoiceLine invoiceLine) {
     
-    System.out.println("100"+ new BigDecimal(100)); 
+    System.out.println("igst 100 "+ new BigDecimal(100)); 
 
     try {
       String companyState = invocie.getCompany().getAddress().getState().getName();
-      System.out.println(companyState);
+      System.out.println("hi "+companyState);
       String invoiceState = invocie.getInvoiceAddress().getState().getName();
-      System.out.println(invoiceState);
+      System.out.println("hi "+invoiceState);
       BigDecimal netAmount = invoiceLine.getNetAmount();
       BigDecimal gstRate = invoiceLine.getGstRate();
       BigDecimal igst = new BigDecimal(0);
@@ -161,7 +159,7 @@ public class GstServiceImpl implements GstService {
   @Override
   public BigDecimal getSGSTandCGST(Invoice invocie, InvoiceLine invoiceLine) {
     
-    System.out.println("100"+ new BigDecimal(100) ); 
+    System.out.println("sgst  100"+ new BigDecimal(100) ); 
 
     try {
       String companyState = invocie.getCompany().getAddress().getState().getName();

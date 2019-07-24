@@ -28,17 +28,17 @@
     </panel>
 
     <panel sidebar="true" title="status change">
-      <button name="statusDraft" title="Draft" hideIf="status == 'Draft'" onClick="action-attr-for-draft-status-change" />
+      <button name="statusDraft" title="Draft" hideIf="status == 'Draft' || status == 'Paid'" onClick="action-attr-for-draft-status-change" />
       <button name="statusValidate" title="Validated"
         hideIf="status == 'Cancelled' || status == 'Paid' || status == 'Validated'" onClick="action-attr-for-status-validate-change" />
       <button name="statusPaid" title="Paid"
         hideIf="status == 'Draft' || status == 'Cancelled' || status == 'Paid'" onClick="action-attr-for-status-paid-change" />
-      <button name="statusCancelled" title="Cancelled" hideIf="status == 'Cancelled'"
+      <button name="statusCancelled" title="Cancelled" hideIf="status == 'Cancelled' || status == 'Paid'"
         onClick="action-attr-for-status-cancelled-change" />
     </panel>
 
     <panel title="Invoice" readonlyIf="status == 'Validated' || status == 'Cancelled' || status == 'Paid'">
-      <field name="company" onChange="action-company-address"></field>
+      <field name="company"></field>
       <field name="reference"></field>
       <field name="dateT"></field>
       <field name="priority"></field>
@@ -136,9 +136,9 @@
     <call class="com.axelor.gst.web.GstController" method="getDefalutCompany" />
   </action-method>
 
-  <action-method name="action-company-address">
+  <!-- <action-method name="action-company-address">
     <call class="com.axelor.gst.web.GstController" method="getCompanyAddress" />
-  </action-method>
+  </action-method> -->
 
   <action-report output="invoice-${date}-${time}" name="action-report-invoice-print-invoice"
     design="invoice.rptdesign">
