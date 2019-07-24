@@ -1,22 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<object-views xmlns="http://axelor.com/xml/ns/object-views"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
   <dashboard name="welcome.dashboard" title="GST-Application">
-    <dashlet action="chart:chart-unpaid-customer"/>
-    <dashlet action="chart:chart-paid-invoice-category-product"/>
-    <dashlet action="chart:chart-customer-per-state"/>
+    <dashlet action="chart:chart-unpaid-customer" />
+    <dashlet action="chart:chart-paid-invoice-category-product" />
+    <dashlet action="chart:chart-customer-per-state" />
+    <dashlet action="chart:chart-invoice-per-status-amount" />
+    <dashlet action="chart:chart-invoice-per-status-number-of-invoice" />
+    <dashlet action="action-grid-view-for-older-invoice" />
   </dashboard>
-  
-  <action-view name="welcome" title="GST-Application">
-    <view type="dashboard" name="welcome.dashboard"/>
+
+  <action-view name="action-grid-view-for-older-invoice" title="Older Invoice"
+    model="com.axelor.gst.db.Invoice">
+    <view type="grid" name="grid-view-for-older-invoice"/>
+    <domain>self.status != :status_name</domain>
+    <context name="status_name" expr="Draft"/>
   </action-view>
 
-  <menuitem name="menu-dashboards" order="-101"
-    title="Dashboards" icon="fa-dashboard" icon-background="blue"/>
+ <!--  <form model="com.axelor.gst.db.Invoice" title="Older Invoice" name="older-invoice-form-view">
+    <panel-dashlet action="grid-view-for-older-invoice" />
+  </form> -->
 
-  <menuitem name="menu-welcome" parent="menu-dashboards"
-    title="GST-Application" action="welcome"/>
+  <grid model="com.axelor.gst.db.Invoice" title="Older Invoice" name="grid-view-for-older-invoice">
+    <field name="status" />
+    <field name="reference"></field>
+    <field name="date"></field>
+    <field name="priority"></field>
+    <field name="isUseInvocieAddressAsShipping"></field>
+    <field name="netAmount"></field>
+    <field name="netIgst"></field>
+    <field name="netCsgt"></field>
+    <field name="netSgst"></field>
+    <field name="grossAmount"></field>
+  </grid>
+
+  <action-view name="welcome" title="GST-Application">
+    <view type="dashboard" name="welcome.dashboard" />
+  </action-view>
+
+  <menuitem name="menu-dashboards" order="-101" title="Dashboards" icon="fa-dashboard"
+    icon-background="blue" />
+
+  <menuitem name="menu-welcome" parent="menu-dashboards" title="GST-Application" action="welcome" />
 
 </object-views>
