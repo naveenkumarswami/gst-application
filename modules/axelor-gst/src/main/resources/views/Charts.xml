@@ -59,6 +59,24 @@
     <series key="status" groupBy="cate" type="bar" />
   </chart>
 
+  <chart name="chart-customer-per-state" title="Customer Per State">
+    <dataset type="sql">
+    <![CDATA[
+  select count(self.id) as customer , 
+  state.name as state_name from 
+  gst_party as self 
+  left join gst_address as add on add.id = any (select gpal.address_list from gst_party_address_list
+ as gpal where gpal.gst_party = self.id)  
+ left join gst_state as state on add.state = state.id 
+ where self.is_customer = 'true' 
+ group by state_name;
+    ]]>
+    </dataset>
+
+    <category key="state_name" type="text" />
+    <series key="customer" groupBy="state_name" type="pie" />
+  </chart>
+
 
   <action-attrs name="actino-date-time-set-defalut">
     <attribute name="value" for="toDateTime" expr="eval: __datetime__" />
