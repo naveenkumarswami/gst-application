@@ -1,20 +1,36 @@
 package com.axelor.gst.module;
 
 import com.axelor.app.AxelorModule;
+import com.axelor.gst.db.repo.PartyMangamentRepo;
 import com.axelor.gst.db.repo.PartyRepository;
+import com.axelor.gst.db.repo.ProductMangementRepo;
 import com.axelor.gst.db.repo.ProductRepository;
 import com.axelor.gst.service.GstService;
 import com.axelor.gst.service.GstServiceImpl;
-import com.axelor.gst.service.PartyCardView;
-import com.axelor.gst.service.ProductCardView;
+import com.axelor.gst.service.InvoiceLineService;
+import com.axelor.gst.service.InvoiceLineServiceImpl;
+import com.axelor.gst.service.InvoiceService;
+import com.axelor.gst.service.InvoiceServiceImpl;
+import com.axelor.gst.service.PartyService;
+import com.axelor.gst.service.PartyServiceImpl;
+import com.axelor.gst.service.ProductService;
+import com.axelor.gst.service.ProductServiceImpl;
+import com.axelor.gst.service.SequenceService;
+import com.axelor.gst.service.SequenceServiceImpl;
 
 public class GstModules extends AxelorModule {
 
   @Override
   protected void configure() {
     bind(GstService.class).to(GstServiceImpl.class);
-    bind(PartyRepository.class).to(PartyCardView.class);
-    bind(ProductRepository.class).to(ProductCardView.class);
+    bind(InvoiceService.class).to(InvoiceServiceImpl.class);
+    bind(InvoiceLineService.class).to(InvoiceLineServiceImpl.class);
+    bind(PartyService.class).to(PartyServiceImpl.class);
+    bind(ProductService.class).to(ProductServiceImpl.class);
+    bind(SequenceService.class).to(SequenceServiceImpl.class);
+    
+    bind(PartyRepository.class).to(PartyMangamentRepo.class);
+    bind(ProductRepository.class).to(ProductMangementRepo.class);
     
   }
   

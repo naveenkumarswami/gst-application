@@ -20,7 +20,7 @@
   </form>
   
    <action-method name="action-sequence-genrate-auto">
-   <call class="com.axelor.gst.web.GstController" method="getSequence"/>
+   <call class="com.axelor.gst.web.SequenceController" method="getSequence"/>
    </action-method>
 
 </object-views>

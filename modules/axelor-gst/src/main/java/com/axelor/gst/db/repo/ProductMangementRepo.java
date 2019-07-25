@@ -1,10 +1,10 @@
-package com.axelor.gst.service;
+package com.axelor.gst.db.repo;
 
 import java.util.Map;
 import com.axelor.gst.db.Product;
 import com.axelor.gst.db.repo.ProductRepository;
 
-public class ProductCardView extends ProductRepository {
+public class ProductMangementRepo extends ProductRepository {
   @Override
   public Map<String, Object> populate(Map<String, Object> json, Map<String, Object> context) {
     if (!context.containsKey("json-enhance")) {

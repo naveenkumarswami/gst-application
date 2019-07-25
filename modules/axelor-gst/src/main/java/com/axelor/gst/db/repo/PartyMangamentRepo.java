@@ -1,10 +1,10 @@
-package com.axelor.gst.service;
+package com.axelor.gst.db.repo;
 
 import java.util.Map;
 import com.axelor.gst.db.Party;
 import com.axelor.gst.db.repo.PartyRepository;
 
-public class PartyCardView extends PartyRepository {
+public class PartyMangamentRepo extends PartyRepository {
   
 
   @Override

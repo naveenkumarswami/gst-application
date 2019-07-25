@@ -94,7 +94,7 @@
   </cards>
   
   <action-method name="action-party-sequence-get">
-  <call class="com.axelor.gst.web.GstController" method="setReferenceParty"/>
+  <call class="com.axelor.gst.web.PartyController" method="setReferenceParty"/>
   </action-method>
 
 </object-views>

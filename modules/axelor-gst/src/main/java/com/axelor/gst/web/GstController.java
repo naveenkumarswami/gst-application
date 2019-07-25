@@ -25,10 +25,12 @@ public class GstController {
   public void createInvoice(ActionRequest request, ActionResponse response) {
 
     if (request.getContext().get("_ids") == null) {
+      response.setError("No Product Found!!");
       return;
     }
 
     List<Integer> requestIds = (List<Integer>) request.getContext().get("_ids");
+    
     String totalIdSelect = requestIds.toString();
     totalIdSelect = totalIdSelect.substring(1, totalIdSelect.length() - 1);
     System.out.println(totalIdSelect);

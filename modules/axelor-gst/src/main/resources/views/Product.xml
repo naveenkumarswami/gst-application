@@ -49,7 +49,7 @@
   </cards>
   
   <action-method name="create-selected-invoice-on-click">
-    <call class="com.axelor.gst.web.GstController" method="getSelectedProduct" />
+    <call class="com.axelor.gst.web.ProductController" method="getSelectedProduct" />
   </action-method>
   
   <action-view name="action-view-invoice-select-product" title="Invoice" model="com.axelor.gst.db.Invoice">

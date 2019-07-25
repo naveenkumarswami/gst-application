@@ -44,7 +44,7 @@
   </action-attrs>
 
   <action-method name="action-gstController-caluclate-igst-cgst-sgst-vlaue">
-    <call class="com.axelor.gst.web.GstController" method="getCompanyAndInvoiceState" />
+    <call class="com.axelor.gst.web.InvoiceLineController" method="getCompanyAndInvoiceState" />
   </action-method>
 
  <!--  <action-attrs name="action-invoice-line-igst-if-diff-invoice-and-company">

@@ -27,7 +27,7 @@
       <field name="status" showTitle="false" colSpan="12" widget="NavSelect" />
     </panel>
 
-    <panel sidebar="true" title="status change">
+    <panel sidebar="true" title="Status Change" showTitle="false">
       <button name="statusDraft" title="Draft" hideIf="status == 'Draft' || status == 'Paid'"
         onClick="action-attr-for-draft-status-change" />
       <button name="statusValidate" title="Validated"
@@ -109,7 +109,7 @@
   </action-attrs>
 
   <action-method name="action-invoice-party-contact-gstController">
-    <call class="com.axelor.gst.web.GstController" method="getContactAddress" />
+    <call class="com.axelor.gst.web.InvoiceController" method="getContactAddress" />
   </action-method>
 
   <action-attrs name="action-invoice-party-contact-select-primary-contact">
@@ -132,7 +132,7 @@
   </action-group>
 
   <action-method name="action-defalut-company-select">
-    <call class="com.axelor.gst.web.GstController" method="getDefalutCompany" />
+    <call class="com.axelor.gst.web.InvoiceController" method="getDefalutCompany" />
   </action-method>
 
   <!-- <action-method name="action-company-address"> <call class="com.axelor.gst.web.GstController" method="getCompanyAddress" 
@@ -146,7 +146,7 @@
   </action-report>
 
   <action-method name="action-invoice-sequence-get">
-    <call class="com.axelor.gst.web.GstController" method="setReferenceInvoice" />
+    <call class="com.axelor.gst.web.InvoiceController" method="setReferenceInvoice" />
   </action-method>
 
   <action-method name="action-invoice-total-qty-price-get">
