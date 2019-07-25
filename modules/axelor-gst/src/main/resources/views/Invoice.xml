@@ -85,7 +85,7 @@
   </kanban>
 
   <action-method name="action-invoice-net-amount-gross-amount-from-invoice-list">
-    <call class="com.axelor.gst.web.GstController" method="setAllValues" />
+    <call class="com.axelor.gst.web.InvoiceController" method="setAllValues" />
   </action-method>
 
   <action-attrs name="action-attr-for-draft-status-change">
@@ -150,11 +150,11 @@
   </action-method>
 
   <action-method name="action-invoice-total-qty-price-get">
-    <call class="com.axelor.gst.web.GstController" method="getTotalQtyAndPrice" />
+    <call class="com.axelor.gst.web.InvoiceController" method="getTotalQtyAndPrice" />
   </action-method>
 
   <action-attrs name="action-check-selected-products">
     <attribute name="value" for="invoiceItemsList" expr="eval: selectedIds" />
   </action-attrs>
-  
+
 </object-views>

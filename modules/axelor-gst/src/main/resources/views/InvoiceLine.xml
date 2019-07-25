@@ -16,7 +16,7 @@
   </grid>
 
   <form name="invoiceLine-form" title="Invoice Line" model="com.axelor.gst.db.InvoiceLine">
-    <panel title="Invoice Line Overview">
+    <panel title="Invoice Line Overview" >
       <field name="product" onChange="action-invoice-line-item,action-invoice-line-gstRate"></field>
       <field name="hsbn" />
       <field name="item"></field>

@@ -1,5 +1,7 @@
 package com.axelor.gst.service;
 
+import java.math.BigDecimal;
+import java.util.Map;
 import com.axelor.gst.db.Address;
 import com.axelor.gst.db.Company;
 import com.axelor.gst.db.Contact;
@@ -12,5 +14,6 @@ public interface InvoiceService {
   public Address getInvoiceAddress(Invoice invoice);
   public Address getShippingAddress(Invoice invoice);
   public String setReferenceInvoice(Invoice invoice);
+  public Map<Integer, BigDecimal> calculateRates(Invoice invoice);
   
 }

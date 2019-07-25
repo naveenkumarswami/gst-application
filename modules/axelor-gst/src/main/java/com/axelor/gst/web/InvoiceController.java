@@ -1,10 +1,14 @@
 package com.axelor.gst.web;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import com.axelor.gst.db.Address;
 import com.axelor.gst.db.Company;
 import com.axelor.gst.db.Contact;
 import com.axelor.gst.db.Invoice;
+import com.axelor.gst.db.InvoiceLine;
 import com.axelor.gst.service.InvoiceService;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
@@ -28,13 +32,12 @@ public class InvoiceController {
       request.getContext().put("defalultshippingAddress", invocieAddress);
     }
   }
-  
+
   public void getDefalutCompany(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
     Company company = service.setDefalutComany(invoice);
     response.setValue("company", company);
   }
-  
 
   public void setReferenceInvoice(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
@@ -45,5 +48,28 @@ public class InvoiceController {
       } else response.addError("reference", "no sequence is specified for the Invoice");
     }
   }
-  
+
+  public void setAllValues(ActionRequest request, ActionResponse response) {
+    Invoice invoice = request.getContext().asType(Invoice.class);
+    Map<Integer, BigDecimal> rateSet = service.calculateRates(invoice);
+
+    response.setValue("netAmount", rateSet.get(1));
+    response.setValue("netIgst", rateSet.get(2));
+    response.setValue("netCsgt", rateSet.get(3));
+    response.setValue("netSgst", rateSet.get(4));
+    response.setValue("grossAmount", rateSet.get(5));
+  }
+
+  public void getTotalQtyAndPrice(ActionRequest request, ActionResponse response) {
+
+    Invoice invoice = request.getContext().asType(Invoice.class);
+
+    List<InvoiceLine> invoiceLine = invoice.getInvoiceItemsList();
+    request.getContext().put("totalQty", invoiceLine.stream().mapToInt(qty -> qty.getQty()).sum());
+    request
+        .getContext()
+        .put(
+            "totalPrice",
+            invoiceLine.stream().mapToInt(price -> price.getPrice().intValue()).sum());
+  }
 }

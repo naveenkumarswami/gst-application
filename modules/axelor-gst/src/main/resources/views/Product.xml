@@ -58,11 +58,11 @@
   </action-view>
 
   <action-method name="createInvoice-on-click">
-    <call class="com.axelor.gst.web.GstController" method="createInvoice" />
+    <call class="com.axelor.gst.web.ProductController" method="createInvoice" />
   </action-method>
   
   <action-method name="action-image-parth-get">
-   <call class="com.axelor.gst.web.GstController" method="getDynamicImagePath"/>
+   <call class="com.axelor.gst.web.ProductController" method="getDynamicImagePath"/>
   </action-method>
 
   <action-report output="gst-${date}-${date}" name="action-report-print-product-Inovoice-on-click"

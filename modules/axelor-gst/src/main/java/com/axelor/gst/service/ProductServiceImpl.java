@@ -26,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
       InvoiceLine invoiceLine = new InvoiceLine();
       invoiceLine.setProduct(product);
       invoiceLine.setItem("["+product.getCode()+"]"+product.getName());
+      invoiceLine.setGstRate(product.getGstRate());
       invoiceLineRepository.save(invoiceLine);
       invoiceLineList.add(invoiceLine);
     }
