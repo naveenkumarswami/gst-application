@@ -187,4 +187,20 @@ public class GstController {
             invoiceLine.stream().mapToInt(price -> price.getPrice().intValue()).sum());
     System.out.println(invoiceLine.stream().mapToInt(price -> price.getPrice().intValue()).sum());
   }
+  
+  @SuppressWarnings("unchecked")
+  public void getSelectedProduct(ActionRequest request, ActionResponse response) {
+
+    if (request.getContext().get("_ids") == null) {
+      return;
+    }
+
+
+    List<Integer> requestIds = (List<Integer>) request.getContext().get("_ids");
+    
+    List<InvoiceLine> invoiceLineList =service.putSelectedProduct(requestIds);
+    
+    request.getContext().put("totalSelectedProduct", invoiceLineList);
+  }
+  
 }

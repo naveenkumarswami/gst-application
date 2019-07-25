@@ -21,4 +21,5 @@ public interface GstService {
   public String setNextNumber(Sequence sequence);
   public String setReferenceParty(Party party);
   public String setReferenceInvoice(Invoice invoice);  
+  public List<InvoiceLine> putSelectedProduct(List<Integer> productIds);
 }

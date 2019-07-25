@@ -41,7 +41,8 @@
     <![CDATA[
    SELECT
     count(self.status) as status ,                 
-    pro_cat.name as cate
+    pro_cat.name as cate,
+    product.name as product_name
     FROM
         gst_invoice as self
      left join gst_invoice_line as line on self.id = line.invoice
@@ -51,12 +52,12 @@
         self.status = 'Paid' and 
         self.datet BETWEEN (cast(:fromDateTime as TIMESTAMP) AT TIME ZONE 'UTC') 
         AND (cast(:toDateTime as TIMESTAMP) AT TIME ZONE 'UTC')
-    group by cate;
+    group by cate , product_name;
     ]]>
     </dataset>
 
     <category key="cate" type="text" />
-    <series key="status" groupBy="cate" type="bar" />
+    <series key="status" groupBy="product_name" type="bar" />
   </chart>
 
   <chart name="chart-customer-per-state" title="Customer Per State">
@@ -89,7 +90,7 @@
     <category key="status" type="text" />
     <series key="amount" groupBy="status" type="bar" />
   </chart>
-  
+
   <chart name="chart-invoice-per-status-number-of-invoice" title="Invoice Per Status For Number Of Invoice">
     <dataset type="sql">
     <![CDATA[
@@ -100,7 +101,7 @@
     <category key="status" type="text" />
     <series key="number" groupBy="status" type="line" />
   </chart>
-  
+
   <chart name="chart-invoice-per-status-number-of-invoice" title="Invoice Per Status For Number Of Invoice">
     <dataset type="sql">
     <![CDATA[

@@ -1,6 +1,7 @@
 package com.axelor.gst.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -11,10 +12,13 @@ import com.axelor.gst.db.Contact;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
 import com.axelor.gst.db.Party;
+import com.axelor.gst.db.Product;
 import com.axelor.gst.db.Sequence;
 import com.axelor.gst.db.State;
 import com.axelor.gst.db.repo.CompanyRepository;
+import com.axelor.gst.db.repo.InvoiceLineRepository;
 import com.axelor.gst.db.repo.PartyRepository;
+import com.axelor.gst.db.repo.ProductRepository;
 import com.axelor.gst.db.repo.SequenceRepository;
 import com.google.inject.persist.Transactional;
 
@@ -24,6 +28,8 @@ public class GstServiceImpl implements GstService {
 
   @Inject SequenceRepository sequenceRepository;
   @Inject PartyRepository partyRepository;
+  @Inject ProductRepository productRepository;
+  @Inject InvoiceLineRepository invoiceLineRepository;
 
   @Override
   @Transactional
@@ -283,6 +289,25 @@ public class GstServiceImpl implements GstService {
         return prifix+newNumber+suffix;
       }
     } else return null;
+  }
+
+  @Override
+  @Transactional
+  public List<InvoiceLine> putSelectedProduct(List<Integer> productIds) {
+    
+    List<InvoiceLine> invoiceLineList = new ArrayList<>();
+    
+    for(Integer id : productIds)
+    {
+      Product product = productRepository.find(id.longValue());
+      InvoiceLine invoiceLine = new InvoiceLine();
+      invoiceLine.setProduct(product);
+      invoiceLine.setItem("["+product.getCode()+"]"+product.getName());
+      invoiceLineRepository.save(invoiceLine);
+      invoiceLineList.add(invoiceLine);
+    }
+        
+    return invoiceLineList;
   }
 
 }

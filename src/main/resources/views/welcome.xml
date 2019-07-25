@@ -14,13 +14,10 @@
   <action-view name="action-grid-view-for-older-invoice" title="Older Invoice"
     model="com.axelor.gst.db.Invoice">
     <view type="grid" name="grid-view-for-older-invoice"/>
-    <domain>self.status != :status_name</domain>
-    <context name="status_name" expr="Draft"/>
+    <domain>status = :status_name AND datet &lt;:dateCheck </domain>
+     <context name="status_name" expr="Validated"/>
+     <context name="dateCheck" expr="eval: __datetime__.minusMonths(1)"/>
   </action-view>
-
- <!--  <form model="com.axelor.gst.db.Invoice" title="Older Invoice" name="older-invoice-form-view">
-    <panel-dashlet action="grid-view-for-older-invoice" />
-  </form> -->
 
   <grid model="com.axelor.gst.db.Invoice" title="Older Invoice" name="grid-view-for-older-invoice">
     <field name="status" />

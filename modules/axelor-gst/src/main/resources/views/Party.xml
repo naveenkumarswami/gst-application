@@ -5,7 +5,7 @@
   <grid model="com.axelor.gst.db.Party" title="Party" name="party-grid">
     <field name="name"></field>
     <field name="type" />
-    <field name="isCustomber"></field>
+    <field name="isCustomer"></field>
     <field name="isSupplier"></field>
     <field name="gstin"></field>
   </grid>
