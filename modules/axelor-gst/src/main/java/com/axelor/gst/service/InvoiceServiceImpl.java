@@ -62,7 +62,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
   @Override
   @Transactional
-  public Address getShippingAddress(Invoice invoice) throws IndexOutOfBoundsException {
+  public Address getShippingAddress(Invoice invoice) {
     try {
       Address address =
           invoice
@@ -74,7 +74,7 @@ public class InvoiceServiceImpl implements InvoiceService {
               .get();
       return address;
 
-    } catch (IndexOutOfBoundsException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       return null;
     }

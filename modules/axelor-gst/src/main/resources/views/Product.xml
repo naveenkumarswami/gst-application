@@ -67,7 +67,7 @@
 
   <action-report output="gst-${date}-${date}" name="action-report-print-product-Inovoice-on-click"
     design="product.rptdesign" format="pdf">
-     <param name="totalIds" expr="eval: totalProduct" />
+    <param name="totalIds" expr="eval: totalProduct" />
     <param name="imagePath" expr="eval: setImagePath" /> 
   </action-report>
 

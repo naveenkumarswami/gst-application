@@ -5,8 +5,6 @@ import com.axelor.gst.db.repo.PartyMangamentRepo;
 import com.axelor.gst.db.repo.PartyRepository;
 import com.axelor.gst.db.repo.ProductMangementRepo;
 import com.axelor.gst.db.repo.ProductRepository;
-import com.axelor.gst.service.GstService;
-import com.axelor.gst.service.GstServiceImpl;
 import com.axelor.gst.service.InvoiceLineService;
 import com.axelor.gst.service.InvoiceLineServiceImpl;
 import com.axelor.gst.service.InvoiceService;
@@ -22,7 +20,6 @@ public class GstModules extends AxelorModule {
 
   @Override
   protected void configure() {
-    bind(GstService.class).to(GstServiceImpl.class);
     bind(InvoiceService.class).to(InvoiceServiceImpl.class);
     bind(InvoiceLineService.class).to(InvoiceLineServiceImpl.class);
     bind(PartyService.class).to(PartyServiceImpl.class);

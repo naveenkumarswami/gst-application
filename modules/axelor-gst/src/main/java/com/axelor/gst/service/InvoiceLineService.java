@@ -6,7 +6,7 @@ import com.axelor.gst.db.InvoiceLine;
 
 public interface InvoiceLineService {
   
-  public BigDecimal getIGST(Invoice invocie , InvoiceLine invoiceLine); 
-  public BigDecimal getSGSTandCGST (Invoice invocie , InvoiceLine invoiceLine);
+  public BigDecimal getIgst(Invoice invoice , InvoiceLine invoiceLine); 
+  public BigDecimal getSgstAndCgst (Invoice invoice , InvoiceLine invoiceLine);
   
 }

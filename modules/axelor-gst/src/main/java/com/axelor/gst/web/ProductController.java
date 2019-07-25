@@ -19,11 +19,8 @@ public class ProductController {
       return;
     }
 
-
     List<Integer> requestIds = (List<Integer>) request.getContext().get("_ids");
-    
     List<InvoiceLine> invoiceLineList =service.putSelectedProduct(requestIds);
-    
     request.getContext().put("totalSelectedProduct", invoiceLineList);
   }
   

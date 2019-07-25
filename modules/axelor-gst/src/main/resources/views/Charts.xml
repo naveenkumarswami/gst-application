@@ -68,7 +68,7 @@
   gst_party as self 
   left join gst_address as add on add.id = any (select gpal.address_list from gst_party_address_list
  as gpal where gpal.gst_party = self.id)  
- left join gst_state as state on add.state = state.id 
+ right join gst_state as state on add.state = state.id 
  where self.is_customer = 'true' 
  group by state_name;
     ]]>

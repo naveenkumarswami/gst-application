@@ -13,24 +13,11 @@
 
   <action-view name="action-grid-view-for-older-invoice" title="Older Invoice"
     model="com.axelor.gst.db.Invoice">
-    <view type="grid" name="grid-view-for-older-invoice"/>
-    <domain>status = :status_name AND datet &lt;:dateCheck </domain>
+    <view type="grid" name="invoice-grid"/>
+    <domain>status = :status_name AND datet &lt; :dateCheck </domain>
      <context name="status_name" expr="Validated"/>
      <context name="dateCheck" expr="eval: __datetime__.minusMonths(1)"/>
   </action-view>
-
-  <grid model="com.axelor.gst.db.Invoice" title="Older Invoice" name="grid-view-for-older-invoice">
-    <field name="status" />
-    <field name="reference"></field>
-    <field name="date"></field>
-    <field name="priority"></field>
-    <field name="isUseInvocieAddressAsShipping"></field>
-    <field name="netAmount"></field>
-    <field name="netIgst"></field>
-    <field name="netCsgt"></field>
-    <field name="netSgst"></field>
-    <field name="grossAmount"></field>
-  </grid>
 
   <action-view name="welcome" title="GST-Application">
     <view type="dashboard" name="welcome.dashboard" />

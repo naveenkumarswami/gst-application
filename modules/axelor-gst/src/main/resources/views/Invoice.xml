@@ -5,7 +5,7 @@
   <grid name="invoice-grid" title="invoice List" model="com.axelor.gst.db.Invoice">
     <field name="status" />
     <field name="reference"></field>
-    <field name="date"></field>
+    <field name="dateT"></field>
     <field name="priority"></field>
     <field name="isUseInvocieAddressAsShipping"></field>
     <field name="netAmount"></field>

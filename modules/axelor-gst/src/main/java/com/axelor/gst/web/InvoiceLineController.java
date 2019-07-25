@@ -16,8 +16,8 @@ public class InvoiceLineController {
 
     InvoiceLine invoiceLine = request.getContext().asType(InvoiceLine.class);
     Invoice invoice = request.getContext().getParent().asType(Invoice.class); 
-    BigDecimal setIGST = service.getIGST(invoice, invoiceLine); 
-    BigDecimal setSGSTAndCGST = service.getSGSTandCGST(invoice, invoiceLine);
+    BigDecimal setIGST = service.getIgst(invoice, invoiceLine); 
+    BigDecimal setSGSTAndCGST = service.getSgstAndCgst(invoice, invoiceLine);
     response.setValue("igst", setIGST);
     request.getContext().put("igstvalue", setIGST);
     request.getContext().put("sGSTandCgst", setSGSTAndCGST);
