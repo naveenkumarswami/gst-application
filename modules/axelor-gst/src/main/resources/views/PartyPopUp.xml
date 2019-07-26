@@ -4,16 +4,27 @@
 
 
   <form name="invoice-form-popup-party" model="com.axelor.gst.db.Invoice" title="Generate Party"
-    onSave="action-view-invoice-select-product">
+    onSave="action-view-invoice-select-product" onNew="action-for-set-the-selected-ids">
     <panel aname="mainPanel">
       <field name="partyName" type="many-to-one" x-target="com.axelor.gst.db.Party"
-        x-target-name="name" />
+        x-target-name="name"/>
+        <field name="productIds" hidden="true"></field>
 
     </panel>
     <panel sidebar="true">
       <button name="createInvoice" title="Create Invoice" onClick="action-view-invoice-select-product" />
     </panel>
-
   </form>
+  
+   <action-view name="action-view-invoice-select-product" title="Invoice"
+    model="com.axelor.gst.db.Invoice">
+    <view type="form" name="invoice-form" />
+    <context name="selectedIds" expr="eval: totalSelectedProduct"/>
+    <context name="party_name" expr="eval: partyName"/>
+  </action-view>
+  
+  <action-attrs name="action-for-set-the-selected-ids">
+  <attribute name="value" for="productIds" expr="eval: _showRecord"/>
+  </action-attrs>
 
 </object-views>

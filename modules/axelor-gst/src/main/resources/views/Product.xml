@@ -5,7 +5,7 @@
   <grid name="product-grid" title="product List" model="com.axelor.gst.db.Product">
     <toolbar>
       <button name="createInvoice" title="Create Invoice"
-        onClick="create-selected-invoice-on-click,action-popup-for-party-invoice-form" />
+        onClick="action-popup-for-party-invoice-form" />
       <button name="print" title="print Product"
         onClick="createInvoice-on-click,action-image-parth-get,action-report-print-product-Inovoice-on-click" />
     </toolbar>
@@ -56,14 +56,18 @@
 
   <action-view name="action-popup-for-party-invoice-form" title="party-popup" model="com.axelor.gst.db.Invoice">
     <view type="form" name="invoice-form-popup-party" />
+    <view-param name="popup" value="true"/>
+    <view-param name="show-toolbar" value="false"/>
+    <view-param name="show-confirm" value="false"/>
+    <view-param name="popup-save" value="false"/>
+    <context name="_showRecord" expr="eval: _ids"/>
   </action-view>
-
-  <action-view name="action-view-invoice-select-product" title="Invoice"
-    model="com.axelor.gst.db.Invoice">
-    <view type="form" name="invoice-form" />
-    <context name="selectedIds" expr="eval: totalSelectedProduct" />
-    <context name="party_name" expr="eval: __parent__.partyName"/>
-  </action-view>
+  
+  <!-- <action-view name="action-product-task-template-view-task" title="Tasks"
+    model="com.axelor.apps.businessproject.db.ProductTaskTemplate">
+    <view type="form" name="product-task-template-form"/>
+    
+  </action-view> -->
 
   <action-method name="createInvoice-on-click">
     <call class="com.axelor.gst.web.ProductController" method="createInvoice" />

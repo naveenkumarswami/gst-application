@@ -14,7 +14,7 @@ public class ProductController {
   
   @SuppressWarnings("unchecked")
   public void getSelectedProduct(ActionRequest request, ActionResponse response) {
-
+   response.setCanClose(true);
     if (request.getContext().get("_ids") == null) {
       return;
     }
