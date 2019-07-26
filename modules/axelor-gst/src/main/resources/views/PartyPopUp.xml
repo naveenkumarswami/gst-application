@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+
+  <form name="invoice-form-popup-party" model="com.axelor.gst.db.Invoice" title="Generate Party"
+    onSave="action-view-invoice-select-product">
+    <panel aname="mainPanel">
+      <field name="partyName" type="many-to-one" x-target="com.axelor.gst.db.Party"
+        x-target-name="name" />
+
+    </panel>
+    <panel sidebar="true">
+      <button name="createInvoice" title="Create Invoice" onClick="action-view-invoice-select-product" />
+    </panel>
+
+  </form>
+
+</object-views>

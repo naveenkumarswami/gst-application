@@ -59,17 +59,4 @@ public class InvoiceController {
     response.setValue("netSgst", rateSet.get(4));
     response.setValue("grossAmount", rateSet.get(5));
   }
-
-  public void getTotalQtyAndPrice(ActionRequest request, ActionResponse response) {
-
-    Invoice invoice = request.getContext().asType(Invoice.class);
-
-    List<InvoiceLine> invoiceLine = invoice.getInvoiceItemsList();
-    request.getContext().put("totalQty", invoiceLine.stream().mapToInt(qty -> qty.getQty()).sum());
-    request
-        .getContext()
-        .put(
-            "totalPrice",
-            invoiceLine.stream().mapToInt(price -> price.getPrice().intValue()).sum());
-  }
 }

@@ -14,13 +14,15 @@ public class InvoiceLineController {
   
   public void getCompanyAndInvoiceState(ActionRequest request, ActionResponse response) {
 
-    InvoiceLine invoiceLine = request.getContext().asType(InvoiceLine.class);
+    InvoiceLine invoiceLine = request.getContext().asType(InvoiceLine.class);   
     Invoice invoice = request.getContext().getParent().asType(Invoice.class); 
     BigDecimal setIGST = service.getIgst(invoice, invoiceLine); 
     BigDecimal setSGSTAndCGST = service.getSgstAndCgst(invoice, invoiceLine);
     response.setValue("igst", setIGST);
     request.getContext().put("igstvalue", setIGST);
-    request.getContext().put("sGSTandCgst", setSGSTAndCGST);
+    request.getContext().put("sGSTandCgst", setSGSTAndCGST); 
   }
+  
+
   
 }

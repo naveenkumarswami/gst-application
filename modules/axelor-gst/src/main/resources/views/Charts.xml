@@ -2,7 +2,7 @@
 <object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
-  <chart onInit="actino-date-time-set-defalut" name="chart-unpaid-customer" title="Unpaid Invoice Per Customer">
+  <chart onInit="action-date-time-set-defalut" name="chart-unpaid-customer" title="Unpaid Invoice Per Customer">
     <search-fields>
       <field type="datetime" name="fromDateTime" title="from Date" />
       <field type="datetime" name="toDateTime" title="To Date" />
@@ -30,7 +30,7 @@
     <series key="status" groupBy="customer" type="bar" />
   </chart>
 
-  <chart onInit="actino-date-time-set-defalut" name="chart-paid-invoice-category-product"
+  <chart onInit="action-date-time-set-defalut" name="chart-paid-invoice-category-product"
     title="Paid Invoice Per Category Per Product">
     <search-fields>
       <field type="datetime" name="fromDateTime" title="from Date" />

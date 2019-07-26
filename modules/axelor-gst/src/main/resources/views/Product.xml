@@ -4,8 +4,10 @@
 
   <grid name="product-grid" title="product List" model="com.axelor.gst.db.Product">
     <toolbar>
-      <button name="createInvoice" title="Create Invoice" onClick="create-selected-invoice-on-click,action-view-invoice-select-product" />
-      <button name="print" title="print Product" onClick="createInvoice-on-click,action-image-parth-get,action-report-print-product-Inovoice-on-click" />
+      <button name="createInvoice" title="Create Invoice"
+        onClick="create-selected-invoice-on-click,action-popup-for-party-invoice-form" />
+      <button name="print" title="print Product"
+        onClick="createInvoice-on-click,action-image-parth-get,action-report-print-product-Inovoice-on-click" />
     </toolbar>
 
     <field name="name" />
@@ -47,28 +49,34 @@
       </div>
     ]]></template>
   </cards>
-  
+
   <action-method name="create-selected-invoice-on-click">
     <call class="com.axelor.gst.web.ProductController" method="getSelectedProduct" />
   </action-method>
-  
-  <action-view name="action-view-invoice-select-product" title="Invoice" model="com.axelor.gst.db.Invoice">
-  <view type="form" name="invoice-form"/>
-  <context name="selectedIds" expr="eval: totalSelectedProduct"/>
+
+  <action-view name="action-popup-for-party-invoice-form" title="party-popup" model="com.axelor.gst.db.Invoice">
+    <view type="form" name="invoice-form-popup-party" />
+  </action-view>
+
+  <action-view name="action-view-invoice-select-product" title="Invoice"
+    model="com.axelor.gst.db.Invoice">
+    <view type="form" name="invoice-form" />
+    <context name="selectedIds" expr="eval: totalSelectedProduct" />
+    <context name="party_name" expr="eval: __parent__.partyName"/>
   </action-view>
 
   <action-method name="createInvoice-on-click">
     <call class="com.axelor.gst.web.ProductController" method="createInvoice" />
   </action-method>
-  
+
   <action-method name="action-image-parth-get">
-   <call class="com.axelor.gst.web.ProductController" method="getDynamicImagePath"/>
+    <call class="com.axelor.gst.web.ProductController" method="getDynamicImagePath" />
   </action-method>
 
   <action-report output="gst-${date}-${date}" name="action-report-print-product-Inovoice-on-click"
     design="product.rptdesign" format="pdf">
     <param name="totalIds" expr="eval: totalProduct" />
-    <param name="imagePath" expr="eval: setImagePath" /> 
+    <param name="imagePath" expr="eval: setImagePath" />
   </action-report>
 
   <action-attrs name="action-product-gst-rate-change">

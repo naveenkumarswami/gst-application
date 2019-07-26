@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.0.xsd">
 
-  <module name="gst" package="com.axelor.gst.db"/>
-  
+  <module name="gst" package="com.axelor.gst.db" />
+
   <entity name="Product">
-  <string name="name" title="Name" required="true"></string>
-  <string name="code" title="Code" required="true"></string>
-  <string name="hsbn" title="HSBN" ></string>
-  <many-to-one name="category" ref="ProductCategory" title="Category"></many-to-one>
-  <decimal name="salePrice" title="Sale Price"></decimal>
-  <decimal name="costPrice" title="Cost Price"></decimal>
- <many-to-one name="image" ref="com.axelor.meta.db.MetaFile" title="Image"></many-to-one>
-  <decimal name="gstRate" title="GST Rate"></decimal>
-   
-    </entity>
+    <string name="name" title="Name" required="true"></string>
+    <string name="code" title="Code" required="true"></string>
+    <string name="hsbn" title="HSBN"></string>
+    <many-to-one name="category" ref="ProductCategory" title="Category"></many-to-one>
+    <decimal name="salePrice" title="Sale Price"></decimal>
+    <decimal name="costPrice" title="Cost Price"></decimal>
+    <many-to-one name="image" ref="com.axelor.meta.db.MetaFile" title="Image"></many-to-one>
+    <decimal name="gstRate" title="GST Rate"></decimal>
+  </entity>
 
 </domain-models>

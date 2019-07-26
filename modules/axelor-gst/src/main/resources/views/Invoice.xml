@@ -20,7 +20,7 @@
 
     <toolbar>
       <button name="reportButton" title="Print" showTitle="false" showIf="id"
-        onClick="action-invoice-total-qty-price-get,action-report-invoice-print-invoice" icon="fa-print" />
+        onClick="action-report-invoice-print-invoice" icon="fa-print" />
     </toolbar>
 
     <panel name="statusPanel" title="Status">
@@ -141,20 +141,15 @@
   <action-report output="invoice-${date}-${time}" name="action-report-invoice-print-invoice"
     design="invoice.rptdesign">
     <param name="invoiceId" expr="eval: id" />
-    <param name="totalQty" expr="eval: totalQty" />
-    <param name="totalPrice" expr="eval: totalPrice" />
   </action-report>
 
   <action-method name="action-invoice-sequence-get">
     <call class="com.axelor.gst.web.InvoiceController" method="setReferenceInvoice" />
   </action-method>
 
-  <action-method name="action-invoice-total-qty-price-get">
-    <call class="com.axelor.gst.web.InvoiceController" method="getTotalQtyAndPrice" />
-  </action-method>
-
   <action-attrs name="action-check-selected-products">
     <attribute name="value" for="invoiceItemsList" expr="eval: selectedIds" />
+    <attribute name="value" for="party" expr="eval: party_name"/>
   </action-attrs>
 
 </object-views>

@@ -21,28 +21,6 @@
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
-        <scalar-parameter name="totalQty" id="93">
-            <property name="valueType">static</property>
-            <property name="dataType">integer</property>
-            <property name="distinct">true</property>
-            <list-property name="selectionList"/>
-            <property name="paramType">simple</property>
-            <property name="controlType">text-box</property>
-            <structure name="format">
-                <property name="category">Unformatted</property>
-            </structure>
-        </scalar-parameter>
-        <scalar-parameter name="totalPrice" id="94">
-            <property name="valueType">static</property>
-            <property name="dataType">integer</property>
-            <property name="distinct">true</property>
-            <list-property name="selectionList"/>
-            <property name="paramType">simple</property>
-            <property name="controlType">text-box</property>
-            <structure name="format">
-                <property name="category">Unformatted</property>
-            </structure>
-        </scalar-parameter>
     </parameters>
     <data-sources>
         <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="10">
@@ -625,6 +603,30 @@ left join gst_country as shippingCountry on shippingAdd.country = shippingCountr
 where invoice.id =?;]]></xml-property>
         </oda-data-set>
         <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="invoiceLine" id="16">
+            <list-property name="computedColumns">
+                <structure>
+                    <property name="name">totalQty</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value">row["qty"]</expression>
+                        </structure>
+                    </list-property>
+                </structure>
+                <structure>
+                    <property name="name">totalPrice</property>
+                    <property name="dataType">float</property>
+                    <property name="aggregateFunction">SUM</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                            <expression name="value">row["price"]</expression>
+                        </structure>
+                    </list-property>
+                </structure>
+            </list-property>
             <list-property name="columnHints">
                 <structure>
                     <property name="columnName">item</property>
@@ -728,6 +730,16 @@ where invoice.id =?;]]></xml-property>
                         <property name="position">8</property>
                         <property name="name">gross_amount</property>
                         <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">totalQty</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">totalPrice</property>
+                        <property name="dataType">float</property>
                     </structure>
                 </list-property>
             </structure>
@@ -1285,7 +1297,8 @@ INVOICE
 </B>]]></text-property>
         </text>
         <grid id="17">
-            <property name="height">4.833333333333333in</property>
+            <property name="fontSize">10pt</property>
+            <property name="height">7.229166666666667in</property>
             <property name="width">7.979166666666667in</property>
             <list-property name="boundDataColumns">
                 <structure>
@@ -1299,7 +1312,7 @@ INVOICE
                 <property name="width">1.03125in</property>
             </column>
             <column id="19">
-                <property name="width">1in</property>
+                <property name="width">0.9895833333333334in</property>
             </column>
             <column id="20">
                 <property name="width">1in</property>
@@ -1443,7 +1456,7 @@ row["invoicestate"] + " " +row["invoicecountry"]</expression>
                 <cell id="43"/>
             </row>
             <row id="44">
-                <property name="height">2.125in</property>
+                <property name="height">3.7083333333333335in</property>
                 <cell id="45">
                     <list id="75">
                         <property name="dataSet">invoiceLine</property>
@@ -1468,6 +1481,14 @@ Item
                                 <property name="resultSetColumn">item</property>
                             </data>
                         </detail>
+                        <footer>
+                            <text id="91">
+                                <property name="contentType">html</property>
+                                <text-property name="content"><![CDATA[<B>
+Total
+</B>]]></text-property>
+                            </text>
+                        </footer>
                     </list>
                 </cell>
                 <cell id="46">
@@ -1522,6 +1543,11 @@ Item
                                 <expression name="expression" type="javascript">dataSetRow["gross_amount"]</expression>
                                 <property name="dataType">decimal</property>
                             </structure>
+                            <structure>
+                                <property name="name">totalQty</property>
+                                <expression name="expression" type="javascript">dataSetRow["totalQty"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
                         </list-property>
                         <header>
                             <text id="68">
@@ -1536,6 +1562,22 @@ Qty
                                 <property name="resultSetColumn">qty</property>
                             </data>
                         </detail>
+                        <footer>
+                            <text-data id="92">
+                                <property name="fontSize">10pt</property>
+                                <property name="dataSet">invoiceLine</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">item</property>
+                                        <text-property name="displayName">item</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["item"]</expression>
+                                        <property name="dataType">string</property>
+                                    </structure>
+                                </list-property>
+                                <expression name="valueExpr">row._outer["totalQty"]</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </footer>
                     </list>
                 </cell>
                 <cell id="47">
@@ -1547,6 +1589,51 @@ Qty
                                 <text-property name="displayName">price</text-property>
                                 <expression name="expression" type="javascript">dataSetRow["price"]</expression>
                                 <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">item</property>
+                                <expression name="expression" type="javascript">dataSetRow["item"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">qty</property>
+                                <expression name="expression" type="javascript">dataSetRow["qty"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">net_amount</property>
+                                <expression name="expression" type="javascript">dataSetRow["net_amount"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">igst</property>
+                                <expression name="expression" type="javascript">dataSetRow["igst"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">sgst</property>
+                                <expression name="expression" type="javascript">dataSetRow["sgst"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">cgst</property>
+                                <expression name="expression" type="javascript">dataSetRow["cgst"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">gross_amount</property>
+                                <expression name="expression" type="javascript">dataSetRow["gross_amount"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">totalQty</property>
+                                <expression name="expression" type="javascript">dataSetRow["totalQty"]</expression>
+                                <property name="dataType">float</property>
+                            </structure>
+                            <structure>
+                                <property name="name">totalPrice</property>
+                                <expression name="expression" type="javascript">dataSetRow["totalPrice"]</expression>
+                                <property name="dataType">float</property>
                             </structure>
                         </list-property>
                         <header>
@@ -1562,6 +1649,12 @@ Price
                                 <property name="resultSetColumn">price</property>
                             </data>
                         </detail>
+                        <footer>
+                            <text-data id="101">
+                                <expression name="valueExpr">row["totalPrice"]</expression>
+                                <property name="contentType">html</property>
+                            </text-data>
+                        </footer>
                     </list>
                 </cell>
                 <cell id="48">
@@ -1588,6 +1681,20 @@ Net Amount
                                 <property name="resultSetColumn">net_amount</property>
                             </data>
                         </detail>
+                        <footer>
+                            <data id="96">
+                                <property name="dataSet">invoiceDetails</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">net_amount</property>
+                                        <text-property name="displayName">net_amount</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["net_amount"]</expression>
+                                        <property name="dataType">decimal</property>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">net_amount</property>
+                            </data>
+                        </footer>
                     </list>
                 </cell>
                 <cell id="49">
@@ -1614,6 +1721,20 @@ IGST
                                 <property name="resultSetColumn">igst</property>
                             </data>
                         </detail>
+                        <footer>
+                            <data id="97">
+                                <property name="dataSet">invoiceDetails</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">net_igst</property>
+                                        <text-property name="displayName">net_igst</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["net_igst"]</expression>
+                                        <property name="dataType">decimal</property>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">net_igst</property>
+                            </data>
+                        </footer>
                     </list>
                 </cell>
                 <cell id="50">
@@ -1640,6 +1761,20 @@ SGST
                                 <property name="resultSetColumn">sgst</property>
                             </data>
                         </detail>
+                        <footer>
+                            <data id="98">
+                                <property name="dataSet">invoiceDetails</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">net_sgst</property>
+                                        <text-property name="displayName">net_sgst</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["net_sgst"]</expression>
+                                        <property name="dataType">decimal</property>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">net_sgst</property>
+                            </data>
+                        </footer>
                     </list>
                 </cell>
                 <cell id="51">
@@ -1666,6 +1801,20 @@ CGST
                                 <property name="resultSetColumn">cgst</property>
                             </data>
                         </detail>
+                        <footer>
+                            <data id="99">
+                                <property name="dataSet">invoiceDetails</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">net_csgt</property>
+                                        <text-property name="displayName">net_csgt</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["net_csgt"]</expression>
+                                        <property name="dataType">decimal</property>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">net_csgt</property>
+                            </data>
+                        </footer>
                     </list>
                 </cell>
                 <cell id="52">
@@ -1692,110 +1841,33 @@ Gross Amount
                                 <property name="resultSetColumn">gross_amount</property>
                             </data>
                         </detail>
+                        <footer>
+                            <data id="100">
+                                <property name="dataSet">invoiceDetails</property>
+                                <list-property name="boundDataColumns">
+                                    <structure>
+                                        <property name="name">gross_amount</property>
+                                        <text-property name="displayName">gross_amount</text-property>
+                                        <expression name="expression" type="javascript">dataSetRow["gross_amount"]</expression>
+                                        <property name="dataType">decimal</property>
+                                    </structure>
+                                </list-property>
+                                <property name="resultSetColumn">gross_amount</property>
+                            </data>
+                        </footer>
                     </list>
                 </cell>
             </row>
             <row id="53">
-                <property name="height">0.90625in</property>
-                <cell id="54">
-                    <text id="91">
-                        <property name="contentType">html</property>
-                        <text-property name="content"><![CDATA[<B>
-Total
-</B>]]></text-property>
-                    </text>
-                </cell>
-                <cell id="55">
-                    <text-data id="92">
-                        <property name="dataSet">invoiceLine</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">item</property>
-                                <text-property name="displayName">item</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["item"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                        </list-property>
-                        <expression name="valueExpr">params["totalQty"].value</expression>
-                        <property name="contentType">html</property>
-                    </text-data>
-                </cell>
-                <cell id="56">
-                    <text-data id="101">
-                        <expression name="valueExpr">params["totalPrice"].value</expression>
-                        <property name="contentType">html</property>
-                    </text-data>
-                </cell>
-                <cell id="57">
-                    <data id="96">
-                        <property name="dataSet">invoiceDetails</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">net_amount</property>
-                                <text-property name="displayName">net_amount</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["net_amount"]</expression>
-                                <property name="dataType">decimal</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">net_amount</property>
-                    </data>
-                </cell>
-                <cell id="58">
-                    <data id="97">
-                        <property name="dataSet">invoiceDetails</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">net_igst</property>
-                                <text-property name="displayName">net_igst</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["net_igst"]</expression>
-                                <property name="dataType">decimal</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">net_igst</property>
-                    </data>
-                </cell>
-                <cell id="59">
-                    <data id="98">
-                        <property name="dataSet">invoiceDetails</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">net_sgst</property>
-                                <text-property name="displayName">net_sgst</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["net_sgst"]</expression>
-                                <property name="dataType">decimal</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">net_sgst</property>
-                    </data>
-                </cell>
-                <cell id="60">
-                    <data id="99">
-                        <property name="dataSet">invoiceDetails</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">net_csgt</property>
-                                <text-property name="displayName">net_csgt</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["net_csgt"]</expression>
-                                <property name="dataType">decimal</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">net_csgt</property>
-                    </data>
-                </cell>
-                <cell id="61">
-                    <data id="100">
-                        <property name="dataSet">invoiceDetails</property>
-                        <list-property name="boundDataColumns">
-                            <structure>
-                                <property name="name">gross_amount</property>
-                                <text-property name="displayName">gross_amount</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["gross_amount"]</expression>
-                                <property name="dataType">decimal</property>
-                            </structure>
-                        </list-property>
-                        <property name="resultSetColumn">gross_amount</property>
-                    </data>
-                </cell>
+                <property name="height">1.71875in</property>
+                <cell id="54"/>
+                <cell id="55"/>
+                <cell id="56"/>
+                <cell id="57"/>
+                <cell id="58"/>
+                <cell id="59"/>
+                <cell id="60"/>
+                <cell id="61"/>
             </row>
         </grid>
     </body>
