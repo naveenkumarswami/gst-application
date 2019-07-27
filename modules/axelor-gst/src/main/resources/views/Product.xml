@@ -4,10 +4,9 @@
 
   <grid name="product-grid" title="product List" model="com.axelor.gst.db.Product">
     <toolbar>
-      <button name="createInvoice" title="Create Invoice"
-        onClick="action-popup-for-party-invoice-form" />
+      <button name="createInvoice" title="Create Invoice" onClick="action-for-party-popup" />
       <button name="print" title="print Product"
-        onClick="createInvoice-on-click,action-image-parth-get,action-report-print-product-Inovoice-on-click" />
+        onClick="createInvoice-on-click,action-image-path-get,action-report-print-product-Inovoice-on-click" />
     </toolbar>
 
     <field name="name" />
@@ -50,26 +49,15 @@
     ]]></template>
   </cards>
 
-  <action-view name="action-popup-for-party-invoice-form" title="party-popup" model="com.axelor.gst.db.Invoice">
-    <view type="form" name="invoice-form-popup-party" />
-    <view-param name="popup" value="true"/>
-    <view-param name="show-toolbar" value="false"/>
-    <view-param name="show-confirm" value="false"/>
-    <view-param name="popup-save" value="false"/>
-    <context name="_showRecord" expr="eval: _ids"/>
-  </action-view>
-  
-  <!-- <action-view name="action-product-task-template-view-task" title="Tasks"
-    model="com.axelor.apps.businessproject.db.ProductTaskTemplate">
-    <view type="form" name="product-task-template-form"/>
-    
-  </action-view> -->
+
+  <!-- <action-view name="action-product-task-template-view-task" title="Tasks" model="com.axelor.apps.businessproject.db.ProductTaskTemplate"> 
+    <view type="form" name="product-task-template-form"/> </action-view> -->
 
   <action-method name="createInvoice-on-click">
     <call class="com.axelor.gst.web.ProductController" method="createInvoice" />
   </action-method>
 
-  <action-method name="action-image-parth-get">
+  <action-method name="action-image-path-get">
     <call class="com.axelor.gst.web.ProductController" method="getDynamicImagePath" />
   </action-method>
 
@@ -83,4 +71,13 @@
     <attribute name="value" for="gstRate" expr="eval: category.gstRate" />
   </action-attrs>
 
+  <action-view name="action-for-party-popup" title="Party Popup" model="com.axelor.gst.db.Party">
+    <view type="form" name="party-form-popup" />
+    <view-param name="popup" value="true" />
+    <view-param name="show-toolbar" value="false" />
+    <view-param name="show-confirm" value="false" />
+    <view-param name="popup-save" value="false" />
+    <context name="showRecord" expr="eval: _ids" />
+  </action-view>
+    
 </object-views>

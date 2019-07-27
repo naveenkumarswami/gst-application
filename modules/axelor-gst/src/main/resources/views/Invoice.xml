@@ -148,8 +148,13 @@
   </action-method>
 
   <action-attrs name="action-check-selected-products">
-    <attribute name="value" for="invoiceItemsList" expr="eval: selectedIds" />
+    <attribute name="value" for="invoiceItemsList" expr="eval: SelectProductIds" />
     <attribute name="value" for="party" expr="eval: party_name"/>
   </action-attrs>
+  
+   <action-method name="create-selected-invoice-on-click">
+    <call class="com.axelor.gst.web.ProductController" method="getSelectedProduct" />
+  </action-method>
+  
 
 </object-views>

@@ -102,17 +102,6 @@
     <series key="number" groupBy="status" type="line" />
   </chart>
 
-  <chart name="chart-invoice-per-status-number-of-invoice" title="Invoice Per Status For Number Of Invoice">
-    <dataset type="sql">
-    <![CDATA[
-  select count(self.id) as number , self.status as status from gst_invoice as self group by status;
-    ]]>
-    </dataset>
-
-    <category key="status" type="text" />
-    <series key="number" groupBy="status" type="line" />
-  </chart>
-
   <action-attrs name="actino-date-time-set-defalut">
     <attribute name="value" for="toDateTime" expr="eval: __datetime__" />
     <attribute name="value" for="fromDateTime" expr="eval:__date__.withDayOfMonth(1)" />
