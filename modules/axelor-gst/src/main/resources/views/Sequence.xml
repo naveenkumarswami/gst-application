@@ -9,7 +9,7 @@
     <field name="nextNumber"></field>
   </grid>
 
-  <form name="sequence-form" title="Sequence" cols="2" model="com.axelor.gst.db.Sequence" onSave="action-sequence-genrate-auto">
+  <form name="sequence-form" title="Sequence" cols="2" model="com.axelor.gst.db.Sequence" >
     <panel title="Overview">
       <field name="prefix" />
       <field name="suffix"></field>
@@ -19,8 +19,4 @@
     </panel>
   </form>
   
-   <action-method name="action-sequence-genrate-auto">
-   <call class="com.axelor.gst.web.SequenceController" method="getSequence"/>
-   </action-method>
-
 </object-views>

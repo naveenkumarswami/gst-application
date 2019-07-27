@@ -50,10 +50,6 @@
     ]]></template>
   </cards>
 
-  <action-method name="create-selected-invoice-on-click">
-    <call class="com.axelor.gst.web.ProductController" method="getSelectedProduct" />
-  </action-method>
-
   <action-view name="action-popup-for-party-invoice-form" title="party-popup" model="com.axelor.gst.db.Invoice">
     <view type="form" name="invoice-form-popup-party" />
     <view-param name="popup" value="true"/>

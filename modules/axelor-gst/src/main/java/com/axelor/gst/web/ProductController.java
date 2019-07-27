@@ -7,6 +7,7 @@ import com.axelor.gst.db.InvoiceLine;
 import com.axelor.gst.service.ProductService;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
+import com.axelor.rpc.Context;
 
 public class ProductController {
   
@@ -15,11 +16,18 @@ public class ProductController {
   @SuppressWarnings("unchecked")
   public void getSelectedProduct(ActionRequest request, ActionResponse response) {
    response.setCanClose(true);
-    if (request.getContext().get("_ids") == null) {
+   
+   System.out.println(request.getContext().get("_showRecord"));
+   
+    if (request.getContext().get("_showRecord") == null) {
+      System.out.println(request.getContext().get("_showRecord")); 
       return;
     }
 
-    List<Integer> requestIds = (List<Integer>) request.getContext().get("_ids");
+    List<Integer> requestIds = (List<Integer>) request.getContext().get("_showRecord");
+    
+    System.out.println(request.getContext().get("_showRecord") ); 
+    
     List<InvoiceLine> invoiceLineList =service.putSelectedProduct(requestIds);
     request.getContext().put("totalSelectedProduct", invoiceLineList);
   }
@@ -31,7 +39,6 @@ public class ProductController {
     System.err.println(uploaddir);
     request.getContext().put("setImagePath", uploaddir);
   }
-  
   @SuppressWarnings("unchecked")
   public void createInvoice(ActionRequest request, ActionResponse response) {
 
