@@ -25,13 +25,11 @@ public class PartyMangamentRepository extends PartyRepository {
     } catch (Exception e) {
       System.err.println(e.getStackTrace()); 
     }
-
     return json;
   }
   
   @Override
-  public Party save(Party party){
-    
+  public Party save(Party party){    
     String getNextNumber = service.setReference("Party", party.getReference());
     if (getNextNumber != null) 
     {

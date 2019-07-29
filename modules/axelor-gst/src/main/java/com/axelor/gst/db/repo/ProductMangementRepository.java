@@ -19,7 +19,6 @@ public class ProductMangementRepository extends ProductRepository {
     } catch (Exception e) {
       System.err.println(e.getStackTrace()); 
     }
-
     return json;
   }
   

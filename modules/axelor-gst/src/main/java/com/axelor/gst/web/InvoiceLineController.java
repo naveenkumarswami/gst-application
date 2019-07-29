@@ -18,8 +18,10 @@ public class InvoiceLineController {
     InvoiceLine invoiceLine = request.getContext().asType(InvoiceLine.class);   
     Invoice invoice = request.getContext().getParent().asType(Invoice.class); 
     Map<Integer, BigDecimal> allRate = service.getIgstAndSgstAndCgst(invoice, invoiceLine);
+    response.setValue("netAmount", allRate.get(3));
     response.setValue("igst", allRate.get(1));
-    request.getContext().put("igstvalue", allRate.get(2));
-    request.getContext().put("sGSTandCgst", allRate.get(2)); 
+    response.setValue("sgst", allRate.get(2));
+    response.setValue("cgst", allRate.get(2));
+    response.setValue("grossAmount", allRate.get(4));
   }  
 }

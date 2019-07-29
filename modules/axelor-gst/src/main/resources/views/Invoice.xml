@@ -135,9 +135,6 @@
     <call class="com.axelor.gst.web.InvoiceController" method="getDefaultCompany" />
   </action-method>
 
-  <!-- <action-method name="action-company-address"> <call class="com.axelor.gst.web.GstController" method="getCompanyAddress" 
-    /> </action-method> -->
-
   <action-report output="invoice-${date}-${time}" name="action-report-invoice-print-invoice"
     design="invoice.rptdesign">
     <param name="invoiceId" expr="eval: id" />

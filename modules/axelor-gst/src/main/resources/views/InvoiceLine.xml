@@ -20,8 +20,8 @@
       <field name="product" onChange="action-invoice-line-item,action-invoice-line-gstRate"></field>
       <field name="hsbn" />
       <field name="item"></field>
-      <field name="qty" onChange="action-invoice-line-netAmount,action-invoice-line-igst-sgst-cgst-value"></field>
-      <field name="price" onChange="action-invoice-line-netAmount,action-invoice-line-igst-sgst-cgst-value"></field>
+      <field name="qty" onChange="action-gstController-caluclate-igst-cgst-sgst-vlaue"></field>
+      <field name="price" onChange="action-gstController-caluclate-igst-cgst-sgst-vlaue"></field>
       <field name="netAmount" ></field>
       <field name="gstRate" ></field>
       <field name="igst"></field>
@@ -35,36 +35,12 @@
     <attribute name="value" for="item" expr="eval: '['+product.code+']'+product.name" />
   </action-attrs>
 
-  <action-attrs name="action-invoice-line-netAmount">
-    <attribute name="value" for="netAmount" expr="eval: qty*price" />
-  </action-attrs>
-
   <action-attrs name="action-invoice-line-gstRate">
     <attribute name="value" for="gstRate" expr="eval: product.gstRate" />
   </action-attrs>
-
+  
   <action-method name="action-gstController-caluclate-igst-cgst-sgst-vlaue">
     <call class="com.axelor.gst.web.InvoiceLineController" method="getCompanyAndInvoiceState" />
   </action-method>
-
- <!--  <action-attrs name="action-invoice-line-igst-if-diff-invoice-and-company">
-    <attribute name="vlaue" for="igst" expr="eval: igstvalue" />
-  </action-attrs>
- -->
-  <action-attrs name="action-invoice-line-sgst-cgst-if-diff-invoice-and-company">
-    <attribute name="value" for="sgst" expr="eval: sGSTandCgst" />
-    <attribute name="value" for="cgst" expr="eval: sGSTandCgst" />
-  </action-attrs>
-
-  <action-attrs name="action-invoice-line-grossAmount">
-    <attribute name="value" for="grossAmount" expr="eval: +netAmount+igst+sgst+cgst" />
-  </action-attrs>
-
-  <action-group name="action-invoice-line-igst-sgst-cgst-value">
-    <action name="action-gstController-caluclate-igst-cgst-sgst-vlaue" />
-<!--     <action name="action-invoice-line-igst-if-diff-invoice-and-company"/> -->
-    <action name="action-invoice-line-sgst-cgst-if-diff-invoice-and-company"/>
-    <action name="action-invoice-line-grossAmount" />
-  </action-group>
 
 </object-views>
