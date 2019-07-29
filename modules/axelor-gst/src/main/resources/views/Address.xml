@@ -15,11 +15,16 @@
     <field name="type" />
     <field name="line1" />
     <field name="line2" />
-    <field name="city" />
+    <field name="city" onChange="action-for-auto-select-state-country"/>
     <field name="state" />
     <field name="country"/>
     <field name="pinCode" />
     </panel>
   </form>
+  
+  <action-attrs name="action-for-auto-select-state-country">
+  <attribute name="value" for="state" expr="eval: city.state"/>
+  <attribute name="value" for="country" expr="eval: city.country"/>
+  </action-attrs>
 
 </object-views>

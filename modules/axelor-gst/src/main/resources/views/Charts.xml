@@ -102,7 +102,7 @@
     <series key="number" groupBy="status" type="line" />
   </chart>
 
-  <action-attrs name="actino-date-time-set-defalut">
+  <action-attrs name="action-date-time-set-defalut">
     <attribute name="value" for="toDateTime" expr="eval: __datetime__" />
     <attribute name="value" for="fromDateTime" expr="eval:__date__.withDayOfMonth(1)" />
   </action-attrs>

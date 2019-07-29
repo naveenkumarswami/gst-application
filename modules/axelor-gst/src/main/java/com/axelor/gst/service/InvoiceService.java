@@ -9,11 +9,10 @@ import com.axelor.gst.db.Invoice;
 
 public interface InvoiceService {
   
-  public Company setDefalutComany(Invoice invoice);
+  public Company setDefaultComany(Invoice invoice);
   public Contact getContact(Invoice invoice);
   public Address getInvoiceAddress(Invoice invoice);
   public Address getShippingAddress(Invoice invoice);
-  public String setReferenceInvoice(Invoice invoice);
   public Map<Integer, BigDecimal> calculateRates(Invoice invoice);
   
 }

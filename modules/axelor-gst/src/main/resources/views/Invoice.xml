@@ -16,7 +16,7 @@
   </grid>
 
   <form name="invoice-form" title="Invoice" cols="2" model="com.axelor.gst.db.Invoice"
-    onNew="current-date-on-new,action-defalut-company-select,action-check-selected-products" onSave="action-invoice-sequence-get">
+    onNew="current-date-on-new,action-defalut-company-select,action-check-selected-products,action-group-for-default-value-select-after-party-select" onSave="action-invoice-sequence-get">
 
     <toolbar>
       <button name="reportButton" title="Print" showTitle="false" showIf="id"
@@ -38,14 +38,14 @@
         onClick="action-attr-for-status-cancelled-change" />
     </panel>
 
-    <panel title="Invoice" readonlyIf="status == 'Validated' || status == 'Cancelled' || status == 'Paid'">
+    <panel title="Invoice" readonlyIf="status == 'Validated' || status == 'Cancelled' || status == 'Paid'" >
       <field name="company"></field>
       <field name="reference"></field>
       <field name="dateT"></field>
       <field name="priority"></field>
       <field name="party" onChange="action-group-for-default-value-select-after-party-select"></field>
       <field name="partyContact"></field>
-      <field name="invoiceAddress"></field>
+      <field name="invoiceAddress" ></field>
       <field name="shippingAddress"></field>
       <field name="isUseInvocieAddressAsShipping" onChange="action-group-for-default-value-select-after-party-select"></field>
       <field name="netAmount"></field>
@@ -132,7 +132,7 @@
   </action-group>
 
   <action-method name="action-defalut-company-select">
-    <call class="com.axelor.gst.web.InvoiceController" method="getDefalutCompany" />
+    <call class="com.axelor.gst.web.InvoiceController" method="setDefaultComany" />
   </action-method>
 
   <!-- <action-method name="action-company-address"> <call class="com.axelor.gst.web.GstController" method="getCompanyAddress" 

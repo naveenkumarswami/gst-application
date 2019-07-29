@@ -81,43 +81,10 @@ public class InvoiceServiceImpl implements InvoiceService {
   }
 
   @Override
-  public Company setDefalutComany(Invoice invoice) {
+  public Company setDefaultComany(Invoice invoice) {
 
     Company company = companyRepository.all().fetchOne();
     return company;
-  }
-
-  @Override
-  @Transactional
-  public String setReferenceInvoice(Invoice invoice) {
-    Sequence sequence = sequenceRepository.all().filter("self.model.name = 'Invoice'").fetchOne();
-
-    if (sequence != null) {
-
-      String prifix = sequence.getPrefix();
-      String suffix = sequence.getSuffix();
-      String oldnextNumber = sequence.getNextNumber();
-      String[] count = oldnextNumber.split(prifix);
-      String[] myNumber = count[1].split(suffix);
-
-      if (invoice.getReference() == null) {
-
-        int middlePadding = Integer.parseInt(1 + myNumber[0]) + 1;
-        String newNumber = Integer.toString(middlePadding).substring(1);
-        String newnextNumber = null;
-        newnextNumber = prifix + newNumber + suffix;
-
-        sequence.setNextNumber(newnextNumber);
-        sequenceRepository.save(sequence);
-        return oldnextNumber;
-      } else {
-
-        int middlePadding = Integer.parseInt(1 + myNumber[0]) - 1;
-        String newNumber = Integer.toString(middlePadding).substring(1);
-
-        return prifix + newNumber + suffix;
-      }
-    } else return null;
   }
 
   @Override
