@@ -1,9 +1,9 @@
 package com.axelor.gst.module;
 
 import com.axelor.app.AxelorModule;
-import com.axelor.gst.db.repo.PartyMangamentRepo;
+import com.axelor.gst.db.repo.PartyMangamentRepository;
 import com.axelor.gst.db.repo.PartyRepository;
-import com.axelor.gst.db.repo.ProductMangementRepo;
+import com.axelor.gst.db.repo.ProductMangementRepository;
 import com.axelor.gst.db.repo.ProductRepository;
 import com.axelor.gst.db.repo.SequenceMangamentRepository;
 import com.axelor.gst.db.repo.SequenceRepository;
@@ -25,8 +25,8 @@ public class GstModules extends AxelorModule {
     bind(ProductService.class).to(ProductServiceImpl.class);
     bind(SequenceService.class).to(SequenceServiceImpl.class);
     bind(SequenceRepository.class).to(SequenceMangamentRepository.class);
-    bind(PartyRepository.class).to(PartyMangamentRepo.class);
-    bind(ProductRepository.class).to(ProductMangementRepo.class);
+    bind(PartyRepository.class).to(PartyMangamentRepository.class);
+    bind(ProductRepository.class).to(ProductMangementRepository.class);
   }
   
 }

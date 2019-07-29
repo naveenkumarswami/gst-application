@@ -1,50 +1,41 @@
 package com.axelor.gst.service;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
 
 public class InvoiceLineServiceImpl implements InvoiceLineService {
-  
-  @Override
-  public BigDecimal getIgst(Invoice invoice, InvoiceLine invoiceLine) {
 
+  @Override
+  public Map<Integer, BigDecimal> getIgstAndSgstAndCgst(Invoice invoice, InvoiceLine invoiceLine) {
+ Map<Integer, BigDecimal> allRate = new HashMap<>(); 
     try {
       String companyState = invoice.getCompany().getAddress().getState().getName();
       String invoiceState = invoice.getInvoiceAddress().getState().getName();
       BigDecimal netAmount = invoiceLine.getNetAmount();
       BigDecimal gstRate = invoiceLine.getGstRate();
-      BigDecimal igst = new BigDecimal(0);
+      BigDecimal sgst=BigDecimal.ZERO,igst = BigDecimal.ZERO;
 
       if (!invoiceState.equals(companyState)) {
         igst = netAmount.multiply(gstRate).divide(new BigDecimal(100));        
-        return igst;
+        allRate.put(1, igst);
+        allRate.put(2, BigDecimal.ZERO);
       }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return new BigDecimal(0);
-  }
-
-  @Override
-  public BigDecimal getSgstAndCgst(Invoice invoice, InvoiceLine invoiceLine) {
-
-    try {
-      String companyState = invoice.getCompany().getAddress().getState().getName();
-      String invoiceState = invoice.getInvoiceAddress().getState().getName();
-      BigDecimal netAmount = invoiceLine.getNetAmount();
-      BigDecimal gstRate = invoiceLine.getGstRate();
-
-      BigDecimal sgst = BigDecimal.ZERO;
-
-      if (invoiceState.equals(companyState)) {
+      else if (invoiceState.equals(companyState)) {
         sgst = netAmount.multiply(gstRate.divide(new BigDecimal(2)).divide(new BigDecimal(100)));
-        return sgst;
+        allRate.put(1, BigDecimal.ZERO);
+        allRate.put(2, sgst);
+      }
+      else
+      {
+        allRate.put(1, BigDecimal.ZERO);
+        allRate.put(2, BigDecimal.ZERO);
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return BigDecimal.ZERO;
+    return allRate;
   }
-  
 }

@@ -1,6 +1,7 @@
 package com.axelor.gst.web;
 
 import java.math.BigDecimal;
+import java.util.Map;
 import javax.inject.Inject;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
@@ -16,11 +17,10 @@ public class InvoiceLineController {
 
     InvoiceLine invoiceLine = request.getContext().asType(InvoiceLine.class);   
     Invoice invoice = request.getContext().getParent().asType(Invoice.class); 
-    BigDecimal setIGST = service.getIgst(invoice, invoiceLine); 
-    BigDecimal setSGSTAndCGST = service.getSgstAndCgst(invoice, invoiceLine);
-    response.setValue("igst", setIGST);
-    request.getContext().put("igstvalue", setIGST);
-    request.getContext().put("sGSTandCgst", setSGSTAndCGST); 
+    Map<Integer, BigDecimal> allRate = service.getIgstAndSgstAndCgst(invoice, invoiceLine);
+    response.setValue("igst", allRate.get(1));
+    request.getContext().put("igstvalue", allRate.get(2));
+    request.getContext().put("sGSTandCgst", allRate.get(2)); 
   }
   
 
