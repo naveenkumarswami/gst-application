@@ -32,6 +32,9 @@ public class SequenceServiceImpl implements SequenceService {
   @Transactional
   public String setReference(String modelName , String Reference) {
 
+    System.out.println("welcome" ); 
+    System.out.println(modelName  + "  "+ Reference); 
+    
     Sequence sequence = sequenceRepository.all().filter("self.model.name = '"+modelName+"'").fetchOne();
 
     if (sequence != null) {
@@ -51,6 +54,7 @@ public class SequenceServiceImpl implements SequenceService {
 
         sequence.setNextNumber(newnextNumber);
         sequenceRepository.save(sequence);
+        System.out.println("welcome" ); 
         return oldnextNumber;
       } else {
         

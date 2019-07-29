@@ -43,9 +43,9 @@ public class InvoiceController {
     }
   }
   
-  public void getDefalutCompany(ActionRequest request, ActionResponse response) {
+  public void getDefaultCompany(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
-    Company company = service.setDefaultComany(invoice);
+    Company company = service.setDefaultCompany(invoice);
     response.setValue("company", company);
   }
 

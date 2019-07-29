@@ -132,7 +132,7 @@
   </action-group>
 
   <action-method name="action-defalut-company-select">
-    <call class="com.axelor.gst.web.InvoiceController" method="setDefaultComany" />
+    <call class="com.axelor.gst.web.InvoiceController" method="getDefaultCompany" />
   </action-method>
 
   <!-- <action-method name="action-company-address"> <call class="com.axelor.gst.web.GstController" method="getCompanyAddress" 

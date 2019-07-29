@@ -27,7 +27,6 @@ public class GstModules extends AxelorModule {
     bind(SequenceRepository.class).to(SequenceMangamentRepository.class);
     bind(PartyRepository.class).to(PartyMangamentRepo.class);
     bind(ProductRepository.class).to(ProductMangementRepo.class);
-    
   }
   
 }

@@ -81,7 +81,7 @@ public class InvoiceServiceImpl implements InvoiceService {
   }
 
   @Override
-  public Company setDefaultComany(Invoice invoice) {
+  public Company setDefaultCompany(Invoice invoice) {
 
     Company company = companyRepository.all().fetchOne();
     return company;

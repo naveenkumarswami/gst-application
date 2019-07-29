@@ -9,7 +9,7 @@ import com.axelor.gst.db.Invoice;
 
 public interface InvoiceService {
   
-  public Company setDefaultComany(Invoice invoice);
+  public Company setDefaultCompany(Invoice invoice);
   public Contact getContact(Invoice invoice);
   public Address getInvoiceAddress(Invoice invoice);
   public Address getShippingAddress(Invoice invoice);
