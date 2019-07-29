@@ -16,7 +16,8 @@
   </grid>
 
   <form name="invoice-form" title="Invoice" cols="2" model="com.axelor.gst.db.Invoice"
-    onNew="current-date-on-new,action-defalut-company-select,action-check-selected-products,action-group-for-default-value-select-after-party-select" onSave="action-invoice-sequence-get">
+    onNew="current-date-on-new,action-defalut-company-select,action-check-selected-products,action-group-for-default-value-select-after-party-select,action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list"
+    onSave="action-invoice-sequence-get">
 
     <toolbar>
       <button name="reportButton" title="Print" showTitle="false" showIf="id"
@@ -38,12 +39,13 @@
         onClick="action-attr-for-status-cancelled-change" />
     </panel>
 
-    <panel title="Invoice" readonlyIf="status == 'Validated' || status == 'Cancelled' || status == 'Paid'" >
-      <field name="company" onChange="action-on-click-company-invoice-line-change"></field>
+    <panel title="Invoice" readonlyIf="status == 'Validated' || status == 'Cancelled' || status == 'Paid'">
+      <field name="company" onChange="action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list"></field>
       <field name="reference"></field>
       <field name="dateT"></field>
       <field name="priority"></field>
-      <field name="party" onChange="action-group-for-default-value-select-after-party-select"></field>
+      <field name="party"
+        onChange="action-group-for-default-value-select-after-party-select,action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list"></field>
       <field name="partyContact"></field>
       <field name="invoiceAddress"></field>
       <field name="shippingAddress"></field>
@@ -60,7 +62,7 @@
 
   <kanban name="invoice-kanban" title="Invoice Status" model="com.axelor.gst.db.Invoice"
     columnBy="status" sequenceBy="priority" limit="10" draggable="true">
-    <field name="company" ></field>
+    <field name="company"></field>
     <field name="reference"></field>
     <field name="dateT"></field>
     <field name="priority"></field>
@@ -146,13 +148,13 @@
 
   <action-attrs name="action-check-selected-products">
     <attribute name="value" for="invoiceItemsList" expr="eval: SelectProductIds" />
-    <attribute name="value" for="party" expr="eval: party_name"/>
+    <attribute name="value" for="party" expr="eval: party_name" />
   </action-attrs>
-  
-   <action-method name="create-selected-invoice-on-click">
+
+  <action-method name="create-selected-invoice-on-click">
     <call class="com.axelor.gst.web.ProductController" method="getSelectedProduct" />
   </action-method>
-  
+
   <action-method name="action-on-click-company-invoice-line-change">
     <call class="com.axelor.gst.web.InvoiceController" method="updateInvoiceLineList" />
   </action-method>
