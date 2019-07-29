@@ -21,8 +21,5 @@ public class InvoiceLineController {
     response.setValue("igst", allRate.get(1));
     request.getContext().put("igstvalue", allRate.get(2));
     request.getContext().put("sGSTandCgst", allRate.get(2)); 
-  }
-  
-
-  
+  }  
 }

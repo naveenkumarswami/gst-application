@@ -2,6 +2,7 @@ package com.axelor.gst.db.repo;
 
 import java.util.Map;
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 import com.axelor.gst.db.Party;
 import com.axelor.gst.db.repo.PartyRepository;
 import com.axelor.gst.service.SequenceService;
@@ -38,7 +39,7 @@ public class PartyMangamentRepository extends PartyRepository {
     }
     else 
     {  
-      throw new IllegalMonitorStateException("no sequence is specified for the Party");
+      throw new PersistenceException("no sequence is specified for the Party");
     }
     return super.save(party);
   }

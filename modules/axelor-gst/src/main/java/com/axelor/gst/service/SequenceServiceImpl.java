@@ -56,7 +56,6 @@ public class SequenceServiceImpl implements SequenceService {
         
         int middlePadding = Integer.parseInt(1 + myNumber[0]) - 1;
         String newNumber = Integer.toString(middlePadding).substring(1);
-       
         return prifix+newNumber+suffix;
       }
     } else return null;
