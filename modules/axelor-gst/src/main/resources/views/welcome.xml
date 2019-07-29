@@ -14,7 +14,7 @@
   <action-view name="action-grid-view-for-older-invoice" title="Older Invoice"
     model="com.axelor.gst.db.Invoice">
     <view type="grid" name="invoice-grid"/>
-    <domain>status = :status_name AND datet &lt; :dateCheck </domain>
+    <domain>self.status = :status_name AND self.datet &lt; :dateCheck </domain>
      <context name="status_name" expr="Validated"/>
      <context name="dateCheck" expr="eval: __datetime__.minusMonths(1)"/>
   </action-view>

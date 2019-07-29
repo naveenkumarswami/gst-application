@@ -40,7 +40,8 @@
     </panel>
 
     <panel title="Invoice" readonlyIf="status == 'Validated' || status == 'Cancelled' || status == 'Paid'">
-      <field name="company" onChange="action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list"></field>
+      <field name="company"
+        onChange="action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list"></field>
       <field name="reference"></field>
       <field name="dateT"></field>
       <field name="priority"></field>
