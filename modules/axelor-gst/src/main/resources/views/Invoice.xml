@@ -39,13 +39,13 @@
     </panel>
 
     <panel title="Invoice" readonlyIf="status == 'Validated' || status == 'Cancelled' || status == 'Paid'" >
-      <field name="company"></field>
+      <field name="company" onChange="action-on-click-company-invoice-line-change"></field>
       <field name="reference"></field>
       <field name="dateT"></field>
       <field name="priority"></field>
       <field name="party" onChange="action-group-for-default-value-select-after-party-select"></field>
       <field name="partyContact"></field>
-      <field name="invoiceAddress" ></field>
+      <field name="invoiceAddress"></field>
       <field name="shippingAddress"></field>
       <field name="isUseInvocieAddressAsShipping" onChange="action-group-for-default-value-select-after-party-select"></field>
       <field name="netAmount"></field>
@@ -60,7 +60,7 @@
 
   <kanban name="invoice-kanban" title="Invoice Status" model="com.axelor.gst.db.Invoice"
     columnBy="status" sequenceBy="priority" limit="10" draggable="true">
-    <field name="company"></field>
+    <field name="company" ></field>
     <field name="reference"></field>
     <field name="dateT"></field>
     <field name="priority"></field>
@@ -117,11 +117,11 @@
   </action-attrs>
 
   <action-attrs name="action-invoice-invoiceAddress-select-primary-addresss">
-    <attribute name="value" for="invoiceAddress" expr="eval: defalultinvoiceAddress" />
+    <attribute name="value" for="invoiceAddress" expr="eval: defaultinvoiceAddress" />
   </action-attrs>
 
   <action-attrs name="action-invoice-shippingAddress-select-primary-addresss">
-    <attribute name="value" for="shippingAddress" expr="eval: defalultshippingAddress" />
+    <attribute name="value" for="shippingAddress" expr="eval: defaultshippingAddress" />
   </action-attrs>
 
   <action-group name="action-group-for-default-value-select-after-party-select">
@@ -153,5 +153,8 @@
     <call class="com.axelor.gst.web.ProductController" method="getSelectedProduct" />
   </action-method>
   
+  <action-method name="action-on-click-company-invoice-line-change">
+    <call class="com.axelor.gst.web.InvoiceController" method="updateInvoiceLineList" />
+  </action-method>
 
 </object-views>

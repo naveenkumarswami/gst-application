@@ -26,23 +26,22 @@ public class InvoiceController {
     Address invocieAddress = service.getInvoiceAddress(invoice);
 
     request.getContext().put("primaryContact", contact);
-    request.getContext().put("defalultinvoiceAddress", invocieAddress);
+    request.getContext().put("defaultinvoiceAddress", invocieAddress);
     try {
-    if (invoice.getIsUseInvocieAddressAsShipping() != true || invoice.getIsUseInvocieAddressAsShipping()==null)  {
-      Address shippingAddress = service.getShippingAddress(invoice);
-      request.getContext().put("defalultshippingAddress", shippingAddress);
-    } else {
-      request.getContext().put("defalultshippingAddress", invocieAddress);
-    }
-    }
-    catch (NullPointerException e) {
-      request.getContext().put("defalultshippingAddress", invocieAddress);
-    }
-    catch (Exception e) {
+      if (invoice.getIsUseInvocieAddressAsShipping() != true
+          || invoice.getIsUseInvocieAddressAsShipping() == null) {
+        Address shippingAddress = service.getShippingAddress(invoice);
+        request.getContext().put("defaultshippingAddress", shippingAddress);
+      } else {
+        request.getContext().put("defaultshippingAddress", invocieAddress);
+      }
+    } catch (NullPointerException e) {
+      request.getContext().put("defaultshippingAddress", invocieAddress);
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
-  
+
   public void getDefaultCompany(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
     Company company = service.setDefaultCompany(invoice);
@@ -52,7 +51,7 @@ public class InvoiceController {
   public void setReferenceInvoice(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
     if (invoice.getStatus().equals("Validated")) {
-      String getNextNumber = sequenceService.setReference("Invoice",invoice.getReference());
+      String getNextNumber = sequenceService.setReference("Invoice", invoice.getReference());
       if (getNextNumber != null) {
         response.setValue("reference", getNextNumber);
       } else response.addError("reference", "no sequence is specified for the Invoice");
@@ -68,5 +67,12 @@ public class InvoiceController {
     response.setValue("netCsgt", rateSet.get(3));
     response.setValue("netSgst", rateSet.get(4));
     response.setValue("grossAmount", rateSet.get(5));
+  }
+  
+  public void updateInvoiceLineList(ActionRequest request, ActionResponse response) {
+
+    Invoice invoice = request.getContext().asType(Invoice.class); 
+    List<InvoiceLine> getInvoiceLineList = service.getInvoiceLineList(invoice);
+    response.setValue("invoiceItemsList", getInvoiceLineList);
   }
 }

@@ -2,8 +2,6 @@ package com.axelor.gst.service;
 
 
 import javax.inject.Inject;
-import com.axelor.db.Model;
-import com.axelor.gst.db.Party;
 import com.axelor.gst.db.Sequence;
 import com.axelor.gst.db.repo.SequenceRepository;
 import com.google.inject.persist.Transactional;

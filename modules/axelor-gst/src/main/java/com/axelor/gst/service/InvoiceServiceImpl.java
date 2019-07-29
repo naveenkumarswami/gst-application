@@ -1,6 +1,7 @@
 package com.axelor.gst.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,6 @@ import com.axelor.gst.db.Company;
 import com.axelor.gst.db.Contact;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
-import com.axelor.gst.db.Sequence;
 import com.axelor.gst.db.repo.CompanyRepository;
 import com.axelor.gst.db.repo.SequenceRepository;
 import com.google.inject.persist.Transactional;
@@ -19,6 +19,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
   @Inject CompanyRepository companyRepository;
   @Inject SequenceRepository sequenceRepository;
+  @Inject InvoiceLineService invoiceLineService;
 
   @Override
   @Transactional
@@ -121,5 +122,26 @@ public class InvoiceServiceImpl implements InvoiceService {
     rateSet.put(5, grossAmount);
 
     return rateSet;
+  }
+
+  @Override
+  public List<InvoiceLine> getInvoiceLineList(Invoice invoice) {
+    
+    List<InvoiceLine> invoiceLineList = invoice.getInvoiceItemsList();
+    
+    List<InvoiceLine> updateInvoiceLineList = new ArrayList<InvoiceLine>();
+    
+    for(InvoiceLine line : invoiceLineList)
+    {
+      Map<Integer, BigDecimal> allRate =invoiceLineService.getIgstAndSgstAndCgst(invoice, line);
+       line.setNetAmount(allRate.get(3));
+       line.setIgst(allRate.get(1));
+       line.setSgst(allRate.get(2));
+       line.setCgst(allRate.get(2));
+       line.setGrossAmount(allRate.get(4));
+       updateInvoiceLineList.add(line);
+    }
+       
+    return updateInvoiceLineList;
   }
 }
