@@ -60,15 +60,15 @@ public class InvoiceController {
 
   public void setAllValues(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
-    Map<Integer, BigDecimal> rateSet = service.calculateRates(invoice);
+    Invoice rateSet = service.calculateRates(invoice);
     
     try {
     
-    response.setValue("netAmount", rateSet.get(1));
-    response.setValue("netIgst", rateSet.get(2));
-    response.setValue("netCsgt", rateSet.get(3));
-    response.setValue("netSgst", rateSet.get(4));
-    response.setValue("grossAmount", rateSet.get(5));
+    response.setValue("netAmount", rateSet.getNetAmount());
+    response.setValue("netIgst", rateSet.getNetIgst());
+    response.setValue("netCsgt", rateSet.getNetCsgt());
+    response.setValue("netSgst", rateSet.getNetSgst());
+    response.setValue("grossAmount", rateSet.getGrossAmount());
   }catch (Exception e) {
     e.printStackTrace();
   }

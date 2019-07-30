@@ -67,21 +67,20 @@
     <dataset type="jpql">
     <![CDATA[
   select count(self.id) as customer , 
-  select as state_name 
+  add.state.name as state_name 
   from 
-  Party as self  
-  left join Address as add on add.id = any (select party1.addressList from Party where  )  
- right join State as state on add.state = state.id 
- where self.isCustomer = true
- group by state.name
-    ]]>
+  Party as self,
+  Address as add,
+  State as state  
+ right join State as state on add.state = state 
+ where self.isCustomer = true AND
+ add IN self.addressList
+ group by add.state.name
+    ]]> 
     </dataset>
-
     <category key="state_name" type="text" />
-    <series key="customer" groupBy="state_name" type="text" />
+    <series key="customer" groupBy="state_name" type="pie" />
   </chart>
-
-
 
   <chart name="chart-invoice-per-status-amount" title="Invoice Per Status For Amount">
     <dataset type="jpql">

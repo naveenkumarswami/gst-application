@@ -15,7 +15,7 @@ public interface InvoiceService {
   public Contact getContact(Invoice invoice);
   public Address getInvoiceAddress(Invoice invoice);
   public Address getShippingAddress(Invoice invoice);
-  public Map<Integer, BigDecimal> calculateRates(Invoice invoice);
+  public Invoice calculateRates(Invoice invoice);
   public List<InvoiceLine> getInvoiceLineList(Invoice invoice);
   
 }

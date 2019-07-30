@@ -89,71 +89,59 @@ public class InvoiceServiceImpl implements InvoiceService {
   }
 
   @Override
-  public Map<Integer, BigDecimal> calculateRates(Invoice invoice) {
+  public Invoice calculateRates(Invoice invoice) {
 
     try {
-    
-    List<InvoiceLine> invoiceLine = invoice.getInvoiceItemsList();
-    Map<Integer, BigDecimal> rateSet = new HashMap<>();
 
-    BigDecimal netAmount, igst, cgst, sgst, grossAmount;
+      List<InvoiceLine> invoiceLine = invoice.getInvoiceItemsList();
 
-    netAmount =
-        invoiceLine
-            .stream()
-            .map(rate -> rate.getNetAmount())
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
+      BigDecimal netAmount = BigDecimal.ZERO,
+          igst = BigDecimal.ZERO,
+          cgst = BigDecimal.ZERO,
+          sgst = BigDecimal.ZERO,
+          grossAmount = BigDecimal.ZERO;
 
-    igst =
-        invoiceLine.stream().map(rate -> rate.getIgst()).reduce(BigDecimal.ZERO, BigDecimal::add);
+      for (InvoiceLine rate : invoiceLine) {
+        netAmount = netAmount.add(rate.getNetAmount());
+        cgst = cgst.add(rate.getCgst());
+        igst = igst.add(rate.getIgst());
+        sgst = sgst.add(rate.getSgst());
+        grossAmount = grossAmount.add(rate.getGrossAmount());
+      }
+      invoice.setNetAmount(netAmount);
+      invoice.setNetIgst(igst);
+      invoice.setNetCsgt(cgst);
+      invoice.setNetSgst(sgst);
+      invoice.setGrossAmount(grossAmount);
+      
 
-    cgst =
-        invoiceLine.stream().map(rate -> rate.getCgst()).reduce(BigDecimal.ZERO, BigDecimal::add);
-    sgst =
-        invoiceLine.stream().map(rate -> rate.getSgst()).reduce(BigDecimal.ZERO, BigDecimal::add);
-    grossAmount =
-        invoiceLine
-            .stream()
-            .map(rate -> rate.getGrossAmount())
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-    rateSet.put(1, netAmount);
-    rateSet.put(2, igst);
-    rateSet.put(3, cgst);
-    rateSet.put(4, sgst);
-    rateSet.put(5, grossAmount);
-
-    return rateSet;
-  }
-    catch (Exception e) {
+      return invoice;
+    } catch (Exception e) {
       e.printStackTrace();
     }
     return null;
   }
-  
 
   @Override
   public List<InvoiceLine> getInvoiceLineList(Invoice invoice) {
-    
+
     try {
-    
-    List<InvoiceLine> invoiceLineList = invoice.getInvoiceItemsList();
-    
-    List<InvoiceLine> updateInvoiceLineList = new ArrayList<InvoiceLine>();
-    
-    for(InvoiceLine line : invoiceLineList)
-    {
-      Map<Integer, BigDecimal> allRate =invoiceLineService.getIgstAndSgstAndCgst(invoice, line);
-       line.setNetAmount(allRate.get(3));
-       line.setIgst(allRate.get(1));
-       line.setSgst(allRate.get(2));
-       line.setCgst(allRate.get(2));
-       line.setGrossAmount(allRate.get(4));
-       updateInvoiceLineList.add(line);
-    }   
-    return updateInvoiceLineList;
-    }
-    catch (Exception e) {
+
+      List<InvoiceLine> invoiceLineList = invoice.getInvoiceItemsList();
+
+      List<InvoiceLine> updateInvoiceLineList = new ArrayList<InvoiceLine>();
+
+      for (InvoiceLine line : invoiceLineList) {
+        Map<Integer, BigDecimal> allRate = invoiceLineService.getIgstAndSgstAndCgst(invoice, line);
+        line.setNetAmount(allRate.get(3));
+        line.setIgst(allRate.get(1));
+        line.setSgst(allRate.get(2));
+        line.setCgst(allRate.get(2));
+        line.setGrossAmount(allRate.get(4));
+        updateInvoiceLineList.add(line);
+      }
+      return updateInvoiceLineList;
+    } catch (Exception e) {
       e.printStackTrace();
     }
     return null;

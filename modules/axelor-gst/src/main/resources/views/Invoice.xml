@@ -32,7 +32,7 @@
       <button name="statusDraft" title="Draft" hideIf="status == 'Draft' || status == 'Paid'"
         onClick="action-attr-for-draft-status-change" />
       <button name="statusValidate" title="Validated"
-        hideIf="status == 'Cancelled' || status == 'Paid' || status == 'Validated'" onClick="action-attr-for-status-validate-change" />
+        hideIf="status == 'Cancelled' || status == 'Paid' || status == 'Validated'" onClick="save,action-attr-for-status-validate-change" />
       <button name="statusPaid" title="Paid"
         hideIf="status == 'Draft' || status == 'Cancelled' || status == 'Paid'" onClick="action-attr-for-status-paid-change" />
       <button name="statusCancelled" title="Cancelled" hideIf="status == 'Cancelled' || status == 'Paid'"
