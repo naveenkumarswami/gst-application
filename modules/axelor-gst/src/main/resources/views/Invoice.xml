@@ -16,8 +16,7 @@
   </grid>
 
   <form name="invoice-form" title="Invoice" cols="2" model="com.axelor.gst.db.Invoice"
-    onNew="current-date-on-new,action-defalut-company-select,action-check-selected-products,action-invoice-party-contact-gstController,action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list"
-    onSave="action-invoice-sequence-get">
+    onNew="action-group-for-on-new-of-invoice-for-default-values" onSave="action-invoice-sequence-get">
 
     <toolbar>
       <button name="reportButton" title="Print" showTitle="false" showIf="id"
@@ -46,7 +45,7 @@
       <field name="dateT"></field>
       <field name="priority"></field>
       <field name="party"
-        onChange="action-invoice-party-contact-gstController,action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list"></field>
+  onChange="action-invoice-party-contact-gstController,action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list"></field>
       <field name="partyContact"></field>
       <field name="invoiceAddress"></field>
       <field name="shippingAddress"></field>
@@ -86,6 +85,15 @@
     </div>
     ]]></template>
   </kanban>
+  
+  <action-group name="action-group-for-on-new-of-invoice-for-default-values">
+    <action name="current-date-on-new" />
+    <action name="action-defalut-company-select" />
+    <action name="action-check-selected-products" />
+    <action name="action-invoice-party-contact-gstController" />
+    <action name="action-on-click-company-invoice-line-change" />
+    <action name="action-invoice-net-amount-gross-amount-from-invoice-list" />
+  </action-group>
 
   <action-method name="action-invoice-net-amount-gross-amount-from-invoice-list">
     <call class="com.axelor.gst.web.InvoiceController" method="setAllValues" />
