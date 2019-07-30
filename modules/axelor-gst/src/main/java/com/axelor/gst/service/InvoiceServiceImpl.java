@@ -91,6 +91,8 @@ public class InvoiceServiceImpl implements InvoiceService {
   @Override
   public Map<Integer, BigDecimal> calculateRates(Invoice invoice) {
 
+    try {
+    
     List<InvoiceLine> invoiceLine = invoice.getInvoiceItemsList();
     Map<Integer, BigDecimal> rateSet = new HashMap<>();
 
@@ -123,9 +125,17 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     return rateSet;
   }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+  
 
   @Override
   public List<InvoiceLine> getInvoiceLineList(Invoice invoice) {
+    
+    try {
     
     List<InvoiceLine> invoiceLineList = invoice.getInvoiceItemsList();
     
@@ -140,8 +150,12 @@ public class InvoiceServiceImpl implements InvoiceService {
        line.setCgst(allRate.get(2));
        line.setGrossAmount(allRate.get(4));
        updateInvoiceLineList.add(line);
-    }
-       
+    }   
     return updateInvoiceLineList;
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 }

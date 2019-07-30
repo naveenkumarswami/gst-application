@@ -61,12 +61,17 @@ public class InvoiceController {
   public void setAllValues(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
     Map<Integer, BigDecimal> rateSet = service.calculateRates(invoice);
-
+    
+    try {
+    
     response.setValue("netAmount", rateSet.get(1));
     response.setValue("netIgst", rateSet.get(2));
     response.setValue("netCsgt", rateSet.get(3));
     response.setValue("netSgst", rateSet.get(4));
     response.setValue("grossAmount", rateSet.get(5));
+  }catch (Exception e) {
+    e.printStackTrace();
+  }
   }
   
   public void updateInvoiceLineList(ActionRequest request, ActionResponse response) {

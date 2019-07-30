@@ -8,18 +8,18 @@
       <field type="datetime" name="toDateTime" title="To Date" />
     </search-fields>
 
-    <dataset type="sql">
+    <dataset type="jpql">
     <![CDATA[
    SELECT                  
         count(self.status) as status,
-        party.name as customer
+        party1.name as customer
     FROM
-        gst_invoice as self
-    Left Join gst_party as party on self.party = party.id
+        Invoice as self
+    Left Join Party as party1 on self.party = party1.id
     WHERE
-        party.is_customer = 'true' AND self.status != 'Paid' and 
-        self.datet BETWEEN (cast(:fromDateTime as TIMESTAMP) AT TIME ZONE 'UTC') 
-        AND (cast(:toDateTime as TIMESTAMP) AT TIME ZONE 'UTC') group by customer;
+        party1.isCustomer = true AND self.status != 'Paid' AND 
+        self.dateT BETWEEN :fromDateTime 
+        AND :toDateTime GROUP BY party1.name
     ]]>
     </dataset>
 
@@ -37,11 +37,31 @@
       <field type="datetime" name="toDateTime" title="To Date" />
     </search-fields>
 
-    <dataset type="sql">
+    <dataset type="jpql">
     <![CDATA[
-   SELECT
+    SELECT
     count(self.status) as status ,                 
     pro_cat.name as cate,
+    prod.name as product_name
+    FROM
+     Invoice as self ,
+     InvoiceLine as line,
+     Product as prod,
+     ProductCategory as pro_cat
+    WHERE
+        self.id = line.invoice AND
+        line.product = prod AND
+        prod.category = pro_cat AND
+        self.status = 'Paid' AND
+        self.dateT BETWEEN :fromDateTime 
+        AND :toDateTime
+    group by pro_cat.name ,prod.name
+    ]]>
+    </dataset>
+    
+    <!--  SELECT
+    count(self.status) as status ,                 
+     pro_cat.name as cate,
     product.name as product_name
     FROM
         gst_invoice as self
@@ -49,12 +69,8 @@
      left join gst_product as product on line.product = product.id
      left join gst_product_category as pro_cat on product.category = pro_cat.id 
     WHERE
-        self.status = 'Paid' and 
-        self.datet BETWEEN (cast(:fromDateTime as TIMESTAMP) AT TIME ZONE 'UTC') 
-        AND (cast(:toDateTime as TIMESTAMP) AT TIME ZONE 'UTC')
-    group by cate , product_name;
-    ]]>
-    </dataset>
+        self.status = 'Paid'     
+    group by cate , product_name;  -->
 
     <category key="cate" type="text" />
     <series key="status" groupBy="product_name" type="bar" />
