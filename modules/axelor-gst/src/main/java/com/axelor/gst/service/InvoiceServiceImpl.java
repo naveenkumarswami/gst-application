@@ -134,12 +134,12 @@ public class InvoiceServiceImpl implements InvoiceService {
       List<InvoiceLine> updateInvoiceLineList = new ArrayList<InvoiceLine>();
 
       for (InvoiceLine line : invoiceLineList) {
-        Map<Integer, BigDecimal> allRate = invoiceLineService.getIgstAndSgstAndCgst(invoice, line);
-        line.setNetAmount(allRate.get(3));
-        line.setIgst(allRate.get(1));
-        line.setSgst(allRate.get(2));
-        line.setCgst(allRate.get(2));
-        line.setGrossAmount(allRate.get(4));
+        invoice = invoiceLineService.getIgstAndSgstAndCgst(invoice, line);
+        line.setNetAmount(invoice.getNetAmount());
+        line.setIgst(invoice.getNetIgst());
+        line.setSgst(invoice.getNetSgst());
+        line.setCgst(invoice.getNetSgst());
+        line.setGrossAmount(invoice.getGrossAmount());
         updateInvoiceLineList.add(line);
       }
       return updateInvoiceLineList;

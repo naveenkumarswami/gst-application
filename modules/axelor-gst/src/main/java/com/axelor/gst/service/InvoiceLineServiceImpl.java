@@ -10,34 +10,33 @@ import com.axelor.gst.db.State;
 public class InvoiceLineServiceImpl implements InvoiceLineService {
 
   @Override
-  public Map<Integer, BigDecimal> getIgstAndSgstAndCgst(Invoice invoice, InvoiceLine invoiceLine) {
-    Map<Integer, BigDecimal> allRate = new HashMap<>();
+  public Invoice getIgstAndSgstAndCgst(Invoice invoice, InvoiceLine invoiceLine) {
     try {
       State companyState = invoice.getCompany().getAddress().getState();
       State invoiceState = invoice.getInvoiceAddress().getState();
       BigDecimal netAmount =
           (new BigDecimal(invoiceLine.getQty())).multiply(invoiceLine.getPrice());
-      allRate.put(3, netAmount);
+      invoice.setNetAmount(netAmount);
       BigDecimal gstRate = invoiceLine.getGstRate();
       BigDecimal sgst = BigDecimal.ZERO, igst = BigDecimal.ZERO;
 
       if (!invoiceState.equals(companyState)) {
         igst = netAmount.multiply(gstRate).divide(new BigDecimal(100));
-        allRate.put(1, igst);
-        allRate.put(2, BigDecimal.ZERO);
+        invoice.setNetIgst(igst);
+        invoice.setNetSgst(BigDecimal.ZERO);
       } else if (invoiceState.equals(companyState)) {
         sgst = netAmount.multiply(gstRate.divide(new BigDecimal(2)).divide(new BigDecimal(100)));
-        allRate.put(1, BigDecimal.ZERO);
-        allRate.put(2, sgst);
+        invoice.setNetIgst(BigDecimal.ZERO);
+        invoice.setNetSgst(sgst);
       } else {
-        allRate.put(1, BigDecimal.ZERO);
-        allRate.put(2, BigDecimal.ZERO);
+        invoice.setNetIgst(BigDecimal.ZERO);
+        invoice.setNetSgst(BigDecimal.ZERO);
       }
-      allRate.put(4, netAmount.add(igst).add(sgst).multiply(new BigDecimal(2)));
+      invoice.setGrossAmount(netAmount.add(igst).add(sgst).multiply(new BigDecimal(2)));
 
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return allRate;
+    return invoice;
   }
 }

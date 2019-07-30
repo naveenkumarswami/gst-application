@@ -27,7 +27,7 @@
       <field name="status" showTitle="false" colSpan="12" widget="NavSelect" />
     </panel>
 
-    <panel sidebar="true" title="Status Change" showTitle="false">
+    <panel sidebar="true" title="Status Change" showTitle="false" hideIf="status == 'Paid'">
       <button name="statusDraft" title="Draft" hideIf="status == 'Draft' || status == 'Paid'"
         onClick="action-attr-for-draft-status-change" />
       <button name="statusValidate" title="Validated"

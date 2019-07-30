@@ -58,14 +58,14 @@ public class InvoiceController {
 
   public void setAllValues(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
-    Invoice rateSet = service.calculateRates(invoice);
+    invoice = service.calculateRates(invoice);
 
     try {
-      response.setValue("netAmount", rateSet.getNetAmount());
-      response.setValue("netIgst", rateSet.getNetIgst());
-      response.setValue("netCsgt", rateSet.getNetCsgt());
-      response.setValue("netSgst", rateSet.getNetSgst());
-      response.setValue("grossAmount", rateSet.getGrossAmount());
+      response.setValue("netAmount", invoice.getNetAmount());
+      response.setValue("netIgst", invoice.getNetIgst());
+      response.setValue("netCsgt", invoice.getNetCsgt());
+      response.setValue("netSgst", invoice.getNetSgst());
+      response.setValue("grossAmount", invoice.getGrossAmount());
     } catch (Exception e) {
       e.printStackTrace();
     }
