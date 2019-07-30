@@ -52,10 +52,10 @@
           <editor x-show-titles="false">
             <field name="type" colSpan="12" selection="gst-address-type-selection" required="true" />
             <field name="line1" colSpan="12" required="true" />
-            <field name="line2" colSpan="12" required="true" />
+            <field name="line2" colSpan="12" />
             <field name="city" colSpan="12" widget="SuggestBox" required="true" onChange="action-for-auto-select-state-country"/>
-            <field name="state" colSpan="12" widget="SuggestBox" required="true" />
-            <field name="country" widget="SuggestBox" colSpan="12" />
+            <field name="state" colSpan="12" widget="SuggestBox" />
+            <field name="country" widget="SuggestBox" colSpan="12"  required="true" />
             <field name="pinCode" colSpan="4" />
           </editor>
         </field>

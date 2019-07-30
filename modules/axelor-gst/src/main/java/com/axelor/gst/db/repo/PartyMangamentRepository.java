@@ -29,8 +29,10 @@ public class PartyMangamentRepository extends PartyRepository {
   }
   
   @Override
-  public Party save(Party party){    
-    String getNextNumber = service.setReference("Party", party.getReference());
+  public Party save(Party party){  
+    if(party.getReference()==null)
+    {
+    String getNextNumber = service.setReference("Party");
     if (getNextNumber != null) 
     {
       party.setReference(getNextNumber);
@@ -38,6 +40,7 @@ public class PartyMangamentRepository extends PartyRepository {
     else 
     {  
       throw new PersistenceException("no sequence is specified for the Party");
+    }
     }
     return super.save(party);
   }

@@ -48,8 +48,8 @@ public class InvoiceController {
 
   public void setReferenceInvoice(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
-    if (invoice.getStatus().equals("Validated")) {
-      String getNextNumber = sequenceService.setReference("Invoice", invoice.getReference());
+    if (invoice.getReference()==null||invoice.getStatus().equals("Validated")) {
+      String getNextNumber = sequenceService.setReference("Invoice");
       if (getNextNumber != null) {
         response.setValue("reference", getNextNumber);
       } else response.addError("reference", "no sequence is specified for the Invoice");

@@ -303,24 +303,421 @@ where product.id = any(string_to_array(?,',')::int[])]]></xml-property>
   </design:ResultSets>
 </model:DesignValues>]]></xml-property>
         </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Company" id="243">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">imagepath</property>
+                    <text-property name="displayName">imagepath</text-property>
+                    <text-property name="heading">imagepath</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">companyline1</property>
+                    <text-property name="displayName">companyline1</text-property>
+                    <text-property name="heading">companyline1</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">companyline2</property>
+                    <text-property name="displayName">companyline2</text-property>
+                    <text-property name="heading">companyline2</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">companypincode</property>
+                    <text-property name="displayName">companypincode</text-property>
+                    <text-property name="heading">companypincode</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">companycity</property>
+                    <text-property name="displayName">companycity</text-property>
+                    <text-property name="heading">companycity</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">companystate</property>
+                    <text-property name="displayName">companystate</text-property>
+                    <text-property name="heading">companystate</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">companycountry</property>
+                    <text-property name="displayName">companycountry</text-property>
+                    <text-property name="heading">companycountry</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">company_name</property>
+                    <text-property name="displayName">company_name</text-property>
+                    <text-property name="heading">company_name</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">imagepath</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">companyline1</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">companyline2</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">companypincode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">companycity</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">companystate</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">companycountry</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">company_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">imagepath</property>
+                    <property name="nativeName">imagepath</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">companyline1</property>
+                    <property name="nativeName">companyline1</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">companyline2</property>
+                    <property name="nativeName">companyline2</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">companypincode</property>
+                    <property name="nativeName">companypincode</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">companycity</property>
+                    <property name="nativeName">companycity</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">companystate</property>
+                    <property name="nativeName">companystate</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">companycountry</property>
+                    <property name="nativeName">companycountry</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">company_name</property>
+                    <property name="nativeName">company_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select image.file_path as imagePath ,
+companyAdd.line1 as companyLine1 ,
+companyAdd.line2 as companyLine2, 
+companyAdd.pin_code as companyPinCode ,
+company_city.name as companycity , 
+company_state.name as companystate, 
+company_country.name as companycountry,
+company.name as company_name
+from gst_company as company
+left join meta_file as image on company.logo = image.id
+
+left join gst_address as companyAdd on company.address = companyAdd.id
+left join gst_city as company_city on companyAdd.city = company_city.id
+left join gst_state as company_state on companyAdd.state = company_state.id
+left join gst_country as company_country on companyAdd.country = company_country.id]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>imagepath</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>255</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>imagepath</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>imagepath</design:label>
+            <design:formattingHints>
+              <design:displaySize>255</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>companyline1</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>255</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>companyline1</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>companyline1</design:label>
+            <design:formattingHints>
+              <design:displaySize>255</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>companyline2</design:name>
+              <design:position>3</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>255</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>companyline2</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>companyline2</design:label>
+            <design:formattingHints>
+              <design:displaySize>255</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>companypincode</design:name>
+              <design:position>4</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>255</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>companypincode</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>companypincode</design:label>
+            <design:formattingHints>
+              <design:displaySize>255</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>companycity</design:name>
+              <design:position>5</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>255</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>companycity</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>companycity</design:label>
+            <design:formattingHints>
+              <design:displaySize>255</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>companystate</design:name>
+              <design:position>6</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>255</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>companystate</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>companystate</design:label>
+            <design:formattingHints>
+              <design:displaySize>255</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>companycountry</design:name>
+              <design:position>7</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>255</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>companycountry</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>companycountry</design:label>
+            <design:formattingHints>
+              <design:displaySize>255</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>company_name</design:name>
+              <design:position>8</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>255</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>company_name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>company_name</design:label>
+            <design:formattingHints>
+              <design:displaySize>255</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
     </data-sets>
     <page-setup>
         <simple-master-page name="Simple MasterPage" id="2">
+            <property name="footerHeight">1in</property>
             <page-header>
-                <image id="48">
+                <image id="242">
                     <property name="height">0.3125in</property>
-                    <property name="width">1.4583333333333333in</property>
-                    <property name="source">embed</property>
-                    <property name="imageName">logo.png</property>
+                    <property name="width">1.4270833333333333in</property>
+                    <property name="dataSet">Company</property>
+                    <list-property name="boundDataColumns">
+                        <structure>
+                            <property name="name">imagepath</property>
+                            <text-property name="displayName">imagepath</text-property>
+                            <expression name="expression" type="javascript">dataSetRow["imagepath"]</expression>
+                            <property name="dataType">string</property>
+                        </structure>
+                    </list-property>
+                    <property name="source">file</property>
+                    <expression name="uri" type="javascript">params["imagePath"].value +"/" + row["imagepath"]</expression>
                 </image>
             </page-header>
             <page-footer>
-                <text name="NewText" id="8">
+                <text-data id="244">
+                    <property name="dataSet">Company</property>
+                    <list-property name="boundDataColumns">
+                        <structure>
+                            <property name="name">companyline1</property>
+                            <text-property name="displayName">companyline1</text-property>
+                            <expression name="expression" type="javascript">dataSetRow["companyline1"]</expression>
+                            <property name="dataType">string</property>
+                        </structure>
+                        <structure>
+                            <property name="name">companyline2</property>
+                            <text-property name="displayName">companyline2</text-property>
+                            <expression name="expression" type="javascript">dataSetRow["companyline2"]</expression>
+                            <property name="dataType">string</property>
+                        </structure>
+                        <structure>
+                            <property name="name">companypincode</property>
+                            <text-property name="displayName">companypincode</text-property>
+                            <expression name="expression" type="javascript">dataSetRow["companypincode"]</expression>
+                            <property name="dataType">string</property>
+                        </structure>
+                        <structure>
+                            <property name="name">companycity</property>
+                            <text-property name="displayName">companycity</text-property>
+                            <expression name="expression" type="javascript">dataSetRow["companycity"]</expression>
+                            <property name="dataType">string</property>
+                        </structure>
+                        <structure>
+                            <property name="name">companystate</property>
+                            <text-property name="displayName">companystate</text-property>
+                            <expression name="expression" type="javascript">dataSetRow["companystate"]</expression>
+                            <property name="dataType">string</property>
+                        </structure>
+                        <structure>
+                            <property name="name">companycountry</property>
+                            <text-property name="displayName">companycountry</text-property>
+                            <expression name="expression" type="javascript">dataSetRow["companycountry"]</expression>
+                            <property name="dataType">string</property>
+                        </structure>
+                        <structure>
+                            <property name="name">company_name</property>
+                            <text-property name="displayName">company_name</text-property>
+                            <expression name="expression" type="javascript">dataSetRow["company_name"]</expression>
+                            <property name="dataType">string</property>
+                        </structure>
+                    </list-property>
+                    <expression name="valueExpr">row["company_name"] +" "
+row["companyline1"]+" "+ row["companyline2"] +" "+
+row["companycity"] +" -[" + row["companypincode"] +"] "+
+row["companystate"] +" "+ row["companycountry"]</expression>
                     <property name="contentType">html</property>
-                    <text-property name="content"><![CDATA[Axelor Technologies India Private Limited <br>
-604 Luxuria Business Hub Near VR Mall, <br>
-Surat - Dumas Rd, Surat, Gujarat 395007]]></text-property>
-                </text>
+                </text-data>
             </page-footer>
         </simple-master-page>
     </page-setup>
