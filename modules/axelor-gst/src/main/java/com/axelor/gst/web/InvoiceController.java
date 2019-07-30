@@ -1,8 +1,6 @@
 package com.axelor.gst.web;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 import javax.inject.Inject;
 import com.axelor.gst.db.Address;
 import com.axelor.gst.db.Company;
@@ -25,18 +23,18 @@ public class InvoiceController {
     Contact contact = service.getContact(invoice);
     Address invocieAddress = service.getInvoiceAddress(invoice);
 
-    request.getContext().put("primaryContact", contact);
-    request.getContext().put("defaultinvoiceAddress", invocieAddress);
+    response.setValue("partyContact", contact);
+    response.setValue("invoiceAddress", invocieAddress);
     try {
       if (invoice.getIsUseInvocieAddressAsShipping() != true
           || invoice.getIsUseInvocieAddressAsShipping() == null) {
         Address shippingAddress = service.getShippingAddress(invoice);
-        request.getContext().put("defaultshippingAddress", shippingAddress);
+        response.setValue("shippingAddress", shippingAddress);
       } else {
-        request.getContext().put("defaultshippingAddress", invocieAddress);
+        response.setValue("shippingAddress", invocieAddress);
       }
     } catch (NullPointerException e) {
-      request.getContext().put("defaultshippingAddress", invocieAddress);
+      response.setValue("shippingAddress", invocieAddress);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -61,22 +59,21 @@ public class InvoiceController {
   public void setAllValues(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
     Invoice rateSet = service.calculateRates(invoice);
-    
+
     try {
-    
-    response.setValue("netAmount", rateSet.getNetAmount());
-    response.setValue("netIgst", rateSet.getNetIgst());
-    response.setValue("netCsgt", rateSet.getNetCsgt());
-    response.setValue("netSgst", rateSet.getNetSgst());
-    response.setValue("grossAmount", rateSet.getGrossAmount());
-  }catch (Exception e) {
-    e.printStackTrace();
+      response.setValue("netAmount", rateSet.getNetAmount());
+      response.setValue("netIgst", rateSet.getNetIgst());
+      response.setValue("netCsgt", rateSet.getNetCsgt());
+      response.setValue("netSgst", rateSet.getNetSgst());
+      response.setValue("grossAmount", rateSet.getGrossAmount());
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
-  }
-  
+
   public void updateInvoiceLineList(ActionRequest request, ActionResponse response) {
 
-    Invoice invoice = request.getContext().asType(Invoice.class); 
+    Invoice invoice = request.getContext().asType(Invoice.class);
     List<InvoiceLine> getInvoiceLineList = service.getInvoiceLineList(invoice);
     response.setValue("invoiceItemsList", getInvoiceLineList);
   }
