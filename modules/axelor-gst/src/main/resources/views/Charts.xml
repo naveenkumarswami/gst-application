@@ -67,27 +67,26 @@
     <dataset type="jpql">
     <![CDATA[
   select count(self.id) as customer , 
-  add.state.name as state_name from 
-  Party as self,
-  Address as add
- 
- where self.isCustomer = true AND
- self.addressList.id = add.id AND
- add.state = state  
- group by add.state.name
+  select as state_name 
+  from 
+  Party as self  
+  left join Address as add on add.id = any (select party1.addressList from Party where  )  
+ right join State as state on add.state = state.id 
+ where self.isCustomer = true
+ group by state.name
     ]]>
     </dataset>
 
     <category key="state_name" type="text" />
-    <series key="customer" groupBy="state_name" type="pie" />
+    <series key="customer" groupBy="state_name" type="text" />
   </chart>
 
 
 
   <chart name="chart-invoice-per-status-amount" title="Invoice Per Status For Amount">
-    <dataset type="sql">
+    <dataset type="jpql">
     <![CDATA[
-  select sum(self.gross_amount) as amount , self.status as status from gst_invoice as self group by status;
+  select sum(self.grossAmount) as amount , self.status as status from Invoice as self group by status
     ]]>
     </dataset>
 
@@ -96,9 +95,9 @@
   </chart>
 
   <chart name="chart-invoice-per-status-number-of-invoice" title="Invoice Per Status For Number Of Invoice">
-    <dataset type="sql">
+    <dataset type="jpql">
     <![CDATA[
-  select count(self.id) as number , self.status as status from gst_invoice as self group by status;
+  select count(self.id) as number , self.status as status from Invoice as self group by status
     ]]>
     </dataset>
 
