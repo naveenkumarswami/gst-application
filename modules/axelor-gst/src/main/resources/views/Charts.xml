@@ -58,35 +58,23 @@
     group by pro_cat.name ,prod.name
     ]]>
     </dataset>
-    
-    <!--  SELECT
-    count(self.status) as status ,                 
-     pro_cat.name as cate,
-    product.name as product_name
-    FROM
-        gst_invoice as self
-     left join gst_invoice_line as line on self.id = line.invoice
-     left join gst_product as product on line.product = product.id
-     left join gst_product_category as pro_cat on product.category = pro_cat.id 
-    WHERE
-        self.status = 'Paid'     
-    group by cate , product_name;  -->
 
     <category key="cate" type="text" />
     <series key="status" groupBy="product_name" type="bar" />
   </chart>
 
   <chart name="chart-customer-per-state" title="Customer Per State">
-    <dataset type="sql">
+    <dataset type="jpql">
     <![CDATA[
   select count(self.id) as customer , 
-  state.name as state_name from 
-  gst_party as self 
-  left join gst_address as add on add.id = any (select gpal.address_list from gst_party_address_list
- as gpal where gpal.gst_party = self.id)  
- right join gst_state as state on add.state = state.id 
- where self.is_customer = 'true' 
- group by state_name;
+  add.state.name as state_name from 
+  Party as self,
+  Address as add
+ 
+ where self.isCustomer = true AND
+ self.addressList.id = add.id AND
+ add.state = state  
+ group by add.state.name
     ]]>
     </dataset>
 

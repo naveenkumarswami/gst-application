@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
+import com.axelor.gst.db.State;
 
 public class InvoiceLineServiceImpl implements InvoiceLineService {
 
@@ -12,8 +13,8 @@ public class InvoiceLineServiceImpl implements InvoiceLineService {
   public Map<Integer, BigDecimal> getIgstAndSgstAndCgst(Invoice invoice, InvoiceLine invoiceLine) {
     Map<Integer, BigDecimal> allRate = new HashMap<>();
     try {
-      String companyState = invoice.getCompany().getAddress().getState().getName();
-      String invoiceState = invoice.getInvoiceAddress().getState().getName();
+      State companyState = invoice.getCompany().getAddress().getState();
+      State invoiceState = invoice.getInvoiceAddress().getState();
       BigDecimal netAmount =
           (new BigDecimal(invoiceLine.getQty())).multiply(invoiceLine.getPrice());
       allRate.put(3, netAmount);
