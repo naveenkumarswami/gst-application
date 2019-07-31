@@ -64,18 +64,16 @@
   </chart>
 
   <chart name="chart-customer-per-state" title="Customer Per State">
-    <dataset type="jpql">
+    <dataset type="sql">
     <![CDATA[
-  select count(self.id) as customer , 
-  add.state.name as state_name 
-  from 
-  Party as self,
-  Address as add,
-  State as state  
- right join State as state on add.state = state 
- where self.isCustomer = true AND
- add IN self.addressList
- group by add.state.name
+ SELECT count(self.id) AS customer , 
+  state.name AS state_name FROM 
+  gst_party AS self 
+  left join gst_address AS add ON add.id = any (select gpal.address_list from gst_party_address_list
+ as gpal WHERE gpal.gst_party = self.id)  
+ right join gst_state AS state ON add.state = state.id 
+ where self.is_customer = 'true' 
+ group by state_name;
     ]]> 
     </dataset>
     <category key="state_name" type="text" />

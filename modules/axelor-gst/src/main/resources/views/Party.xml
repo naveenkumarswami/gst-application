@@ -36,9 +36,9 @@
             <field name="secondaryEmail" css="border-left-none" colSpan="4"
               pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$" />
             <field name="primaryPhone" css="border-left-none" colSpan="4"
-              pattern="^\+?([\s()-.]*\d){10,}$" />
+              pattern="^\+?([\s()-.]*\d){10,10}$" />
             <field name="secondaryPhone" css="border-left-none" colSpan="4"
-              pattern="^\+?([\s()-.]*\d){10,}$" />
+              pattern="^\+?([\s()-.]*\d){10,10}$" />
           </editor>
         </field>
       </panel>
