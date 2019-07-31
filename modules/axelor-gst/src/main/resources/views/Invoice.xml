@@ -98,6 +98,11 @@
     ]]></template>
   </kanban>
 
+  <action-record name="action-record-for-default-company-select" model="com.axelor.gst.db.Invoice">
+    <field name="company" expr="eval:__repo__(Company).all().fetchOne()"
+      if="__repo__(Company).all().fetch().size > 0" />
+  </action-record>
+
   <action-attrs name="action-record-for-draggable-stop">
     <attribute name="value" for="reference" expr="Paid" if="status == 'Paid'" />
   </action-attrs>
@@ -108,7 +113,7 @@
 
   <action-group name="action-group-for-on-new-of-invoice-for-default-values">
     <action name="current-date-on-new" />
-    <action name="action-defalut-company-select" />
+    <action name="action-record-for-default-company-select" />
     <action name="action-check-selected-products" />
     <action name="action-invoice-party-contact-gstController" />
     <action name="action-on-click-company-invoice-line-change" />
@@ -145,10 +150,6 @@
 
   <action-method name="action-invoice-party-contact-gstController">
     <call class="com.axelor.gst.web.InvoiceController" method="getContactAddress" />
-  </action-method>
-
-  <action-method name="action-defalut-company-select">
-    <call class="com.axelor.gst.web.InvoiceController" method="getDefaultCompany" />
   </action-method>
 
   <action-report output="invoice-${date}-${time}" name="action-report-invoice-print-invoice"

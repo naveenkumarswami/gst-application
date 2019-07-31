@@ -40,12 +40,6 @@ public class InvoiceController {
     }
   }
 
-  public void getDefaultCompany(ActionRequest request, ActionResponse response) {
-    Invoice invoice = request.getContext().asType(Invoice.class);
-    Company company = service.setDefaultCompany(invoice);
-    response.setValue("company", company);
-  }
-
   public void setReferenceInvoice(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
     if (invoice.getReference()==null||invoice.getStatus().equals("Validated")) {
