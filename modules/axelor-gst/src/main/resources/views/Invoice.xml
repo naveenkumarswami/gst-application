@@ -45,7 +45,7 @@
       <field name="dateT"></field>
       <field name="priority"></field>
       <field name="party"
-  onChange="action-invoice-party-contact-gstController,action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list"></field>
+        onChange="action-invoice-party-contact-gstController,action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list"></field>
       <field name="partyContact"></field>
       <field name="invoiceAddress"></field>
       <field name="shippingAddress"></field>
@@ -55,13 +55,25 @@
       <field name="netCsgt"></field>
       <field name="netSgst"></field>
       <field name="grossAmount"></field>
-      <field name="invoiceItemsList" onChange="action-invoice-net-amount-gross-amount-from-invoice-list"
-        colSpan="12"></field>
+      <panel-related field="invoiceItemsList" onChange="action-invoice-net-amount-gross-amount-from-invoice-list"
+        colSpan="12">
+        <field name="item"></field>
+        <field name="qty"></field>
+        <field name="price"></field>
+        <field name="netAmount"></field>
+        <field name="gstRate"></field>
+        <field name="igst"></field>
+        <field name="sgst"></field>
+        <field name="cgst"></field>
+        <field name="grossAmount"></field>
+      </panel-related>
+
     </panel>
   </form>
 
   <kanban name="invoice-kanban" title="Invoice Status" model="com.axelor.gst.db.Invoice"
-    columnBy="status" sequenceBy="priority" limit="10" draggable="true" onMove="action-record-for-draggable-stop,action-validate-for-draggable-stop">
+    columnBy="status" sequenceBy="priority" limit="10" draggable="true"
+    onMove="action-record-for-draggable-stop,action-validate-for-draggable-stop">
     <field name="company"></field>
     <field name="reference"></field>
     <field name="dateT"></field>
@@ -85,15 +97,15 @@
     </div>
     ]]></template>
   </kanban>
-  
+
   <action-attrs name="action-record-for-draggable-stop">
-  <attribute name="value" for="reference" expr="Paid" if="status == 'Paid'"/>
+    <attribute name="value" for="reference" expr="Paid" if="status == 'Paid'" />
   </action-attrs>
-  
+
   <action-validate name="action-validate-for-draggable-stop">
-  <error message="Can't Move" if="status != 'Paid'"/>
+    <error message="Can't Move" if="status != 'Paid'" />
   </action-validate>
-  
+
   <action-group name="action-group-for-on-new-of-invoice-for-default-values">
     <action name="current-date-on-new" />
     <action name="action-defalut-company-select" />
@@ -106,7 +118,7 @@
   <action-method name="action-invoice-net-amount-gross-amount-from-invoice-list">
     <call class="com.axelor.gst.web.InvoiceController" method="setAllValues" />
   </action-method>
-  
+
   <action-method name="action-image-path-get-for-invoice">
     <call class="com.axelor.gst.web.ProductController" method="getDynamicImagePath" />
   </action-method>
