@@ -87,7 +87,7 @@
   </kanban>
   
   <action-attrs name="action-record-for-draggable-stop">
-  <attribute name="value" for="status" expr="Paid" if="status == 'Paid'"/>
+  <attribute name="value" for="reference" expr="Paid" if="status == 'Paid'"/>
   </action-attrs>
   
   <action-validate name="action-validate-for-draggable-stop">

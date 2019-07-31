@@ -31,10 +31,14 @@
           <editor layout="table" x-show-titles="false">
             <field name="name" colSpan="8" />
             <field name="type" colSpan="4" />
-            <field name="primaryEmail" css="border-left-none" colSpan="4" />
-            <field name="secondaryEmail" css="border-left-none" colSpan="4" />
-            <field name="primaryPhone" css="border-left-none" colSpan="4" />
-            <field name="secondaryPhone" css="border-left-none" colSpan="4" />
+            <field name="primaryEmail" css="border-left-none" colSpan="4"
+              pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$" />
+            <field name="secondaryEmail" css="border-left-none" colSpan="4"
+              pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$" />
+            <field name="primaryPhone" css="border-left-none" colSpan="4"
+              pattern="^\+?([\s()-.]*\d){10,}$" />
+            <field name="secondaryPhone" css="border-left-none" colSpan="4"
+              pattern="^\+?([\s()-.]*\d){10,}$" />
           </editor>
         </field>
       </panel>
@@ -53,9 +57,10 @@
             <field name="type" colSpan="12" selection="gst-address-type-selection" required="true" />
             <field name="line1" colSpan="12" required="true" />
             <field name="line2" colSpan="12" />
-            <field name="city" colSpan="12" widget="SuggestBox" required="true" onChange="action-for-auto-select-state-country"/>
+            <field name="city" colSpan="12" widget="SuggestBox" required="true"
+              onChange="action-for-auto-select-state-country" />
             <field name="state" colSpan="12" widget="SuggestBox" />
-            <field name="country" widget="SuggestBox" colSpan="12"  required="true" />
+            <field name="country" widget="SuggestBox" colSpan="12" required="true" />
             <field name="pinCode" colSpan="4" />
           </editor>
         </field>
