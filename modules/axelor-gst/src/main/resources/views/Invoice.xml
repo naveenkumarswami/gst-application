@@ -61,7 +61,7 @@
   </form>
 
   <kanban name="invoice-kanban" title="Invoice Status" model="com.axelor.gst.db.Invoice"
-    columnBy="status" sequenceBy="priority" limit="10" draggable="true">
+    columnBy="status" sequenceBy="priority" limit="10" draggable="true" onMove="action-record-for-draggable-stop,action-validate-for-draggable-stop">
     <field name="company"></field>
     <field name="reference"></field>
     <field name="dateT"></field>
@@ -85,6 +85,14 @@
     </div>
     ]]></template>
   </kanban>
+  
+  <action-attrs name="action-record-for-draggable-stop">
+  <attribute name="value" for="status" expr="Paid" if="status == 'Paid'"/>
+  </action-attrs>
+  
+  <action-validate name="action-validate-for-draggable-stop">
+  <error message="Can't Move" if="status != 'Paid'"/>
+  </action-validate>
   
   <action-group name="action-group-for-on-new-of-invoice-for-default-values">
     <action name="current-date-on-new" />

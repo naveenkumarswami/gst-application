@@ -61,11 +61,12 @@ public class InvoiceController {
     invoice = service.calculateRates(invoice);
 
     try {
-      response.setValue("netAmount", invoice.getNetAmount());
+      /*response.setValue("netAmount", invoice.getNetAmount());
       response.setValue("netIgst", invoice.getNetIgst());
       response.setValue("netCsgt", invoice.getNetCsgt());
       response.setValue("netSgst", invoice.getNetSgst());
-      response.setValue("grossAmount", invoice.getGrossAmount());
+      response.setValue("grossAmount", invoice.getGrossAmount());*/
+      response.setValues(invoice);
     } catch (Exception e) {
       e.printStackTrace();
     }

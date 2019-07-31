@@ -2,9 +2,7 @@ package com.axelor.gst.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.inject.Inject;
 import com.axelor.gst.db.Address;
 import com.axelor.gst.db.Company;
@@ -33,7 +31,7 @@ public class InvoiceServiceImpl implements InvoiceService {
               .filter(a -> a.getType().equals("Primary"))
               .findFirst()
               .get();
-      System.out.println("hello" ); 
+      System.out.println("hello");
       return contact;
     } catch (Exception e) {
       System.err.println("null contact");
@@ -54,7 +52,7 @@ public class InvoiceServiceImpl implements InvoiceService {
               .filter(a -> a.getType().equals("default") || a.getType().equals("invoice"))
               .findFirst()
               .get();
-      System.out.println(address ); 
+      System.out.println(address);
       return address;
 
     } catch (Exception e) {
@@ -115,7 +113,6 @@ public class InvoiceServiceImpl implements InvoiceService {
       invoice.setNetCsgt(cgst);
       invoice.setNetSgst(sgst);
       invoice.setGrossAmount(grossAmount);
-      
 
       return invoice;
     } catch (Exception e) {

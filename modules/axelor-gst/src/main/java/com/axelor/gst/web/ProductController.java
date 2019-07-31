@@ -65,7 +65,6 @@ public class ProductController {
             .context("SelectProductIds", invoiceLineList)
             .context("party_name", request.getContext().get("partyName"));
     response.setView(actionViewBuilder.map());
-
     response.setCanClose(true);
   }
 }
