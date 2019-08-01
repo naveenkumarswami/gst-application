@@ -10,6 +10,7 @@ import com.axelor.gst.db.Contact;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
 import com.axelor.gst.db.repo.CompanyRepository;
+import com.axelor.gst.db.repo.PartyRepository;
 import com.axelor.gst.db.repo.SequenceRepository;
 import com.google.inject.persist.Transactional;
 
@@ -18,6 +19,7 @@ public class InvoiceServiceImpl implements InvoiceService {
   @Inject CompanyRepository companyRepository;
   @Inject SequenceRepository sequenceRepository;
   @Inject InvoiceLineService invoiceLineService;
+  @Inject PartyRepository partyRepository;
 
   @Override
   @Transactional

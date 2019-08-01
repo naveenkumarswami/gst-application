@@ -1338,7 +1338,7 @@ INVOICE
         </text>
         <grid id="17">
             <property name="fontSize">10pt</property>
-            <property name="height">7.229166666666667in</property>
+            <property name="height">5.53125in</property>
             <property name="width">7.979166666666667in</property>
             <list-property name="boundDataColumns">
                 <structure>
@@ -1352,10 +1352,10 @@ INVOICE
                 <property name="width">1.03125in</property>
             </column>
             <column id="19">
-                <property name="width">0.9895833333333334in</property>
+                <property name="width">0.5833333333333334in</property>
             </column>
             <column id="20">
-                <property name="width">1in</property>
+                <property name="width">0.71875in</property>
             </column>
             <column id="21">
                 <property name="width">0.9895833333333334in</property>
@@ -1498,6 +1498,7 @@ row["invoicestate"] + " " +row["invoicecountry"]</expression>
             <row id="44">
                 <property name="height">3.7083333333333335in</property>
                 <cell id="45">
+                    <property name="paddingRight">2pt</property>
                     <list id="75">
                         <property name="dataSet">invoiceLine</property>
                         <list-property name="boundDataColumns">
@@ -1899,7 +1900,7 @@ Gross Amount
                 </cell>
             </row>
             <row id="53">
-                <property name="height">1.71875in</property>
+                <property name="height">0.010416666666666666in</property>
                 <cell id="54"/>
                 <cell id="55"/>
                 <cell id="56"/>

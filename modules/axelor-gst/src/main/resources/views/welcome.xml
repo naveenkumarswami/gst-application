@@ -14,7 +14,7 @@
   <action-view name="action-grid-view-for-older-invoice" title="Older Invoice"
     model="com.axelor.gst.db.Invoice">
     <view type="grid" name="invoice-grid"/>
-    <domain>self.status = :status_name AND self.datet &lt; :dateCheck </domain>
+    <domain>self.status = :status_name AND self.dateT &lt; :dateCheck </domain>
      <context name="status_name" expr="Validated"/>
      <context name="dateCheck" expr="eval: __datetime__.minusMonths(1)"/>
   </action-view>
@@ -23,7 +23,7 @@
     <view type="dashboard" name="welcome.dashboard" />
   </action-view>
 
-  <menuitem name="menu-dashboards" order="-101" title="Dashboards" icon="fa-dashboard"
+  <menuitem name="menu-dashboards" title="Dashboards" icon="fa-dashboard"
     icon-background="blue" />
 
   <menuitem name="menu-welcome" parent="menu-dashboards" title="GST-Application" action="welcome" />

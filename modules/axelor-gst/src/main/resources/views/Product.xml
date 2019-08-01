@@ -5,8 +5,9 @@
   <grid name="product-grid" title="product List" model="com.axelor.gst.db.Product">
     <toolbar>
       <button name="createInvoice" title="Create Invoice" onClick="action-for-party-popup" />
-      <button name="print" title="print Product"
-        onClick="createInvoice-on-click,action-image-path-get,action-report-print-product-Inovoice-on-click" />
+      <button name="print" title="print Product" showTitle="false"
+        onClick="createInvoice-on-click,action-image-path-get,action-report-print-product-Inovoice-on-click"
+        icon="fa-print" />
     </toolbar>
 
     <field name="name" />
@@ -79,5 +80,5 @@
     <view-param name="popup-save" value="false" />
     <context name="showRecord" expr="eval: _ids" />
   </action-view>
-    
+
 </object-views>

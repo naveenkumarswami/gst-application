@@ -18,8 +18,9 @@ public class ProductServiceImpl implements ProductService {
   @Transactional
   public List<InvoiceLine> putSelectedProduct(List<Integer> productIds) {
     
-    List<InvoiceLine> invoiceLineList = new ArrayList<>();
+    if(productIds==null) return null;
     
+    List<InvoiceLine> invoiceLineList = new ArrayList<>();
     for(Integer id : productIds)
     {
       Product product = productRepository.find(id.longValue());

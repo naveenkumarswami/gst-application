@@ -16,7 +16,7 @@
   </grid>
 
   <form name="invoice-form" title="Invoice" cols="2" model="com.axelor.gst.db.Invoice"
-    onNew="action-group-for-on-new-of-invoice-for-default-values" onSave="action-invoice-sequence-get">
+    onNew="action-group-for-on-new-of-invoice-for-default-values">
 
     <toolbar>
       <button name="reportButton" title="Print" showTitle="false" showIf="id"
@@ -31,9 +31,9 @@
       <button name="statusDraft" title="Draft" hideIf="status == 'Draft' || status == 'Paid'"
         onClick="action-attr-for-draft-status-change" />
       <button name="statusValidate" title="Validated"
-        hideIf="status == 'Cancelled' || status == 'Paid' || status == 'Validated'" onClick="save,action-attr-for-status-validate-change" />
+        hideIf="status == 'Cancelled' || status == 'Paid' || status == 'Validated'" onClick="save,action-attr-for-status-validate-change,action-invoice-sequence-get,save" />
       <button name="statusPaid" title="Paid"
-        hideIf="status == 'Draft' || status == 'Cancelled' || status == 'Paid'" onClick="action-attr-for-status-paid-change,save" />
+        hideIf="status == 'Draft' || status == 'Cancelled' || status == 'Paid'" onClick="save,action-attr-for-status-paid-change,save" />
       <button name="statusCancelled" title="Cancelled" hideIf="status == 'Cancelled' || status == 'Paid'"
         onClick="action-attr-for-status-cancelled-change" />
     </panel>
@@ -45,9 +45,10 @@
       <field name="dateT"></field>
       <field name="priority"></field>
       <field name="party"
-        onChange="action-invoice-party-contact-gstController,action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list"></field>
-      <field name="partyContact"></field>
-      <field name="invoiceAddress"></field>
+        onChange="action-invoice-party-contact-gstController,action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list,action-on-change-party-contact-address-list-set"></field>
+      <field name="partyContact" domain="self.id IN :contactList"></field>
+      <field name="invoiceAddress" domain="self.id IN :addressList"
+        onChange="action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list" />
       <field name="shippingAddress"></field>
       <field name="isUseInvocieAddressAsShipping" onChange="action-invoice-party-contact-gstController"></field>
       <field name="netAmount"></field>
@@ -55,25 +56,15 @@
       <field name="netCsgt"></field>
       <field name="netSgst"></field>
       <field name="grossAmount"></field>
-      <panel-related field="invoiceItemsList" onChange="action-invoice-net-amount-gross-amount-from-invoice-list"
-        colSpan="12">
-        <field name="item"></field>
-        <field name="qty"></field>
-        <field name="price"></field>
-        <field name="netAmount"></field>
-        <field name="gstRate"></field>
-        <field name="igst"></field>
-        <field name="sgst"></field>
-        <field name="cgst"></field>
-        <field name="grossAmount"></field>
-      </panel-related>
+      <field name="invoiceItemsList" onChange="action-invoice-net-amount-gross-amount-from-invoice-list"
+        colSpan="12"></field>
 
     </panel>
   </form>
 
   <kanban name="invoice-kanban" title="Invoice Status" model="com.axelor.gst.db.Invoice"
     columnBy="status" sequenceBy="priority" limit="10" draggable="true"
-    onMove="action-record-for-draggable-stop,action-validate-for-draggable-stop">
+    onMove="action-validate-for-draggable-stop">
     <field name="company"></field>
     <field name="reference"></field>
     <field name="dateT"></field>
@@ -99,22 +90,22 @@
   </kanban>
 
   <action-record name="action-record-for-default-company-select" model="com.axelor.gst.db.Invoice">
-    <field name="company" expr="eval:__repo__(Company).all().fetchOne()"
-      if="__repo__(Company).all().fetch().size > 0" />
+    <field name="company" expr="eval:__repo__(Company).all().fetchOne()" />
   </action-record>
 
-  <action-attrs name="action-record-for-draggable-stop">
-    <attribute name="value" for="reference" expr="Paid" if="status == 'Paid'" />
-  </action-attrs>
-
   <action-validate name="action-validate-for-draggable-stop">
-    <error message="Can't Move" if="status != 'Paid'" />
+    <error message="Can't Move From Paid"
+      if="(__self__.status == 'Paid') &amp;&amp; ((status == 'Validated') || (status =='Cancelled') || (status == 'Draft'))" />
+    <error message="Can't Move From Draft"
+      if="(__self__.status == 'Draft') &amp;&amp; ((status == 'Paid') || (status == 'Draft'))" />
+    <error message="Can't Move From Cancelled"
+      if="(__self__.status == 'Cancelled') &amp;&amp; ((status == 'Validated') || (status == 'Paid'))" />
   </action-validate>
 
   <action-group name="action-group-for-on-new-of-invoice-for-default-values">
     <action name="current-date-on-new" />
     <action name="action-record-for-default-company-select" />
-    <action name="action-check-selected-products" />
+    <action name="action-for-data-insert-into-selected-products" />
     <action name="action-invoice-party-contact-gstController" />
     <action name="action-on-click-company-invoice-line-change" />
     <action name="action-invoice-net-amount-gross-amount-from-invoice-list" />
@@ -162,17 +153,15 @@
     <call class="com.axelor.gst.web.InvoiceController" method="setReferenceInvoice" />
   </action-method>
 
-  <action-attrs name="action-check-selected-products">
-    <attribute name="value" for="invoiceItemsList" expr="eval: SelectProductIds" />
-    <attribute name="value" for="party" expr="eval: party_name" />
-  </action-attrs>
-
-  <action-method name="create-selected-invoice-on-click">
-    <call class="com.axelor.gst.web.ProductController" method="getSelectedProduct" />
+  <action-method name="action-for-data-insert-into-selected-products">
+    <call class="com.axelor.gst.web.InvoiceController" method="getSelectedProduct" />
   </action-method>
 
   <action-method name="action-on-click-company-invoice-line-change">
     <call class="com.axelor.gst.web.InvoiceController" method="updateInvoiceLineList" />
   </action-method>
 
+  <action-method name="action-on-change-party-contact-address-list-set">
+    <call class="com.axelor.gst.web.InvoiceController" method="getPartyContactListAndAddressList" />
+  </action-method>
 </object-views>

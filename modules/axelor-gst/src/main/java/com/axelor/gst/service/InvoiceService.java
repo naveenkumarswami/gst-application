@@ -1,8 +1,6 @@
 package com.axelor.gst.service;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 import com.axelor.gst.db.Address;
 import com.axelor.gst.db.Company;
 import com.axelor.gst.db.Contact;

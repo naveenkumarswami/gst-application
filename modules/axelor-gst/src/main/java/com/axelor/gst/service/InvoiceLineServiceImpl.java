@@ -32,7 +32,7 @@ public class InvoiceLineServiceImpl implements InvoiceLineService {
         invoice.setNetIgst(BigDecimal.ZERO);
         invoice.setNetSgst(BigDecimal.ZERO);
       }
-      invoice.setGrossAmount(netAmount.add(igst).add(sgst).multiply(new BigDecimal(2)));
+      invoice.setGrossAmount(netAmount.add(igst).add(sgst).add(sgst));
 
     } catch (Exception e) {
       e.printStackTrace();

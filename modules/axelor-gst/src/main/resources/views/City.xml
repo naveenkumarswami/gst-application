@@ -10,9 +10,13 @@
   <form name="city-form" title="City" cols="2" model="com.axelor.gst.db.City">
     <panel title="Overview">
     <field name="name" />
-    <field name="state" />
+    <field name="state" onChange="action-country-select-auto" />
     <field name="country"/>
     </panel>
   </form>
+  
+  <action-attrs name="action-country-select-auto">
+  <attribute name="value" for="country" expr="eval: state.country"/>
+  </action-attrs>
 
 </object-views>

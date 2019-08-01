@@ -64,21 +64,28 @@
   </chart>
 
   <chart name="chart-customer-per-state" title="Customer Per State">
-    <dataset type="sql">
+    <dataset type="jpql">
     <![CDATA[
- SELECT count(self.id) AS customer , 
+  SELECT count(self.id) AS customer,add.state.name AS state_name FROM 
+  Party AS self, 
+  Address as add
+ where self.isCustomer = true
+ AND add.id = any(select addList.id from self.addressList as addList)
+ group by add.state.name
+    ]]> 
+    </dataset>
+    <category key="state_name" type="text" />
+    <series key="customer" groupBy="state_name" type="pie" />
+  </chart>
+  
+  <!--  SELECT count(self.id) AS customer , 
   state.name AS state_name FROM 
   gst_party AS self 
   left join gst_address AS add ON add.id = any (select gpal.address_list from gst_party_address_list
  as gpal WHERE gpal.gst_party = self.id)  
  right join gst_state AS state ON add.state = state.id 
  where self.is_customer = 'true' 
- group by state_name;
-    ]]> 
-    </dataset>
-    <category key="state_name" type="text" />
-    <series key="customer" groupBy="state_name" type="pie" />
-  </chart>
+ group by state_name; -->
 
   <chart name="chart-invoice-per-status-amount" title="Invoice Per Status For Amount">
     <dataset type="jpql">
