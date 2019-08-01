@@ -23,9 +23,6 @@
     ]]>
     </dataset>
 
-    <!-- SELECT count(self.status) as totalStatus self.party.name as customer FROM Invoice as self WHERE 
-      self.party.isCustomer = true AND self.status != 'Paid' GROUP BY customer ORDER BY customer -->
-
     <category key="customer" type="text" />
     <series key="status" groupBy="customer" type="bar" />
   </chart>
@@ -77,15 +74,6 @@
     <category key="state_name" type="text" />
     <series key="customer" groupBy="state_name" type="pie" />
   </chart>
-  
-  <!--  SELECT count(self.id) AS customer , 
-  state.name AS state_name FROM 
-  gst_party AS self 
-  left join gst_address AS add ON add.id = any (select gpal.address_list from gst_party_address_list
- as gpal WHERE gpal.gst_party = self.id)  
- right join gst_state AS state ON add.state = state.id 
- where self.is_customer = 'true' 
- group by state_name; -->
 
   <chart name="chart-invoice-per-status-amount" title="Invoice Per Status For Amount">
     <dataset type="jpql">
@@ -101,11 +89,16 @@
   <chart name="chart-invoice-per-status-number-of-invoice" title="Invoice Per Status For Number Of Invoice">
     <dataset type="jpql">
     <![CDATA[
-  select count(self.id) as number , self.status as status from Invoice as self group by status
+  SELECT
+   count(self.id) as number , self.status as status,
+  CASE self.status WHEN 'Draft' THEN 1 WHEN 'Validated' THEN 2 
+  WHEN 'Cancelled' THEN 3
+   ELSE 4 END AS lineStatus
+   FROM Invoice as self group by status
     ]]>
     </dataset>
 
-    <category key="status" type="text" />
+    <category key="lineStatus" type="number" />
     <series key="number" groupBy="status" type="line" />
   </chart>
 

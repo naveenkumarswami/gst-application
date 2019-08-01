@@ -2,7 +2,6 @@ package com.axelor.gst.web;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.inject.Inject;
 import com.axelor.gst.db.Address;
 import com.axelor.gst.db.Contact;
@@ -93,6 +92,9 @@ public class InvoiceController {
   public void getPartyContactListAndAddressList(ActionRequest request, ActionResponse response) {
 
     Party party = request.getContext().asType(Invoice.class).getParty();
+    
+    System.err.println(party.getAddressList().stream().
+        map(a -> a.getId()).collect(Collectors.toList()).toString()); 
 
     response.setAttr(
         "partyContact",

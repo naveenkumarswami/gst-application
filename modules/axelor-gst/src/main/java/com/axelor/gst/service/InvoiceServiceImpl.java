@@ -33,7 +33,6 @@ public class InvoiceServiceImpl implements InvoiceService {
               .filter(a -> a.getType().equals("Primary"))
               .findFirst()
               .get();
-      System.out.println("hello");
       return contact;
     } catch (Exception e) {
       System.err.println("null contact");
@@ -54,7 +53,6 @@ public class InvoiceServiceImpl implements InvoiceService {
               .filter(a -> a.getType().equals("default") || a.getType().equals("invoice"))
               .findFirst()
               .get();
-      System.out.println(address);
       return address;
 
     } catch (Exception e) {
