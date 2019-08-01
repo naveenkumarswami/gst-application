@@ -15,12 +15,10 @@ public class ProductMangementRepository extends ProductRepository {
       Product product = find(id);
       json.put("hasImage", product.getImage() != null);
       json.put("category", product.getCategory());
-      
+
     } catch (Exception e) {
-      System.err.println(e.getStackTrace()); 
+      System.err.println(e.getStackTrace());
     }
     return json;
   }
-  
-  
 }

@@ -8,12 +8,11 @@ import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
 
 public interface InvoiceService {
-  
+
   public Company setDefaultCompany(Invoice invoice);
   public Contact getContact(Invoice invoice);
   public Address getInvoiceAddress(Invoice invoice);
   public Address getShippingAddress(Invoice invoice);
   public Invoice calculateRates(Invoice invoice);
   public List<InvoiceLine> getInvoiceLineList(Invoice invoice);
-  
 }

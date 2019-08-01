@@ -94,7 +94,6 @@ public class InvoiceServiceImpl implements InvoiceService {
     try {
 
       List<InvoiceLine> invoiceLine = invoice.getInvoiceItemsList();
-
       BigDecimal netAmount = BigDecimal.ZERO,
           igst = BigDecimal.ZERO,
           cgst = BigDecimal.ZERO,
@@ -123,13 +122,9 @@ public class InvoiceServiceImpl implements InvoiceService {
 
   @Override
   public List<InvoiceLine> getInvoiceLineList(Invoice invoice) {
-
     try {
-
       List<InvoiceLine> invoiceLineList = invoice.getInvoiceItemsList();
-
       List<InvoiceLine> updateInvoiceLineList = new ArrayList<InvoiceLine>();
-
       for (InvoiceLine line : invoiceLineList) {
         invoice = invoiceLineService.getIgstAndSgstAndCgst(invoice, line);
         line.setNetAmount(invoice.getNetAmount());

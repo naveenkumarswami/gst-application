@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.0.xsd">
 
-  <module name="gst" package="com.axelor.gst.db"/>
-  
+  <module name="gst" package="com.axelor.gst.db" />
+
   <entity name="Party">
-  <string name="reference" title="Reference" readonly="true"></string>
-  <string name="name" title="Name" required="true"></string>
-  <string name="type" title="Type" default="Company" required="true" selection="gst-party-type-selection"></string>
-  <boolean name="isCustomer" title="Customer" ></boolean>
-  <boolean name="isSupplier" title="Supplier"></boolean>
-  <string name="gstin" min="15" max="15" title="GSTIN"></string>
-  <one-to-many name="contactList" ref="Contact" title="Contact"/>
-  <one-to-many name="addressList" ref="Address" title="Address"/>
+    <string name="reference" title="Reference" readonly="true"></string>
+    <string name="name" title="Name" required="true"></string>
+    <string name="type" title="Type" default="Company" required="true" selection="gst-party-type-selection"></string>
+    <boolean name="isCustomer" title="Customer"></boolean>
+    <boolean name="isSupplier" title="Supplier"></boolean>
+    <string name="gstin" min="15" max="15" title="GSTIN"></string>
+    <one-to-many name="contactList" ref="Contact" title="Contact" />
+    <one-to-many name="addressList" ref="Address" title="Address" />
   </entity>
 
 </domain-models>

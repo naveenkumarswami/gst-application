@@ -19,7 +19,6 @@ public class ProductController {
 
     AppSettings appSettings = AppSettings.get();
     String uploaddir = appSettings.get("file.upload.dir");
-    System.err.println(uploaddir);
     request.getContext().put("setImagePath", uploaddir);
   }
 
@@ -34,7 +33,6 @@ public class ProductController {
     List<Integer> requestIds = (List<Integer>) request.getContext().get("_ids");
     String totalIdSelect = requestIds.toString();
     totalIdSelect = totalIdSelect.substring(1, totalIdSelect.length() - 1);
-    System.out.println(totalIdSelect);
     request.getContext().put("totalProduct", totalIdSelect);
   }
 
@@ -43,7 +41,7 @@ public class ProductController {
         ActionView.define(String.format("Invoice"))
             .model(Invoice.class.getName())
             .add("form", "invoice-form")
-            .context("SelectProductIds",request.getContext().get("showRecord"))
+            .context("SelectProductIds", request.getContext().get("showRecord"))
             .context("party_name", request.getContext().get("partyName"));
     response.setView(actionViewBuilder.map());
   }

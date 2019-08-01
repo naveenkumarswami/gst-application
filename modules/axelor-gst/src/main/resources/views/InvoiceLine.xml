@@ -17,7 +17,8 @@
 
   <form name="invoiceLine-form" title="Invoice Line" model="com.axelor.gst.db.InvoiceLine">
     <panel title="Invoice Line Overview">
-      <field name="product" onChange="action-invoice-line-item-gstRate,action-gstController-caluclate-igst-cgst-sgst-vlaue"></field>
+      <field name="product"
+        onChange="action-invoice-line-item-gstRate,action-gstController-caluclate-igst-cgst-sgst-vlaue"></field>
       <field name="hsbn" />
       <field name="item"></field>
       <field name="qty" onChange="action-gstController-caluclate-igst-cgst-sgst-vlaue"></field>
@@ -34,7 +35,7 @@
   <action-attrs name="action-invoice-line-item-gstRate">
     <attribute name="value" for="item" expr="eval: '['+product.code+']'+product.name" />
     <attribute name="value" for="gstRate" expr="eval: product.gstRate" />
-    <attribute name="value" for="price" expr="eval: product.salePrice"/>
+    <attribute name="value" for="price" expr="eval: product.salePrice" />
   </action-attrs>
 
   <action-method name="action-gstController-caluclate-igst-cgst-sgst-vlaue">

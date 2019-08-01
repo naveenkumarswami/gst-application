@@ -74,27 +74,23 @@ public class InvoiceController {
   @SuppressWarnings("unchecked")
   public void getSelectedProduct(ActionRequest request, ActionResponse response) {
 
-    System.out.println(request.getContext().get("SelectProductIds"));
-    System.out.println(request.getContext().get("party_name"));
-
     List<Integer> selectedIds = (List<Integer>) request.getContext().get("SelectProductIds");
     List<InvoiceLine> invoiceLineList = ProductService.putSelectedProduct(selectedIds);
     response.setValue("party", request.getContext().get("party_name"));
     response.setValue("invoiceItemsList", invoiceLineList);
-
-    request.getContext().put("SelectProductIds", null);
-    request.getContext().put("party_name", null);
-
-    System.err.println(request.getContext().get("SelectProductIds"));
-    System.err.println(request.getContext().get("party_name"));
   }
 
   public void getPartyContactListAndAddressList(ActionRequest request, ActionResponse response) {
 
     Party party = request.getContext().asType(Invoice.class).getParty();
-    
-    System.err.println(party.getAddressList().stream().
-        map(a -> a.getId()).collect(Collectors.toList()).toString()); 
+
+    System.err.println(
+        party
+            .getAddressList()
+            .stream()
+            .map(a -> a.getId())
+            .collect(Collectors.toList())
+            .toString());
 
     response.setAttr(
         "partyContact",

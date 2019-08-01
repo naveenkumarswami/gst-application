@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.0.xsd">
 
-  <module name="gst" package="com.axelor.gst.db"/>
+  <module name="gst" package="com.axelor.gst.db" />
 
   <entity name="State">
-  <string name="name" title="Name" required="true"></string>
-  <many-to-one name="country" ref="Country" title="Country" required="true"></many-to-one>
+    <string name="name" title="Name" required="true"></string>
+    <many-to-one name="country" ref="Country" title="Country" required="true"></many-to-one>
   </entity>
 
 </domain-models>
