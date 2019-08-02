@@ -13,7 +13,9 @@ import com.axelor.gst.db.Contact;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
 import com.axelor.gst.db.Party;
+import com.axelor.gst.db.repo.AddressRepository;
 import com.axelor.gst.db.repo.CompanyRepository;
+import com.axelor.gst.db.repo.ContactRepository;
 import com.axelor.gst.db.repo.PartyRepository;
 import com.axelor.gst.db.repo.SequenceRepository;
 import com.google.inject.persist.Transactional;
@@ -34,7 +36,7 @@ public class InvoiceServiceImpl implements InvoiceService {
               .getParty()
               .getContactList()
               .stream()
-              .filter(a -> a.getType().equals("Primary"))
+              .filter(a -> a.getType().equals(ContactRepository.TYPE_PRIMARY))
               .findFirst()
               .get();
       return contact;
@@ -54,7 +56,10 @@ public class InvoiceServiceImpl implements InvoiceService {
               .getParty()
               .getAddressList()
               .stream()
-              .filter(a -> a.getType().equals("default") || a.getType().equals("invoice"))
+              .filter(
+                  a ->
+                      a.getType().equals(AddressRepository.TYPE_DEFAULT)
+                          || a.getType().equals(AddressRepository.TYPE_INVOICE))
               .findFirst()
               .get();
       return address;
@@ -74,7 +79,10 @@ public class InvoiceServiceImpl implements InvoiceService {
               .getParty()
               .getAddressList()
               .stream()
-              .filter(a -> a.getType().equals("default") || a.getType().equals("shipping"))
+              .filter(
+                  a ->
+                      a.getType().equals(AddressRepository.TYPE_DEFAULT)
+                          || a.getType().equals(AddressRepository.TYPE_SHIPPING))
               .findFirst()
               .get();
       return address;
@@ -151,29 +159,30 @@ public class InvoiceServiceImpl implements InvoiceService {
     Map<String, String> setIds = new HashMap<String, String>();
 
     try {
-        setIds.put("contacIds",party
-            .getContactList()
-            .stream()
-            .map(i -> i.getId())
-            .collect(Collectors.toList())
-            .toString()
-            .replace('[', '(')
-            .replace(']', ')'));
-   
-        setIds.put("addressIds", party
-            .getAddressList()
-            .stream()
-            .map(i -> i.getId())
-            .collect(Collectors.toList())
-            .toString()
-            .replace('[', '(')
-            .replace(']', ')'));
-    }
-    catch (Exception e) {
+      setIds.put(
+          "contacIds",
+          party
+              .getContactList()
+              .stream()
+              .map(i -> i.getId())
+              .collect(Collectors.toList())
+              .toString()
+              .replace('[', '(')
+              .replace(']', ')'));
+
+      setIds.put(
+          "addressIds",
+          party
+              .getAddressList()
+              .stream()
+              .map(i -> i.getId())
+              .collect(Collectors.toList())
+              .toString()
+              .replace('[', '(')
+              .replace(']', ')'));
+    } catch (Exception e) {
       e.printStackTrace();
     }
-
-
     return setIds;
   }
 }

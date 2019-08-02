@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://axelor.com/xml/ns/domain-models http://axelor.com/xml/ns/domain-models/domain-models_5.0.xsd">
 
-  <module name="gst" package="com.axelor.gst.db"/>
+  <module name="gst" package="com.axelor.gst.db" />
 
   <entity name="Address">
-  <string name="type" title="Type" required="true" selection="gst-address-type-selection" ></string>
-  <string name="line1" title="Line1" required="true" namecolumn="true"></string>
-  <string name="line2" title="Line2" ></string>
-  <many-to-one name="city" ref="City" title="City" required="true"></many-to-one>
-  <many-to-one name="state" ref="State" title="State"></many-to-one>
-  <many-to-one name="country" ref="Country" title="Country" required="true"></many-to-one>
-  <string name="pinCode" title="Pin Code"></string>
+    <string name="type" title="Type" required="true" selection="gst-address-type-selection"></string>
+    <string name="line1" title="Line1" required="true" namecolumn="true"></string>
+    <string name="line2" title="Line2"></string>
+    <many-to-one name="city" ref="City" title="City" required="true"></many-to-one>
+    <many-to-one name="state" ref="State" title="State"></many-to-one>
+    <many-to-one name="country" ref="Country" title="Country" required="true"></many-to-one>
+    <string name="pinCode" title="Pin Code"></string>
+
+    <extra-code><![CDATA[
+
+    // ADDRESS TYPE SELECT
+    public static final String TYPE_DEFAULT = "default";
+    public static final String TYPE_INVOICE = "invoice";
+    public static final String TYPE_SHIPPING = "shipping";
+   
+  ]]></extra-code>
+
   </entity>
 
 </domain-models>

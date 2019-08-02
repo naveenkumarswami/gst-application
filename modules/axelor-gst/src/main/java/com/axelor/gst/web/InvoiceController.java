@@ -9,6 +9,7 @@ import com.axelor.gst.db.Contact;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
 import com.axelor.gst.db.Party;
+import com.axelor.gst.db.repo.InvoiceRepository;
 import com.axelor.gst.service.InvoiceService;
 import com.axelor.gst.service.ProductService;
 import com.axelor.gst.service.SequenceService;
@@ -47,7 +48,7 @@ public class InvoiceController {
     
     String[] model = request.getModel().split("\\.");
     
-    if (invoice.getReference() == null && invoice.getStatus().equals("Validated")) {
+    if (invoice.getReference() == null && invoice.getStatus().equals(InvoiceRepository.STATUS_VALIDATED)) {
       String getNextNumber = sequenceService.setReference(model[model.length-1]);
       if (getNextNumber != null) {
         response.setValue("reference", getNextNumber);

@@ -41,7 +41,8 @@ public class ProductController {
             .model(Invoice.class.getName())
             .add("form", "invoice-form")
             .context("SelectProductIds", request.getContext().get("showRecord"))
-            .context("party_name", request.getContext().get("partyName"));
+            .context("party_name", request.getContext().get("partyName"))
+            .context("test", 1);
     response.setView(actionViewBuilder.map());
   }
 }

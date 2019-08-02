@@ -11,6 +11,14 @@
     <string name="secondaryEmail" title="Secondary Email"></string>
     <string name="primaryPhone" title="Primary Phone"></string>
     <string name="secondaryPhone" title="Secondary Phone"></string>
+  
+  <extra-code><![CDATA[
+    
+    // CONTACT SELECT
+    public static final String TYPE_PRIMARY = "Primary";
+   
+  ]]></extra-code>
+  
   </entity>
 
 </domain-models>

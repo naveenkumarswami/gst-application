@@ -16,7 +16,7 @@
   </grid>
 
   <form name="invoice-form" title="Invoice" cols="2" model="com.axelor.gst.db.Invoice"
-    onNew="action-group-for-on-new-of-invoice-for-default-values">
+    onNew="action-group-for-on-new-of-invoice-for-default-values" canNew="test!=1">
 
     <toolbar>
       <button name="reportButton" title="Print" showTitle="false" showIf="id"
@@ -44,7 +44,7 @@
       <field name="dateT"></field>
       <field name="priority"></field>
       <field name="party" required="true" onChange="action-group-invoice-party-on-change"></field>
-      <field name="partyContact" ></field>
+      <field name="partyContact"></field>
       <field name="invoiceAddress" onChange="action-invoice-company-invocie-address-on-change" />
       <field name="shippingAddress"></field>
       <field name="isUseInvocieAddressAsShipping" onChange="action-invoice-party-contact-gstController"></field>
@@ -61,21 +61,11 @@
   <kanban name="invoice-kanban" title="Invoice Status" model="com.axelor.gst.db.Invoice"
     columnBy="status" sequenceBy="priority" limit="10" draggable="true"
     onMove="action-validate-for-draggable-stop">
-    <field name="company"></field>
-    <field name="reference"></field>
     <field name="dateT"></field>
     <field name="priority"></field>
     <field name="party"></field>
-    <field name="partyContact"></field>
     <field name="invoiceAddress"></field>
-    <field name="shippingAddress"></field>
-    <field name="isUseInvocieAddressAsShipping"></field>
-    <field name="netAmount"></field>
-    <field name="netIgst"></field>
-    <field name="netCsgt"></field>
-    <field name="netSgst"></field>
-    <field name="grossAmount"></field>
-    <field name="invoiceItemsList" colSpan="12"></field>
+
     <template><![CDATA[
       <i class='fa fa-clock-o'></i><h4>{{dateT}}</h4>
     <div class="card-body">{{party.name}}</div>
