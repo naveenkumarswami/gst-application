@@ -15,7 +15,6 @@ import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
 
 public class InvoiceController {
-
   @Inject InvoiceService service;
   @Inject ProductService ProductService;
   @Inject SequenceService sequenceService;
@@ -25,7 +24,6 @@ public class InvoiceController {
     Invoice invoice = request.getContext().asType(Invoice.class);
     Contact contact = service.getContact(invoice);
     Address invocieAddress = service.getInvoiceAddress(invoice);
-
     response.setValue("partyContact", contact);
     response.setValue("invoiceAddress", invocieAddress);
     try {
@@ -121,13 +119,14 @@ public class InvoiceController {
     response.setAttr(
         "shippingAddress",
         "domain",
-        party
-            .getAddressList()
-            .stream()
-            .map(i -> i.getId())
-            .collect(Collectors.toList())
-            .toString()
-            .replace('[', '(')
-            .replace(']', ')'));
+        "self.id IN "
+            + party
+                .getAddressList()
+                .stream()
+                .map(i -> i.getId())
+                .collect(Collectors.toList())
+                .toString()
+                .replace('[', '(')
+                .replace(']', ')'));
   }
 }

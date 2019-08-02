@@ -5,6 +5,8 @@ import javax.inject.Inject;
 import com.axelor.app.AppSettings;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
+import com.axelor.gst.db.Party;
+import com.axelor.gst.db.repo.PartyRepository;
 import com.axelor.gst.service.ProductService;
 import com.axelor.meta.schema.actions.ActionView;
 import com.axelor.meta.schema.actions.ActionView.ActionViewBuilder;
@@ -14,6 +16,7 @@ import com.axelor.rpc.ActionResponse;
 public class ProductController {
 
   @Inject ProductService service;
+  @Inject PartyRepository partyRepository;
 
   public void getDynamicImagePath(ActionRequest request, ActionResponse response) {
 

@@ -40,15 +40,15 @@
 
     <panel title="Invoice" readonlyIf="status == 'Validated' || status == 'Cancelled' || status == 'Paid'">
       <field name="company"
-        onChange="action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list"></field>
+        onChange="check-state-test,action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list"></field>
       <field name="reference"></field>
       <field name="dateT"></field>
       <field name="priority"></field>
-      <field name="party"
-        onChange="action-invoice-party-contact-gstController,action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list,action-on-change-party-contact-address-list-set"></field>
-      <field name="partyContact" domain="self.id IN :contactList"></field>
-      <field name="invoiceAddress" domain="self.id IN :addressList"
-        onChange="action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list" />
+      <field name="party" required="true"
+        onChange="action-invoice-party-contact-gstController,action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list,action-on-change-party-contact-address-list-set,check-party-state,invoice-state-check"></field>
+      <field name="partyContact" ></field>
+      <field name="invoiceAddress"
+        onChange="action-on-click-company-invoice-line-change,action-invoice-net-amount-gross-amount-from-invoice-list,invoice-state-check" />
       <field name="shippingAddress"></field>
       <field name="isUseInvocieAddressAsShipping" onChange="action-invoice-party-contact-gstController"></field>
       <field name="netAmount"></field>
@@ -105,8 +105,8 @@
   <action-group name="action-group-for-on-new-of-invoice-for-default-values">
     <action name="current-date-on-new" />
     <action name="action-record-for-default-company-select" />
-    <action name="action-for-data-insert-into-selected-products" />
     <action name="action-invoice-party-contact-gstController" />
+    <action name="action-for-data-insert-into-selected-products" />
     <action name="action-on-click-company-invoice-line-change" />
     <action name="action-invoice-net-amount-gross-amount-from-invoice-list" />
   </action-group>
@@ -164,4 +164,18 @@
   <action-method name="action-on-change-party-contact-address-list-set">
     <call class="com.axelor.gst.web.InvoiceController" method="getPartyContactListAndAddressList" />
   </action-method>
+  
+  <action-validate name="check-state-test">
+  <error message="required" if="company.address == null"/>
+  <error message="state required" if="company.address.state == null"/>
+  </action-validate>
+  
+  <action-validate name="check-party-state" >
+  <error message="party address required" if="party.addressList == []"/>
+  </action-validate>
+  
+  <action-validate name="invoice-state-check">
+  <error message="invoice-state" if="invoiceAddress.state == null"/>
+  </action-validate>
+
 </object-views>

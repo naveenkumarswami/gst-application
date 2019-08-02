@@ -6,8 +6,8 @@
   <form name="party-form-popup" title="Party" model="com.axelor.gst.db.Party">
     <panel title="Overview">
       <field name="partyName" type="many-to-one" x-target="com.axelor.gst.db.Party"
-        x-target-name="name" />
-      <button name="create Invoice" title="Create Invoice" onClick="action-for-selectedIds-on-click,close" />
+        x-target-name="name"/>
+      <button name="create Invoice" title="Create Invoice" onClick="action-for-selectedIds-on-click,close" showIf="partyName"/>
     </panel>
   </form>
 
