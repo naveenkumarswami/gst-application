@@ -30,8 +30,9 @@ public class PartyMangamentRepository extends PartyRepository {
 
   @Override
   public Party save(Party party) {
+    
     if (party.getReference() == null) {
-      String getNextNumber = service.setReference("Party");
+      String getNextNumber = service.setReference(Party.class.getSimpleName());
       if (getNextNumber != null) {
         party.setReference(getNextNumber);
       } else {

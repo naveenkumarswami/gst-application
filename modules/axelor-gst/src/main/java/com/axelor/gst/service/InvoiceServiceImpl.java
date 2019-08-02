@@ -145,12 +145,12 @@ public class InvoiceServiceImpl implements InvoiceService {
     return null;
   }
 
-  @SuppressWarnings("null")
   @Override
   public Map<String, String> getDomainIds(Party party) {
 
     Map<String, String> setIds = new HashMap<String, String>();
 
+    try {
         setIds.put("contacIds",party
             .getContactList()
             .stream()
@@ -168,6 +168,10 @@ public class InvoiceServiceImpl implements InvoiceService {
             .toString()
             .replace('[', '(')
             .replace(']', ')'));
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
 
 
     return setIds;

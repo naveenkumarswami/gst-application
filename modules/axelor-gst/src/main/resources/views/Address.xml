@@ -21,7 +21,7 @@
     </panel>
   </form>
 
-  <action-attrs name="action-for-auto-select-state-country">
+  <action-attrs name="action-for-auto-select-state-country,sync">
     <attribute name="value" for="state" expr="eval: city.state" />
     <attribute name="value" for="country" expr="eval: city.country" />
   </action-attrs>

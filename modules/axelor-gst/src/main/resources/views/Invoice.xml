@@ -44,7 +44,7 @@
       <field name="dateT"></field>
       <field name="priority"></field>
       <field name="party" required="true" onChange="action-group-invoice-party-on-change"></field>
-      <field name="partyContact"></field>
+      <field name="partyContact" ></field>
       <field name="invoiceAddress" onChange="action-invoice-company-invocie-address-on-change" />
       <field name="shippingAddress"></field>
       <field name="isUseInvocieAddressAsShipping" onChange="action-invoice-party-contact-gstController"></field>

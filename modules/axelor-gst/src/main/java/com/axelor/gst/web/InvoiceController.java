@@ -2,8 +2,8 @@ package com.axelor.gst.web;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import javax.inject.Inject;
+import com.axelor.db.Model;
 import com.axelor.gst.db.Address;
 import com.axelor.gst.db.Contact;
 import com.axelor.gst.db.Invoice;
@@ -17,7 +17,7 @@ import com.axelor.rpc.ActionResponse;
 
 public class InvoiceController {
   @Inject InvoiceService service;
-  @Inject ProductService ProductService;
+  @Inject ProductService productService;
   @Inject SequenceService sequenceService;
 
   public void getContactAddress(ActionRequest request, ActionResponse response) {
@@ -44,8 +44,11 @@ public class InvoiceController {
 
   public void setReferenceInvoice(ActionRequest request, ActionResponse response) {
     Invoice invoice = request.getContext().asType(Invoice.class);
+    
+    String[] model = request.getModel().split("\\.");
+    
     if (invoice.getReference() == null && invoice.getStatus().equals("Validated")) {
-      String getNextNumber = sequenceService.setReference("Invoice");
+      String getNextNumber = sequenceService.setReference(model[model.length-1]);
       if (getNextNumber != null) {
         response.setValue("reference", getNextNumber);
       } else response.addError("reference", "no sequence is specified for the Invoice");
@@ -74,7 +77,7 @@ public class InvoiceController {
   public void getSelectedProduct(ActionRequest request, ActionResponse response) {
 
     List<Integer> selectedIds = (List<Integer>) request.getContext().get("SelectProductIds");
-    List<InvoiceLine> invoiceLineList = ProductService.putSelectedProduct(selectedIds);
+    List<InvoiceLine> invoiceLineList = productService.putSelectedProduct(selectedIds);
     response.setValue("party", request.getContext().get("party_name"));
     response.setValue("invoiceItemsList", invoiceLineList);
   }
