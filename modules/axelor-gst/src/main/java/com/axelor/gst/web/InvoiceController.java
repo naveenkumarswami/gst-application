@@ -1,6 +1,7 @@
 package com.axelor.gst.web;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import com.axelor.gst.db.Address;
@@ -82,51 +83,12 @@ public class InvoiceController {
 
     Party party = request.getContext().asType(Invoice.class).getParty();
 
-    System.err.println(
-        party
-            .getAddressList()
-            .stream()
-            .map(a -> a.getId())
-            .collect(Collectors.toList())
-            .toString());
+    Map<String, String> getIds = service.getDomainIds(party);
 
-    response.setAttr(
-        "partyContact",
-        "domain",
-        "self.id IN "
-            + party
-                .getContactList()
-                .stream()
-                .map(i -> i.getId())
-                .collect(Collectors.toList())
-                .toString()
-                .replace('[', '(')
-                .replace(']', ')'));
+    response.setAttr("partyContact", "domain", "self.id IN " + getIds.get("contacIds"));
 
-    response.setAttr(
-        "invoiceAddress",
-        "domain",
-        "self.id IN "
-            + party
-                .getAddressList()
-                .stream()
-                .map(i -> i.getId())
-                .collect(Collectors.toList())
-                .toString()
-                .replace('[', '(')
-                .replace(']', ')'));
+    response.setAttr("invoiceAddress", "domain", "self.id IN " + getIds.get("addressIds"));
 
-    response.setAttr(
-        "shippingAddress",
-        "domain",
-        "self.id IN "
-            + party
-                .getAddressList()
-                .stream()
-                .map(i -> i.getId())
-                .collect(Collectors.toList())
-                .toString()
-                .replace('[', '(')
-                .replace(']', ')'));
+    response.setAttr("shippingAddress", "domain", "self.id IN " + getIds.get("addressIds"));
   }
 }

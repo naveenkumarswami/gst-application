@@ -2,13 +2,17 @@ package com.axelor.gst.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import com.axelor.gst.db.Address;
 import com.axelor.gst.db.Company;
 import com.axelor.gst.db.Contact;
 import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
+import com.axelor.gst.db.Party;
 import com.axelor.gst.db.repo.CompanyRepository;
 import com.axelor.gst.db.repo.PartyRepository;
 import com.axelor.gst.db.repo.SequenceRepository;
@@ -139,5 +143,33 @@ public class InvoiceServiceImpl implements InvoiceService {
       e.printStackTrace();
     }
     return null;
+  }
+
+  @SuppressWarnings("null")
+  @Override
+  public Map<String, String> getDomainIds(Party party) {
+
+    Map<String, String> setIds = new HashMap<String, String>();
+
+        setIds.put("contacIds",party
+            .getContactList()
+            .stream()
+            .map(i -> i.getId())
+            .collect(Collectors.toList())
+            .toString()
+            .replace('[', '(')
+            .replace(']', ')'));
+   
+        setIds.put("addressIds", party
+            .getAddressList()
+            .stream()
+            .map(i -> i.getId())
+            .collect(Collectors.toList())
+            .toString()
+            .replace('[', '(')
+            .replace(']', ')'));
+
+
+    return setIds;
   }
 }
