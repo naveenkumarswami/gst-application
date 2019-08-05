@@ -39,7 +39,7 @@
     </panel>
 
     <panel title="Invoice"
-      readonlyIf="status == 'Validated' || status == 'Cancelled' || status == 'Paid' || invoiceItemsList.length > 0">
+      readonlyIf="status == 'Validated' || status == 'Cancelled' || status == 'Paid' || (invoiceItemsList.length > 0 &amp;&amp; party != null &amp;&amp; invoiceAddress != null)">
       <field name="company" onChange="action-invoice-company-invocie-address-on-change"></field>
       <field name="reference"></field>
       <field name="dateT"></field>
