@@ -3,7 +3,6 @@ package com.axelor.gst.web;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
-import com.axelor.db.Model;
 import com.axelor.gst.db.Address;
 import com.axelor.gst.db.Contact;
 import com.axelor.gst.db.Invoice;

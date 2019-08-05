@@ -16,7 +16,7 @@
   </grid>
 
   <form name="invoice-form" title="Invoice" cols="2" model="com.axelor.gst.db.Invoice"
-    onNew="action-group-for-on-new-of-invoice-for-default-values" canNew="test!=1">
+    onNew="action-group-for-on-new-of-invoice-for-default-values" canNew="canNewValue!=false">
 
     <toolbar>
       <button name="reportButton" title="Print" showTitle="false" showIf="id"

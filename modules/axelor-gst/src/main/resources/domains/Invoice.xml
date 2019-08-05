@@ -15,7 +15,7 @@
     <many-to-one name="partyContact" ref="Contact" title="Party Contact"></many-to-one>
     <many-to-one name="invoiceAddress" ref="Address" required="true" title="Invoice Address"></many-to-one>
     <many-to-one name="shippingAddress" ref="Address" title="Shipping Address"></many-to-one>
-    <boolean name="isUseInvocieAddressAsShipping" title="Use invoice address as shipping"
+    <boolean name="isUseInvocieAddressAsShipping" title="Use Invoice Address As Shipping"
       default="True"></boolean>
     <decimal name="netAmount" title="Net Amount" readonly="true"></decimal>
     <decimal name="netIgst" title="Net IGST" readonly="true"></decimal>

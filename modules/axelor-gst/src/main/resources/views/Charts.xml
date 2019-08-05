@@ -24,7 +24,7 @@
     </dataset>
 
     <category key="customer" type="text" />
-    <series key="status" groupBy="customer" type="bar" />
+    <series key="status" type="bar" />
   </chart>
 
   <chart onInit="action-date-time-set-defalut" name="chart-paid-invoice-category-product"
@@ -83,7 +83,7 @@
     </dataset>
 
     <category key="status" type="text" />
-    <series key="amount" groupBy="status" type="bar" />
+    <series key="amount" type="bar" />
   </chart>
 
   <chart name="chart-invoice-per-status-number-of-invoice" title="Invoice Per Status For Number Of Invoice">
