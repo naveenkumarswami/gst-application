@@ -1319,9 +1319,9 @@ where invoiceLine.invoice = ?]]></xml-property>
                             <property name="dataType">string</property>
                         </structure>
                     </list-property>
-                    <expression name="valueExpr" type="javascript">row["company_name"] +" "
-row["companyline1"]+" "+ row["companyline2"] +" "+
-row["companycity"] +" -[" + row["companypincode"] +"] "+
+                    <expression name="valueExpr">row["company_name"] +"&lt;br>"
+row["companyline1"]+" "+ row["companyline2"] +"&lt;br>"+
+row["companycity"] +" -[" + row["companypincode"] +"] &lt;br>"+
 row["companystate"] +" "+ row["companycountry"]</expression>
                     <property name="contentType">html</property>
                 </text-data>
@@ -1338,15 +1338,15 @@ INVOICE
         </text>
         <grid id="106">
             <property name="height">1.53125in</property>
-            <property name="width">8.125in</property>
+            <property name="width">8in</property>
             <column id="107">
-                <property name="width">2.7083333333333335in</property>
+                <property name="width">1.3541666666666667in</property>
             </column>
             <column id="108">
                 <property name="width">2.7083333333333335in</property>
             </column>
             <column id="109">
-                <property name="width">2.7083333333333335in</property>
+                <property name="width">2.5833333333333335in</property>
             </column>
             <row id="110">
                 <property name="height">0.7604166666666666in</property>
@@ -1464,8 +1464,8 @@ Reference
                                 <property name="dataType">string</property>
                             </structure>
                         </list-property>
-                        <expression name="valueExpr">row["invoiceline1"] +" "+ row["invoiceline2"] +" "+
-row["invoicecity"]+"-[" + row["invoicepincode"] +"]" + 
+                        <expression name="valueExpr">row["invoiceline1"] +" "+ row["invoiceline2"] +" "+ "&lt;br>" +
+row["invoicecity"]+"-[" + row["invoicepincode"] +"]" + "&lt;br>" +
 row["invoicestate"] + " " +row["invoicecountry"]</expression>
                         <property name="contentType">html</property>
                     </text-data>
@@ -1551,9 +1551,10 @@ row["invoicestate"] + " " +row["invoicecountry"]</expression>
             </column>
             <header>
                 <row id="126">
-                    <property name="textAlign">left</property>
+                    <property name="textAlign">center</property>
                     <cell id="127">
                         <text id="177">
+                            <property name="textAlign">left</property>
                             <property name="contentType">html</property>
                             <text-property name="content"><![CDATA[<B>
 Item
@@ -1620,9 +1621,10 @@ Gross Amount
             </header>
             <detail>
                 <row id="143">
-                    <property name="textAlign">center</property>
+                    <property name="textAlign">right</property>
                     <cell id="144">
                         <data id="145">
+                            <property name="textAlign">left</property>
                             <property name="resultSetColumn">item</property>
                         </data>
                     </cell>
@@ -1665,7 +1667,7 @@ Gross Amount
             </detail>
             <footer>
                 <row id="160">
-                    <property name="textAlign">center</property>
+                    <property name="textAlign">right</property>
                     <cell id="161">
                         <text id="185">
                             <property name="textAlign">left</property>

@@ -4,7 +4,7 @@ import java.util.List;
 import javax.inject.Inject;
 import com.axelor.app.AppSettings;
 import com.axelor.gst.db.Invoice;
-import com.axelor.gst.service.ProductService;
+import com.axelor.gst.service.InvoiceLineService;
 import com.axelor.meta.schema.actions.ActionView;
 import com.axelor.meta.schema.actions.ActionView.ActionViewBuilder;
 import com.axelor.rpc.ActionRequest;
@@ -12,7 +12,7 @@ import com.axelor.rpc.ActionResponse;
 
 public class ProductController {
 
-  @Inject ProductService service;
+  @Inject InvoiceLineService service;
 
   public void getDynamicImagePath(ActionRequest request, ActionResponse response) {
 
@@ -40,8 +40,8 @@ public class ProductController {
         ActionView.define(String.format("Invoice"))
             .model(Invoice.class.getName())
             .add("form", "invoice-form")
-            .context("SelectProductIds", request.getContext().get("showRecord"))
-            .context("party_name", request.getContext().get("partyName"))
+            .context("selectProductIds", request.getContext().get("showRecord"))
+            .context("getPartyName", request.getContext().get("partyName"))
             .context("canNewValue", false);
     response.setView(actionViewBuilder.map());
   }

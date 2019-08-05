@@ -9,15 +9,15 @@ import com.axelor.gst.db.Invoice;
 import com.axelor.gst.db.InvoiceLine;
 import com.axelor.gst.db.Party;
 import com.axelor.gst.db.repo.InvoiceRepository;
+import com.axelor.gst.service.InvoiceLineService;
 import com.axelor.gst.service.InvoiceService;
-import com.axelor.gst.service.ProductService;
 import com.axelor.gst.service.SequenceService;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
 
 public class InvoiceController {
   @Inject InvoiceService service;
-  @Inject ProductService productService;
+  @Inject InvoiceLineService invoiceLineService;
   @Inject SequenceService sequenceService;
 
   public void getContactAddress(ActionRequest request, ActionResponse response) {
@@ -76,9 +76,9 @@ public class InvoiceController {
   @SuppressWarnings("unchecked")
   public void getSelectedProduct(ActionRequest request, ActionResponse response) {
 
-    List<Integer> selectedIds = (List<Integer>) request.getContext().get("SelectProductIds");
-    List<InvoiceLine> invoiceLineList = productService.putSelectedProduct(selectedIds);
-    response.setValue("party", request.getContext().get("party_name"));
+    List<Integer> selectedIds = (List<Integer>) request.getContext().get("selectProductIds");
+    List<InvoiceLine> invoiceLineList = invoiceLineService.putSelectedProduct(selectedIds);
+    response.setValue("party", request.getContext().get("getPartyName"));
     response.setValue("invoiceItemsList", invoiceLineList);
   }
 

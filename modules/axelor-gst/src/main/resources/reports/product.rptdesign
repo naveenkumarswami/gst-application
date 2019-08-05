@@ -766,13 +766,13 @@ row["companystate"] +" "+ row["companycountry"]</expression>
             </list-property>
             <property name="pageBreakInterval">40</property>
             <column id="237">
-                <property name="width">1.9895833333333333in</property>
+                <property name="width">0.9479166666666666in</property>
             </column>
             <column id="238">
                 <property name="width">2in</property>
             </column>
             <column id="239">
-                <property name="width">2in</property>
+                <property name="width">0.8958333333333334in</property>
             </column>
             <column id="240">
                 <property name="width">1.9791666666666667in</property>
@@ -791,8 +791,8 @@ row["companystate"] +" "+ row["companycountry"]</expression>
                     <property name="height">1.15625in</property>
                     <cell id="223">
                         <image id="241">
-                            <property name="height">1in</property>
-                            <property name="width">1.8229166666666667in</property>
+                            <property name="height">1.0520833333333333in</property>
+                            <property name="width">1.3229166666666667in</property>
                             <property name="source">file</property>
                             <expression name="uri" type="javascript">params["imagePath"].value + "/" + row["imagepath"]</expression>
                         </image>

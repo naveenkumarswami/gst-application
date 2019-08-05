@@ -38,12 +38,13 @@
         onClick="action-attr-for-status-cancelled-change" />
     </panel>
 
-    <panel title="Invoice" readonlyIf="status == 'Validated' || status == 'Cancelled' || status == 'Paid'">
+    <panel title="Invoice"
+      readonlyIf="status == 'Validated' || status == 'Cancelled' || status == 'Paid' || invoiceItemsList.length > 0">
       <field name="company" onChange="action-invoice-company-invocie-address-on-change"></field>
       <field name="reference"></field>
       <field name="dateT"></field>
       <field name="priority"></field>
-      <field name="party" required="true" onChange="action-group-invoice-party-on-change"></field>
+      <field name="party" onChange="action-group-invoice-party-on-change"></field>
       <field name="partyContact"></field>
       <field name="invoiceAddress" onChange="action-invoice-company-invocie-address-on-change" />
       <field name="shippingAddress"></field>
@@ -53,8 +54,10 @@
       <field name="netCsgt"></field>
       <field name="netSgst"></field>
       <field name="grossAmount"></field>
+    </panel>
+    <panel name="invoiceItemList" readonlyIf="status == 'Validated' || status == 'Cancelled' || status == 'Paid'">
       <field name="invoiceItemsList" onChange="action-invoice-net-amount-gross-amount-from-invoice-list"
-        colSpan="12"></field>
+        colSpan="12" ></field>
     </panel>
   </form>
 
